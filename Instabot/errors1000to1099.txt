@@ -1,0 +1,9 @@
+ERR - LOGIN FAIL massrelig1012
+ERR - LOGIN FAIL massrelig1064
+ERR - LOGIN FAIL massrelig1065
+ERR - LOGIN FAIL massrelig1070
+ERR - LOGIN FAIL massrelig1071
+ERR - LOGIN FAIL massrelig1072
+ERR - LOGIN FAIL massrelig1073
+ERR - LOGIN FAIL massrelig1087
+ERR - LOGIN FAIL massrelig1088
