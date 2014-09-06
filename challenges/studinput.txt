@@ -1,0 +1,5 @@
+1
+3
+2 john mary sam fred
+1 john sam
+1 sam liz

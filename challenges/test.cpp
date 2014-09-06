@@ -23,13 +23,12 @@ int probtres( int n )
 
 int main () 
 {
+  //first number
   int input1;
+  //second number
   int input2;
-  string input3;
   int arr[100];
   int index = 0;
-  char *in1;
-  char *in2;
   string input;
   int max;
 
@@ -65,4 +64,6 @@ int main ()
 
     cout << arr[y] << " " << arr[y+1] << " " << max << "\n";
   }
+
+  return 0;
 }
