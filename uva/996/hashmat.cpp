@@ -1,23 +1,30 @@
 #include <iostream>
-#include <sstream>
+#include <cmath> 
 
 using namespace std;
 
 int main ()
 {
-  string input;
-  char* arr;
-  int in0;
-  int in1;
+  double in0;
+  double in1;
+  double dif;
+  int index = 0;
+  double output[10];
 
-  while(getline(cin, input))
+  while(cin >> in0 >> in1)
   {
-    in0 = atoi(input[0]);
-    in1 = atoi(input[1]);
-
-    printf("%d", in0);
-
+    if (in0 > in1)
+      dif = in0 - in1;
+    else
+      dif = in1 - in0; 
+    output[index] = dif; 
+    index += 1;
   }
 
-  return 0;
+  for(int x = 0; x < index; x++) 
+  {
+    printf("%.0f\n", output[x]);
+  }
+
+  return 1;
 }
