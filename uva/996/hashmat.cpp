@@ -23,7 +23,7 @@ int main ()
 
   for(int x = 0; x < index; x++) 
   {
-    printf("%.0f\n", output[x]);
+    cout << output[x] << "\n";
   }
 
   return 1;
