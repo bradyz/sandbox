@@ -1,10 +1,28 @@
 CC = g++
-GFLAGS = -g -O0
-INPUT =  insertionSort.cpp #util.cpp
-OUTPUT = insertionSort.out #util.out
+CFLAGS = -Wall 
+DEPS = util.o
+OBJ = insertionSort.o mergeSort.o
+BIN = insertionSort.out mergeSort.out
 
-all: $(INPUT)
-	$(CC) $(INPUT) -o $(OUTPUT)
+all: $(BIN)
+
+util.o: util.cpp
+	$(CC) $(GFLAGS) -c util.cpp
+
+mergeSort.o: mergeSort.cpp 
+	$(CC) $(GFLAGS) -c mergeSort.cpp
+
+mergeSort.out: mergeSort.o $(DEPS)
+	$(CC) $(GFLAGS) $(DEPS) mergeSort.o -o mergeSort.out
+
+insertionSort.o: insertionSort.cpp 
+	$(CC) $(GFLAGS) -c insertionSort.cpp
+
+insertionSort.out: insertionSort.o $(DEPS)
+	$(CC) $(GFLAGS) $(DEPS) insertionSort.o -o insertionSort.out
 
 clean: 
+	clear
+	rm -f *.o
+	rm -f $(BIN)
 	rm -f *.out

@@ -10,7 +10,6 @@ int main()
   int x;
   int y;
   int tmp;
-  int steps = 0;
 
   for(x = 0; x < myArr.size(); x++)
   {
