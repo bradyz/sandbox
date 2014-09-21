@@ -1,10 +1,6 @@
-Class Util
-{
-  template <class Object>
-  void swap(Object &a, Object &b)
-  {
-    Object tmp = a;
-    a = b;
-    b = tmp;
-  }
-}
+#ifndef UTIL_H
+#define UTIL_H
+
+void printIntArray(std::vector<int> myArr);
+
+#endif

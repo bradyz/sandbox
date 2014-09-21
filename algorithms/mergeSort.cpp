@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <stdlib.h>
+#include "util.h"
 
 std::vector<int> myArr(10);
 
@@ -14,10 +15,9 @@ int main()
   for(x = 0; x < myArr.size(); x++)
   {
     myArr[x] = rand() % 11;
-    std::cout << myArr[x] << " ";
   }
 
-  std::cout << "\n";
+  printIntArray(myArr);
 
   for(x = 1; x < myArr.size(); x++)
   {
@@ -28,12 +28,7 @@ int main()
     }
     myArr[y] = tmp;
 
-    for(int i = 0; i < myArr.size(); i++)
-    {
-      std::cout << myArr[i] << " ";
-    }
-
-    std::cout << "\n";
+    printIntArray(myArr);
   }
 
 

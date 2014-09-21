@@ -1,5 +1,16 @@
-Class Util
+#include <iostream>
+#include <vector>
+#include <stdlib.h>
+
+void printIntArray(std::vector<int> myArr)
 {
-  template <class Object>
-  void swap(Object &a, Object &b) {};
-};
+  int x;
+  
+  for(x = 0; x < myArr.size(); x++)
+  {
+    std::cout << myArr[x] << " ";
+  }
+
+  std::cout << "\n";
+
+}
