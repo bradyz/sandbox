@@ -3,4 +3,6 @@
 
 void printIntArray(std::vector<int> myArr);
 
+std::vector<int> randomArray(int numElements, int max);
+
 #endif

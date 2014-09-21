@@ -12,5 +12,17 @@ void printIntArray(std::vector<int> myArr)
   }
 
   std::cout << "\n";
+}
 
+std::vector<int> randomArray(int numElements, int max)
+{
+  std::vector<int> myArr;
+  int x;
+
+  for(x = 0; x < numElements; x++)
+  {
+    myArr.push_back(rand() % max);
+  }
+  
+  return myArr;
 }

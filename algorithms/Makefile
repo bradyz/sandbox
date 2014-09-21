@@ -26,3 +26,4 @@ clean:
 	rm -f *.o
 	rm -f $(BIN)
 	rm -f *.out
+	rm -rf *.dSYM
