@@ -9,22 +9,26 @@ std::vector<int> merge(std::vector<int> leftArr, std::vector<int> rightArr)
 {
   std::vector<int> result;
 
+  printIntArray(leftArr);
+  printIntArray(rightArr);
+
   int left = 0;
   int right = 0;
   int x;
 
   for(x = 0; x < (leftArr.size() + rightArr.size()); x++)
   {
-    if((right >= rightArr.size()) || (leftArr[left] < rightArr[right]))
+    if((right >= (rightArr.size())) || ((left <= (leftArr.size() - 1) && (leftArr[left] <= rightArr[right]))))
     {
       result.push_back(leftArr[left]);
       left++;
     }
-    else if((left >= leftArr.size()) || (rightArr[right] <= leftArr[left]))
+    else
     {
       result.push_back(rightArr[right]);
       right++;
     }
+    printIntArray(result);
   }
 
   return result;
@@ -36,13 +40,13 @@ std::vector<int> mergeSort(std::vector<int> unsortedArray, int left, int right)
 
   if(left < right)
   {
-    printIntArray(unsortedArray);
+    //printIntArray(unsortedArray);
     std::vector<int> leftArray = mergeSort(unsortedArray, left, center); 
-    printIntArray(leftArray);
+    //printIntArray(leftArray);
     std::vector<int> rightArray = mergeSort(unsortedArray, center + 1, right);
-    printIntArray(rightArray);
+    //printIntArray(rightArray);
     std::vector<int> resultArray = merge(leftArray, rightArray);
-    printIntArray(resultArray);
+    //printIntArray(resultArray);
     return resultArray;
   }
 
@@ -58,7 +62,7 @@ int main()
   int y;
   int tmp;
 
-  myArr = randomArray(10, 9);
+  myArr = randomArray(20, 20);
 
   printIntArray(myArr);
 
