@@ -40,14 +40,10 @@ std::vector<int> mergeSort(std::vector<int> unsortedArray, int left, int right)
 
   if(left < right)
   {
-    //printIntArray(unsortedArray);
     std::vector<int> leftArray = mergeSort(unsortedArray, left, center); 
-    //printIntArray(leftArray);
     std::vector<int> rightArray = mergeSort(unsortedArray, center + 1, right);
-    //printIntArray(rightArray);
-    std::vector<int> resultArray = merge(leftArray, rightArray);
-    //printIntArray(resultArray);
-    return resultArray;
+
+    return merge(leftArray, rightArray);
   }
 
   std::vector<int> resultVector(1); 

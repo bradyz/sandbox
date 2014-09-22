@@ -1,0 +1,5 @@
+apple
+apple apple
+orange apple
+banana lemon pineapple
+orange apple

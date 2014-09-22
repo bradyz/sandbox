@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS = -Wall 
 DEPS = util.o
-OBJ = insertionSort.o mergeSort.o
-BIN = insertionSort.out mergeSort.out
+OBJ = insertionSort.o mergeSort.o countStrings.o
+BIN = insertionSort.out mergeSort.out countStrings.out
 
 all: $(BIN)
 
@@ -20,6 +20,12 @@ insertionSort.o: insertionSort.cpp
 
 insertionSort.out: insertionSort.o $(DEPS)
 	$(CC) $(GFLAGS) $(DEPS) insertionSort.o -o insertionSort.out
+
+countStrings.o: countStrings.cpp
+	$(CC) $(GFLAGS) -c countStrings.cpp
+
+countStrings.out: countStrings.o $(DEPS)
+	$(CC) $(GFLAGS) countStrings.o -o countStrings.out
 
 clean: 
 	clear

@@ -1,0 +1,5 @@
+apple 5
+banana 1
+lemon 1
+orange 2
+pineapple 1
