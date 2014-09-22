@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS = -Wall 
 DEPS = util.o
-OBJ = insertionSort.o mergeSort.o countStrings.o
-BIN = insertionSort.out mergeSort.out countStrings.out
+OBJ = insertionSort.o mergeSort.o countStrings.o reverseStrings.o
+BIN = insertionSort.out mergeSort.out countStrings.out reverseStrings.out
 
 all: $(BIN)
 
@@ -26,6 +26,12 @@ countStrings.o: countStrings.cpp
 
 countStrings.out: countStrings.o $(DEPS)
 	$(CC) $(GFLAGS) countStrings.o -o countStrings.out
+
+reverseStrings.o: reverseStrings.cpp
+	$(CC) $(GFLAGS) -c reverseStrings.cpp
+
+reverseStrings.out: reverseStrings.o 
+	$(CC) $(GFLAGS) reverseStrings.o -o reverseStrings.out
 
 clean: 
 	clear
