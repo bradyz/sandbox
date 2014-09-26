@@ -5,6 +5,7 @@ using namespace std;
 
 int probtres( int n ) 
 {
+  
   int count = 1;
 
   while ( n != 1 ) {
