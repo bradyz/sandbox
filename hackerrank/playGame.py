@@ -42,7 +42,7 @@ def best_score(brickList, isTurn, score):
             threeScore = best_score(brickList[3:], not isTurn, score)
             return min(threeScore, oneScore, twoScore)
 
-asdf = [999, 1, 1 ,1, 0]
+asdf = [1, 10, 3, 559, 416, 40, 263, 747, 634, 135, 817, 34]
 print asdf
 print best_score(asdf, True, 0)
 asdf = [0, 1, 1, 1, 999]
