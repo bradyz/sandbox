@@ -1,4 +1,5 @@
-# HACKERRANK PLAY GAME DYNAMIC PROGRAMMING
+# Play Game
+# Dynamic Programming
 
 def best_score(brickList, isTurn, score):
     if len(brickList) <= 3:

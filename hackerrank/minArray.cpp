@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <istream>
 
 const int MAX_ARG = 100;
 
@@ -15,7 +14,8 @@ int main()
   int firstLine = 1;
   int secondLine = 0;
   char *token;
-  char *DELIM = " "; 
+  char* DELIM = (char *)malloc(2 * sizeof(char)); 
+  *DELIM = ' ';
 
   getline(cin, buff);
 
