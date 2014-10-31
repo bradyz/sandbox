@@ -4,13 +4,14 @@
 
 int main () 
 {
-  int length, width;
-  int area;
-  int result;
+  long double length, width;
+  long double side;
+  long double result;
 
-  std::cin >> length >> width >> area;
+  std::cout.precision(22);
+  std::cin >> length >> width >> side;
 
-  result = (length * width) / area;
+  result = std::ceil(length/side) * std::ceil(width/side);
 
   std::cout << result << std::endl; 
 
