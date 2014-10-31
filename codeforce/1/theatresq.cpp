@@ -12,7 +12,7 @@ int main ()
 
   result = (length * width) / area;
 
-  std::cout << result; 
+  std::cout << result << std::endl; 
 
   return 0;
 }
