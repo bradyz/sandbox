@@ -2,28 +2,28 @@
 #include <string>
 #include <ctype.h>
 
+//trying to do a one sweep, inplace implementation
+//getting fancy with the iterators
+
 int main () 
 {
-  const std::string STOP = "AaEeIiOoUu";
-  std::string in;
+  std::string STOP = "AaEeIiOoUuYy";
+  std::string in, result;
   std::cin >> in; 
   std::string::iterator i = in.begin();
   while(i < in.end())
   {
-    //std::cout << *i << std::endl;
-    //std::cout << in << std::endl;
     if(STOP.find(*i) != std::string::npos)
     {
-      in.erase(i);
+      i++;
     }
     else
     {
-      if(isupper(*i))
-        *i = tolower(*i);
-      in.insert(i, '.');
-      i += 2;
+      result.append(1, '.');
+      result.append(1, tolower(*i));
+      i++;
     }
   } 
-  std::cout << in << std::endl; 
+  std::cout << result << std::endl; 
   return 0;
 }
