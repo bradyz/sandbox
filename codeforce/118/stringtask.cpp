@@ -13,16 +13,12 @@ int main ()
   std::string::iterator i = in.begin();
   while(i < in.end())
   {
-    if(STOP.find(*i) != std::string::npos)
-    {
-      i++;
-    }
-    else
+    if(STOP.find(*i) == std::string::npos)
     {
       result.append(1, '.');
       result.append(1, tolower(*i));
-      i++;
     }
+    i++;
   } 
   std::cout << result << std::endl; 
   return 0;

@@ -1,16 +1,16 @@
 CC = g++
 CFLAGS = -Wall 
-DEPS = nextround.cpp
-OBJ = nextround.o
-BIN = nextround.out 
+DEPS = taxi.cpp
+OBJ = taxi.o
+BIN = taxi.out 
 
 all: $(BIN)
 
-nextround.o: nextround.cpp
-	$(CC) $(GFLAGS) -c nextround.cpp
+taxi.o: taxi.cpp
+	$(CC) $(GFLAGS) -c taxi.cpp
 
-nextround.out: nextround.o $(DEPS)
-	$(CC) $(GFLAGS) nextround.o -o nextround.out
+taxi.out: taxi.o $(DEPS)
+	$(CC) $(GFLAGS) taxi.o -o taxi.out
 
 clean: 
 	clear
