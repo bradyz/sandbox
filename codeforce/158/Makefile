@@ -12,6 +12,9 @@ taxi.o: taxi.cpp
 taxi.out: taxi.o $(DEPS)
 	$(CC) $(GFLAGS) taxi.o -o taxi.out
 
+test: taxi.out
+	./taxi.out < input1.txt
+
 clean: 
 	clear
 	rm -f *.o
