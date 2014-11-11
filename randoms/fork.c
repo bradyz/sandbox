@@ -7,7 +7,7 @@ static void find_min(int x, int y);
 
 int* my_arr;
 
-int main(int argc, char** argv)
+int main(void)
 {
   int n = 0;
   int min = 999;

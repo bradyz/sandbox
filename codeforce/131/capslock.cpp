@@ -32,9 +32,17 @@ int main ()
   }
 
   if(convert)
+  {
+    if(isupper(*(i = result.begin())))
+      *i = tolower(*i);
+    else
+      *i = toupper(*i);
     cout << result << endl; 
+  }
   else
+  {
     cout << in << endl;
+  }
 
   return 0;
 }
