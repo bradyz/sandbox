@@ -11,12 +11,12 @@ public class Deck {
     int[] val = {1,2,3,4,5,6,7,8,9,10,11,12,13};
     String[] face = {"Heart", "Spade", "Diamond", "Clubs"};
 
-    cards = new Card[52];
+    this.cards = new Card[52];
     this.top = 0;
 
     for(int x = 0; x <= 12; x++)
     {
-      for(int y = 0; x <= 3; y++)
+      for(int y = 0; y <= 3; y++)
       {
         this.cards[n] = new Card(val[x], face[y]);
         n++;
@@ -40,7 +40,7 @@ public class Deck {
     for(int x = 51; x > 0; x--)
     {
       int i = r.nextInt(x + 1);
-      temp = this.cards[i];
+      temp = cards[i];
       this.cards[i] = this.cards[x];
       this.cards[x] = temp;
     }

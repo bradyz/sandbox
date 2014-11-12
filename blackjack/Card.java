@@ -26,10 +26,10 @@ public class Card {
         break;
       default:
         myCard = this.value +" of ";
-        myCard += this.suit;
         break;
     }
 
+    myCard += this.suit;
     return myCard;
   }
 

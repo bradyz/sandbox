@@ -29,7 +29,7 @@ public class Dealer {
   public String showCards(){
     String result = "";
 
-    for(int x = 0; x < this.hand.size() - 1; x++)
+    for(int x = 0; x <= this.hand.size() - 1; x++)
     {
       result += this.hand.get(x).toString() + "\n";
     }

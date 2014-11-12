@@ -8,10 +8,12 @@ public class Game {
 	private Scanner input;
 
   public void play(){
-    this.deck = new Deck();
+    String in;
     this.input = new Scanner(System.in);
+    this.deck = new Deck();
+    boolean keepPlaying = true;
 
-    while(true){
+    while(keepPlaying){
       this.player = new Player();
       this.dealer = new Dealer();
 
@@ -21,31 +23,41 @@ public class Game {
       this.player.addCard(this.deck.draw());
       this.dealer.addCard(this.deck.draw());
       this.dealer.addCard(this.deck.draw());
-      System.out.println("New game!\n");
-      System.out.println("Dealer card: " + this.dealer.showOne());
-      System.out.println("Your cards: " + this.player.showCards()); 
 
-      while(this.player.getTotal() <= 21 && input.nextLine() != "S"){
+      System.out.println("New game!");
+      System.out.print("Dealer card: \n" + this.dealer.showOne());
+      System.out.print("Your cards: \n" + this.player.showCards()); 
+
+      System.out.println("Hit or Stay? [h/s]");
+      in = this.input.nextLine();
+
+      while(this.player.getTotal() <= 21 && in != "s"){
         this.player.addCard(this.deck.draw());
+        System.out.print("Your cards: \n" + this.player.showCards()); 
+        if(this.player.getTotal() <= 21){
+          System.out.println("Hit or Stay? [h/s]");
+          in = this.input.nextLine();
+        }
       }
 
       while(this.dealer.getTotal() <= 16){
         this.dealer.addCard(this.deck.draw());
       }
 
-      System.out.println("Dealer card: " + this.dealer.showCards());
-      System.out.println("Your cards: " + this.player.showCards()); 
+      System.out.print("Dealer card: \n" + this.dealer.showCards());
+      System.out.print("Your cards: \n" + this.player.showCards()); 
 
       int d = this.dealer.getTotal();
       int p = this.player.getTotal();
 
-      System.out.println("Dealer total: " + d + "\n");
-      System.out.println("Player total: " + p + "\n");
+      System.out.println("Dealer total: " + d);
+      System.out.println("Player total: " + p);
       
-      System.out.println("Play again? [y/n]\n");
+      System.out.println("Play again? [y/n]");
+      in = this.input.nextLine();
 
-      if(this.input.nextLine() == "n")
-        break;
+      if(in == "n")
+        keepPlaying = false;
     }
   }
 }
