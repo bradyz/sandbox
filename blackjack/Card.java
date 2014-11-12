@@ -4,24 +4,24 @@ public class Card {
   private int value;
 	
   public Card(int aValue, String aSuit){
-    value=aValue;
-    suit=aSuit;
+    value = aValue;
+    suit = aSuit;
   }
 
   public String toString(){
     String myCard;
   
-    if(value==1)
+    if(this.value == 1)
         myCard="Ace of ";
-    else if(value==11)//Jack
+    else if(this.value == 11)
         myCard="Jack of ";
-    else if(value==12)//Queen
+    else if(this.value == 12)
         myCard="Queen of ";
-    else if(value==13)//King
+    else if(this.value == 13)
         myCard="King of ";
     else 
-      myCard=value +" of ";
-      myCard+=suit;
+      myCard = this.value +" of ";
+      myCard += this.suit;
     return myCard;
   }
 

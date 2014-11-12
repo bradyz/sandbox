@@ -1,49 +1,66 @@
+import java.util.Random;
+
 public class Deck {
 
-    private Card[] cards;
-    private int cardsDrawn;
-	
-    //any more instance variables you may want here
+  private Card[] cards;
+  private int cardsDrawn;
+  private int top;
 
-	
-    public Deck(){
-    // This constructor should instatiate 52 distinct Card
-    // objects and place them in the cards array.
-    // your code here
+  public Deck(){
+    int n = 0;
+    int[] val = {1,2,3,4,5,6,7,8,9,10,11,12,13};
+    String[] face = {"Heart", "Spade", "Diamond", "Clubs"};
+
+    cards = new Card[52];
+    this.top = 0;
+
+    for(int x = 0; x <= 12; x++)
+    {
+      for(int y = 0; x <= 3; y++)
+      {
+        this.cards[n] = new Card(val[x], face[y]);
+        n++;
+      }
+    }
+  }
+
+  public Card draw(){
+    Card myCard = this.cards[this.top];
+
+    this.top += 1;
+    this.cardsDrawn += 1;
+
+    return myCard;
+  }
+
+  public void shuffle(){
+    Random r = new Random();
+    Card temp;
     
-			
-    }
-	
-    public Card draw(){
-    // this method deals the top card of the deck
-    // your code here
-
-    }
-	
-    public void shuffle(){
-    // this method shuffles the deck and resets cardsdrawn
-        
-    // your code here
-
-    }
-	
-    public int getCardsDrawn(){
-    // leave this method as is. 
-    // This is for the graders to test your code.
-	return cardsDrawn;
+    for(int x = 51; x > 0; x--)
+    {
+      int i = r.nextInt(x + 1);
+      temp = this.cards[i];
+      this.cards[i] = this.cards[x];
+      this.cards[x] = temp;
     }
 
-    public String toString(){
-    // This method should return a string consisting of 52 lines
-    // each line should contain a description of the card in the
-    // deck at the corresponding position top-to-bottom
+    this.top = 0;
+    this.cardsDrawn = 0;
+  }
 
+  public int getCardsDrawn(){
+    return cardsDrawn;
+  }
 
-    // your code here
+  public String toString(){
+    String result = "";
 
+    for(int x = 0; x < 52; x++)
+    {
+      result += this.cards[x].toString() + "\n";
     }
 
-    // any more methods you may need here
-
-
+    return result;
+  }
 }
