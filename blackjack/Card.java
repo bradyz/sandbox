@@ -4,28 +4,36 @@ public class Card {
   private int value;
 	
   public Card(int aValue, String aSuit){
-    value = aValue;
-    suit = aSuit;
+    this.value = aValue;
+    this.suit = aSuit;
   }
 
   public String toString(){
     String myCard;
   
-    if(this.value == 1)
+    switch(this.value) {
+      case 1:
         myCard="Ace of ";
-    else if(this.value == 11)
+        break;
+      case 11:
         myCard="Jack of ";
-    else if(this.value == 12)
+        break;
+      case 12:
         myCard="Queen of ";
-    else if(this.value == 13)
+        break;
+      case 13:
         myCard="King of ";
-    else 
-      myCard = this.value +" of ";
-      myCard += this.suit;
+        break;
+      default:
+        myCard = this.value +" of ";
+        myCard += this.suit;
+        break;
+    }
+
     return myCard;
   }
 
   public int getValue(){
-    return value;
+    return this.value;
   }
 }

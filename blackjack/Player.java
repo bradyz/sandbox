@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Player {
 
@@ -6,24 +7,31 @@ public class Player {
   private int handTotal; // The total value of the hand
   private Scanner input; 
 
-  // add any more instance variables you need here
-
-
   public Player(){
-    // player constructor
+    this.handTotal = 0;
+  }
 
-    // your code here
-
-
+  public void addCard(Card myCard){
+    this.hand.add(myCard);
+    if(myCard.getValue() == 1 && (this.handTotal + 11 <= 21))
+      this.handTotal += 11;
+    else
+      this.handTotal += myCard.getValue();
   }
 
   public int getTotal(){
-    // leave this method as is
     return handTotal;
   }
 
+  public String showCards(){
+    String result = "";
 
-  // add more methods as needed here
+    for(int x = 0; x < this.hand.size() - 1; x++)
+    {
+      result += this.hand.get(x).toString() + "\n";
+    }
 
+    return result;
+  }
 }
 

@@ -1,23 +1,39 @@
+import java.util.ArrayList;
+
 public class Dealer {
 
-  private ArrayList<Card> hand; // the dealer's cards
-  private int handTotal; // The total value of the hand
-
-  // add any more instance variables you need here
+  private ArrayList<Card> hand; 
+  private int handTotal;
 
   public Dealer(){
-    // Dealer constructor
-
-    // your code here
+    this.hand = new ArrayList<Card>();
+    this.handTotal = 0;
   }
 
+  public void addCard(Card myCard){
+    this.hand.add(myCard);
+    if(myCard.getValue() == 1 && (this.handTotal + 11 <= 21))
+      this.handTotal += 11;
+    else
+      this.handTotal += myCard.getValue();
+  }
 
   public int getTotal(){
-    // leave this method as is
-    return handTotal;
+    return this.handTotal;
   }
 
+  public String showOne(){
+    return this.hand.get(0).toString() + "\n";
+  }
 
-  // add more methods as needed here
+  public String showCards(){
+    String result = "";
 
+    for(int x = 0; x < this.hand.size() - 1; x++)
+    {
+      result += this.hand.get(x).toString() + "\n";
+    }
+
+    return result;
+  }
 }
