@@ -1,28 +1,14 @@
+#include <map>
 #include <iostream>
 #include <vector>
 #include <algorithm>
 
 using namespace std;
 
-int flip_add (int x, int y, vector<int> c) {
-  int sum = 0;
-  
-  for(int a = x; a <= y; a++) {
-    if(c[a] == 0)
-      c[a] = 1;
-    else
-      c[a] = 0;
-  }
-
-  for(vector<int>::iterator it = c.begin(); it != c.end(); it++)
-    sum += *it;
-
-  return sum;
-}
-
 int main () {
   int a;
   int tmp;
+  int count = 0;
   int max = 0;
   vector<int> my_vect;
 
@@ -33,18 +19,30 @@ int main () {
     my_vect.push_back(tmp);
   }
 
+  //because of the push_backs
   reverse(my_vect.begin(), my_vect.end());
 
-  for(int x = 0; x < a; x++) {
-    for(int y = x; y < a; y++) {
-      vector<int> copy_vect;
-      copy_vect = my_vect;
-      tmp = flip_add(x, y, copy_vect);
+  int *it;
 
-      if(tmp > max) 
-        max = tmp;
+  //count is the position of the piece to remove
+  while(count < a)
+  {
+    //tmp sum
+    tmp = 0;
+    it = &my_vect[0];
+
+    while(it <= &my_vect[my_vect.size() - 1])
+    {
+      if(it != &my_vect[count - 1] && it != &my_vect[count + 1])
+        tmp += *it;
+
+      it++;
     }
+
+    if(tmp > max) max = tmp;
+    count++;
   }
+
 
   cout << max << endl;
 

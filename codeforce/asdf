@@ -1,0 +1,48 @@
+you're given a list of numbers from 1 to a million and there's a missing number. You're only allowed to traverse the list once. find the missing number
+
+sorted? what size? 1 1 2 3 4 5 no dupes
+
+first I said to traverse it and then subtract the number from the previous one and if it's greater than 1 then that number - 1 is the missing one.
+this is the answer
+
+then I said something that didn't make sense
+
+and then he asked for something else and I couldn't think of anything and he was like so you've said to go through the list, how else can you look at it.
+
+So I said you could add them together and take the number that it should be and subtract it from the number you get and that should be your missing number
+
+you have a list from 1 to 10 
+[1, 2, 3, 4, 6, 7, 8, 9, 10]
+find the missing one
+
+he just kept asking me for different ways to do it
+
+(1 + 10) * 10 / 2 = 55 - 50 = 5
+
+so then he asked this... which now doesn't seem so bad and I feel really stupid
+
+you're given 3 buckets
+one has apples
+one has oranges
+one has a mixture of both
+
+each bucket is labeled what's inside of it except the labels are on the wrong bucket
+labeled: apple apple orange
+inside:  orange mixed apple     if you pick the first and get an apple, then its mixed
+inide:  mixed orange apple      if you pick the first and get an orange
+
+labeled: apple   mixed   orange
+possib:  mixed   orange  apple
+possib:  orange  apple   mixed
+
+you can't see what's inside the buckets but you get to pick one thing out of a single bucket.
+from doing this tell me what is in each bucket.
+
+this took me forever it seemed like and a ton of my just stuttering to myself :(
+
+you have to pick something out of the bucket labeled "mixed"
+if you choose an apple then apple is orange, orange is mixed
+
+yeah so that was like terrible for an easy question. I couldn't keep track of everything in my head so like i'm sure he thought I was retarded. I wish I was smarter :(
+
+I ran into Alex after it and told him and he was like oh yeah everyone feels shitty with that guy so I guess at least I'm not the only one
