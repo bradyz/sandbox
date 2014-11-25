@@ -16,9 +16,9 @@ std::vector<int> merge(std::vector<int> leftArr, std::vector<int> rightArr)
   int right = 0;
   int x;
 
-  for(x = 0; x < (leftArr.size() + rightArr.size()); x++)
+  for(x = 0; x < ((int) leftArr.size() + (int) rightArr.size()); x++)
   {
-    if((right >= (rightArr.size())) || ((left <= (leftArr.size() - 1) && (leftArr[left] <= rightArr[right]))))
+    if((right >= ((int) rightArr.size())) || ((left <= ((int) leftArr.size() - 1) && (leftArr[left] <= rightArr[right]))))
     {
       result.push_back(leftArr[left]);
       left++;
