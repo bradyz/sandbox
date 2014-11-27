@@ -21,32 +21,19 @@ public class EffectsTest { public static void main(String args[]) {
     String fileName = "";
     Scanner fileInput;
     Scanner keyboard = new Scanner(System.in); 
-    Effects e = new Effects();
 
-    /* System.out.println("Enter number of input files: "); */
-    /* numInputs = keyboard.nextInt(); */
-    /*  */
-    /* keyboard.nextLine(); */
-    /*  */
-    /* for(int n = 0; n < numInputs; n++) { */
-    /*   System.out.println("Enter a file name: "); */
-    /*   fileName = keyboard.nextLine(); */
-    /*  */
-    /*   File f = new File(fileName); */
-    /*   fileList.add(f); */
-    /* } */
+    System.out.println("Enter number of input files: ");
+    numInputs = keyboard.nextInt();
 
-    /* File f1 = new File("tinypix.ppm"); */
-    /* File f2 = new File("tinypix1.ppm"); */
-    /* File f3 = new File("tinypix2.ppm"); */
+    keyboard.nextLine();
 
-    File f1 = new File("tetons1.ppm");
-    File f2 = new File("tetons2.ppm");
-    File f3 = new File("tetons3.ppm");
+    for(int n = 0; n < numInputs; n++) {
+      System.out.println("Enter a file name: ");
+      fileName = keyboard.nextLine();
 
-    fileList.add(f1);
-    fileList.add(f2);
-    fileList.add(f3);
+      File f = new File(fileName);
+      fileList.add(f);
+    }
 
     for(int n = 0; n < fileList.size(); n++)
     {
@@ -88,12 +75,10 @@ public class EffectsTest { public static void main(String args[]) {
     }
 
     System.out.println("Output File: ");
-    /* String writeFile = keyboard.nextLine(); */
-    String writeFile = "asdf.ppm";
+    String writeFile = keyboard.nextLine();
 
     try {
       FileWriter fw = new FileWriter(writeFile);
-      FileWriter fw2 = new FileWriter("debug.txt");
 
       fw.write("P3\n");
       fw.write(len + " " + width + "\n");
@@ -111,7 +96,6 @@ public class EffectsTest { public static void main(String args[]) {
 
         for(Entry<String, Integer> valCount : tmp.entrySet()) {
 
-          fw2.write("Line:" + pos + " Val: " + valCount.getValue() + " Count: " + valCount.getKey() + "\n");
           if(valCount.getValue() > count) {
             correct = valCount.getKey();
             count = valCount.getValue();
