@@ -70,6 +70,7 @@ public class EffectsTest { public static void main(String args[]) {
         }
       } 
       catch (Exception ex) {
+        //solid exception handling right here
         ex.printStackTrace();
       }
     }
@@ -86,6 +87,8 @@ public class EffectsTest { public static void main(String args[]) {
 
       int pos = 0;
       String correct = "";
+      /* for all animals */
+      /* int count = 4; */
       int count = 0;
 
       Map<String, Integer> tmp = new HashMap<String, Integer>();
@@ -103,6 +106,9 @@ public class EffectsTest { public static void main(String args[]) {
         }
 
         fw.write(correct + "\n");
+        /* fw.write(new StringBuilder(correct).reverse().toString() + "\n"); */
+        /* for all animals */
+        /* count = 4; */
         count = 0;
       }
 
