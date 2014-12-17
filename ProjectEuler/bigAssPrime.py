@@ -10,15 +10,12 @@ count = 1
 for x in a:
     prime = x
     y = a.index(prime) + 1
-    while y < len(a): 
+    while y < len(a):
         if(a[y] % prime == 0):
             a.pop(y)
         else:
-            y += 1 
+            y += 1
     print "%d \t %d" % (count, prime)
     if(count == 100001):
-        break;
+        break
     count += 1
-    
-
-

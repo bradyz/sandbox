@@ -11,5 +11,5 @@ while(x < last):
     y = tmp
     if(x % 2 == 0):
         result += x
-    
+
 print result
