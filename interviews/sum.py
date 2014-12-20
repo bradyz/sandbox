@@ -42,7 +42,7 @@ if __name__ == "__main__":
             x = [int(i) for i in line.split()]
         else:
             pair = int(line)
-            print x, pair
-            print "O(n^2)\t" + hasPair(x, pair)
-            print "O(nlogn)\t" + hasPairSort(x, pair)
-            print "O(n)\t" + hasPairDict(x, pair)
+            print(x, pair)
+            print("O(n^2)\t" + hasPair(x, pair))
+            print("O(nlogn)\t" + hasPairSort(x, pair))
+            print("O(n)\t" + hasPairDict(x, pair))

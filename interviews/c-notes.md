@@ -1,38 +1,63 @@
 #C/C++ Quick Reference!
-##December 2014
 
-Author: B-rad
--------------------------------------------------------------------------------
+####Author: B-rad
 
 Table of Contents:
-Miscellaneous
-Numbers
-Strings
+-------------------------------------------------------------------------------
+1. Definitions
+2. Miscellaneous
+3. Numbers
+4. Strings
+
+Definitions
+-------------------------------------------------------------------------------
+
+**Singleton** - a class in which only one instance may be created
 
 Miscellaneous
 -------------------------------------------------------------------------------
-#define SQUARE(x) ((x)*(x))
-  a macro, usually in all caps, used to define other functions
 
-struct {};
-  storage for member variables, default is public
+**macro** - usually in all caps, used to define other functions
 
+```c
+#define SQUARE(x) (x*x)
+```
+
+**struct** - storage for member variables, default is public
+
+```c
+struct foo {
+  int asdf
+  char *bar
+};
+```
+
+**class** -  storage for member variables, methods, default is private
+
+```c++
 class Foo
-  storage for member variables, methods, default is private
-
-Singleton 
-  a class in which only one instance may be created
+```
 
 Strings
 -------------------------------------------------------------------------------
+
+**strcpy(dest, src)** - copies the string into the pointer pString
+
+```c++
 strcpy(pString, "Hello world."); 
-  copies the string into the pointer pString
+```
 
+**sprintf(dest, format, src)** - copies the number "number" into the memory located at string
+
+```c+
 sprintf(string, "%d", number); 
-  copies the number "number" into the memory located at string
+```
 
-Miscellaneous
+Numbers
 -------------------------------------------------------------------------------
-20 >> 1
-  halves the number with a bitwise shift by 1
 
+**>>** - halves the number with a bitwise shift by 1
+
+```c++
+20 >> 1
+```
