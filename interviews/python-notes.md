@@ -11,10 +11,19 @@ Table of Contents:
 3. Lists
 4. Miscellaneous
 
+Dictionaries
+-------------------------------------------------------------------------------
+
+**initialization** - hardcoding certain values
+
+```python
+pairs = {"}": "{", ")": "("}
+```
+
 Miscellaneous
 -------------------------------------------------------------------------------
 
-code will only execute if the current file is run,
+**\_\_name__** - code will only execute if the current file is run,
 used for testing if later the file is modularized and imported into a project
   
 ```python
@@ -52,3 +61,8 @@ len(arr)
 line = [str(n) for n in x.split()]
 ```
 
+**check empty array** - pythony way
+
+```python
+if not arr
+```
