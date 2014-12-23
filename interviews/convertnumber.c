@@ -2,49 +2,70 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main ()
+FILE *fr;
+
+int num_digits(int input) 
 {
-  int input = 10;
   int digits = 1;
   int counter = 0;
-
   while(input / digits > 0)
   {
     digits *= 10;
     counter++;
   }
+  return counter;
+}
 
-  printf("Counter: %d\n", counter);
-
-  char *output1 = (char *) malloc(counter * sizeof(char));
-  char *output2 = (char *) malloc(counter * sizeof(char));
-
-  output1[counter - 1] = '\0';
-  int size = strlen(output1);
-  int sizof = sizeof(output1);
-  printf("Malloc: %d \n", counter * sizeof(char));
-  printf("Size: %d \n", size);
-  printf("Sizeof: %d \n", sizof);
-
-  char tmp;
-
-  counter = 0;
-  digits = 1;
-
+void itos(char **dest, int input) 
+{
+  int size = num_digits(input);
+  int counter = 0;
+  int digits = 1;
+  char *output1 = (char *) malloc(size * sizeof(char));
   while(input / digits > 0)
   {
-    tmp = '0' + input / digits % 10;
-    memcpy(output1 - counter, &tmp, sizeof(tmp));
+    char tmp = '0' + input / digits % 10;
+    memcpy(output1 + size - counter - 1, &tmp, sizeof(tmp));
     counter++;
     digits *= 10;
   }
 
-  //reverse the string
+  *dest = output1;
+}
 
-  printf("output1: %s\n", output1);
+int main ()
+{
+  char buf[20];
+  int n = 0;
+  int index = 0;
 
-  sprintf(output2, "%d", input);
-  printf("output2: %s\n", output2);
+  fr = fopen("convertnumber-input.txt", "rt");
+  fgets(buf, 20, fr);
+  n = atoi(buf);
+  int arr[n]; 
+
+  for(index = 0; index < n; index++)
+  {
+    int tmp;
+
+    if(fgets(buf, 20, fr) != NULL)
+    {
+      tmp = atoi(buf);
+      arr[index] = tmp;
+    }
+  }
+
+  for(index = 0; index < n; index++)
+  {
+    char *tmp = NULL;
+    itos(&tmp, arr[index]);
+
+    if(tmp != NULL)
+    {
+      printf("Int: %d\n", arr[index]);
+      printf("Str: %s\n", tmp); 
+    }
+  }
 
   return 0;
 }
