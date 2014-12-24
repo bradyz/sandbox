@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-FILE *fr;
-
 int num_digits(int input) 
 {
   int digits = 1;
@@ -33,27 +31,36 @@ void itos(char **dest, int input)
   *dest = output1;
 }
 
-int main ()
+int main(int argc, char **argv)
 {
+  FILE *fr;
   char buf[20];
   int n = 0;
   int index = 0;
 
   fr = fopen("convertnumber-input.txt", "rt");
+
+  // first line of the file
   fgets(buf, 20, fr);
   n = atoi(buf);
+
+  // number of inputs
   int arr[n]; 
 
   for(index = 0; index < n; index++)
   {
     int tmp;
 
+    // each line contains another input
     if(fgets(buf, 20, fr) != NULL)
     {
       tmp = atoi(buf);
       arr[index] = tmp;
     }
   }
+
+  // safely close the file
+  fclose(fr);
 
   for(index = 0; index < n; index++)
   {
@@ -62,9 +69,11 @@ int main ()
 
     if(tmp != NULL)
     {
-      printf("Int: %d\n", arr[index]);
-      printf("Str: %s\n", tmp); 
+      printf("Int: %d ", arr[index]);
+      printf("Str: '%s'\n", tmp); 
     }
+
+    free(tmp);
   }
 
   return 0;
