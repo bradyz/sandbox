@@ -1,23 +1,20 @@
+import collections
+
+
 def is_anagramA(a, b):
-    if sorted(a) == sorted(b):
+    if sorted(str(a)) == sorted(str(b)):
         return True
     else:
         return False
 
 
 def is_anagramB(a, b):
-    aDict = {}
-    bDict = {}
+    aDict = collections.Counter()
+    bDict = collections.Counter()
     for x in str(a):
-        if x in aDict:
-            aDict[x] += 1
-        else:
-            aDict[x] = 1
+        aDict[x] += 1
     for x in str(b):
-        if x in bDict:
-            bDict[x] += 1
-        else:
-            bDict[x] = 1
+        bDict[x] += 1
     if aDict == bDict:
         return True
     else:
@@ -33,4 +30,5 @@ if __name__ == "__main__":
             strA = n.split()
         else:
             strB = n.split()
-            print is_anagramB(strA, strB)
+            print "Sort: " + str(is_anagramA(strA, strB))
+            print "Dict: " + str(is_anagramB(strA, strB))

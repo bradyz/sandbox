@@ -10,6 +10,7 @@ Table of Contents:
 2. Files
 3. Lists
 4. Miscellaneous
+5. Random
 
 Dictionaries
 -------------------------------------------------------------------------------
@@ -18,6 +19,14 @@ Dictionaries
 
 ```python
 pairs = {"}": "{", ")": "("}
+```
+
+**counter** - subclass of dicts for tallying
+
+```python
+cnt = collections.Counter()
+for word in ['red', 'blue', 'red', 'green', 'blue', 'blue']:
+  cnt[word] += 1
 ```
 
 Miscellaneous
@@ -65,4 +74,20 @@ line = [str(n) for n in x.split()]
 
 ```python
 if not arr
+```
+
+Random
+-------------------------------------------------------------------------------
+
+**shuffle()** - shuffles the list in place using Fisher-Yates, O(n)
+
+```python
+shuffle(arr)
+```
+
+**random list** - list of random ints
+
+```python
+from random import randrange
+L = [randrange(10000) for i in range(1000)]
 ```
