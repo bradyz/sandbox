@@ -14,8 +14,6 @@ def isBalanced(arr):
             if not stack or stack.pop() != pairs[x]:
                 result = False
 
-    print(stack)
-
     if not stack and result:
         return True
     else:
