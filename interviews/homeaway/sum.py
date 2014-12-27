@@ -1,4 +1,4 @@
-def hasPair(arr, n):
+def has_pair(arr, n):
     for x in arr:
         for y in arr:
             if x != y and x + y == n:
@@ -6,7 +6,7 @@ def hasPair(arr, n):
     return ""
 
 
-def hasPairSort(arr, n):
+def has_pair_sort(arr, n):
     arr.sort()
     x = len(arr) / 2
     y = len(arr) / 2 + 1
@@ -23,7 +23,7 @@ def hasPairSort(arr, n):
     return ""
 
 
-def hasPairDict(arr, n):
+def has_pair_dict(arr, n):
     d = dict()
     for x in arr:
         d[x] = n - x
@@ -34,6 +34,7 @@ def hasPairDict(arr, n):
 
 
 if __name__ == "__main__":
+    print 10
     with open('input.txt', 'r') as f:
         lines = f.readlines()
 
@@ -43,6 +44,6 @@ if __name__ == "__main__":
         else:
             pair = int(line)
             print(x, pair)
-            print("O(n^2)\t" + hasPair(x, pair))
-            print("O(nlogn)\t" + hasPairSort(x, pair))
-            print("O(n)\t" + hasPairDict(x, pair))
+            print("O(n^2)\t" + has_pair(x, pair))
+            print("O(nlogn)\t" + has_pair_sort(x, pair))
+            print("O(n)\t" + has_pair_dict(x, pair))

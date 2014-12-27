@@ -9,8 +9,10 @@ Table of Contents:
 1. Dictionaries
 2. Files
 3. Lists
-4. Miscellaneous
-5. Random
+4. Loops
+5. Miscellaneous
+6. Random
+7. Threads
 
 Dictionaries
 -------------------------------------------------------------------------------
@@ -37,6 +39,13 @@ used for testing if later the file is modularized and imported into a project
   
 ```python
 if __name__ == "__main__":
+```
+
+**timeit** - runs a snippet of code N times and finds the average
+
+```python
+from timeit import timeit
+timeit("2 + 2")
 ```
 
 Files
@@ -76,6 +85,16 @@ line = [str(n) for n in x.split()]
 if not arr
 ```
 
+Loops
+-------------------------------------------------------------------------------
+
+**conventional for loop** - python way!
+
+```python
+for x in range(len(arr)):
+```
+
+
 Random
 -------------------------------------------------------------------------------
 
@@ -90,4 +109,24 @@ shuffle(arr)
 ```python
 from random import randrange
 L = [randrange(10000) for i in range(1000)]
+```
+
+Threads
+-------------------------------------------------------------------------------
+
+**initialization** - creates N threads to do a function with args
+
+```python
+for x in range(10):
+  t = threading.Thread(name="Thread " + str(x), target=inc_n, args=(10,))
+```
+
+**start and join** - starts the thread of execution and reaps
+
+```python
+for x in range(len(threads)):
+    threads[x].start()
+
+for x in range(len(threads)):
+    threads[x].join()
 ```
