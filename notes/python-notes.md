@@ -26,7 +26,8 @@ pairs = {"}": "{", ")": "("}
 **counter** - subclass of dicts for tallying
 
 ```python
-cnt = collections.Counter()
+from collections import Counter
+cnt = Counter()
 for word in ['red', 'blue', 'red', 'green', 'blue', 'blue']:
   cnt[word] += 1
 ```
@@ -46,6 +47,14 @@ if __name__ == "__main__":
 ```python
 from timeit import timeit
 timeit("2 + 2")
+```
+
+**max, min int** - maximum and minumum integer values
+
+```python
+import sys
+sys.maxint
+min = -sys.maxint - 1
 ```
 
 Files
