@@ -7,14 +7,12 @@ def roman_to_int(r):
     i = 0
     res = 0
     size = len(r)
-    print "yes " + str(size)
 
     while i < size:
         y = None
         x = r[i]
         if i < (size - 1):
-            print size
-            y = r[i: i+1]
+            y = r[i: i+2]
 
         if y and y in conv.keys():
             res += conv[y]
@@ -32,6 +30,5 @@ if __name__ == "__main__":
 
     for l in lines:
         rom = l.strip("\n")
-        roman_to_int(rom)
-        # print str(roman_to_int(rom))
+        print str(roman_to_int(rom))
         print ""
