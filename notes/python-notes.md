@@ -10,9 +10,10 @@ Table of Contents:
 2. Files
 3. Lists
 4. Loops
-5. Miscellaneous
-6. Random
-7. Threads
+5. matplotlib
+6. Miscellaneous
+7. Random
+8. Threads
 
 Dictionaries
 -------------------------------------------------------------------------------
@@ -30,31 +31,6 @@ from collections import Counter
 cnt = Counter()
 for word in ['red', 'blue', 'red', 'green', 'blue', 'blue']:
   cnt[word] += 1
-```
-
-Miscellaneous
--------------------------------------------------------------------------------
-
-**\_\_name__** - code will only execute if the current file is run,
-used for testing if later the file is modularized and imported into a project
-  
-```python
-if __name__ == "__main__":
-```
-
-**timeit** - runs a snippet of code N times and finds the average
-
-```python
-from timeit import timeit
-timeit("2 + 2")
-```
-
-**max, min int** - maximum and minumum integer values
-
-```python
-import sys
-sys.maxint
-min = -sys.maxint - 1
 ```
 
 Files
@@ -103,6 +79,48 @@ Loops
 for x in range(len(arr)):
 ```
 
+matplotlib
+-------------------------------------------------------------------------------
+
+**convention** - plt
+
+```python
+import matplotlib.pyplot as plt
+```
+
+**basic plotting** - provide x,y points and type of dots
+
+```python```
+x = [1, 2, 3]
+y = [1, 2, 3]
+plt.plot(x, y, 'ro')
+plt.show()
+```
+
+Miscellaneous
+-------------------------------------------------------------------------------
+
+**\_\_name__** - code will only execute if the current file is run,
+used for testing if later the file is modularized and imported into a project
+  
+```python
+if __name__ == "__main__":
+```
+
+**timeit** - runs a snippet of code N times and finds the average
+
+```python
+from timeit import timeit
+timeit("2 + 2")
+```
+
+**max, min int** - maximum and minumum integer values
+
+```python
+import sys
+sys.maxint
+min = -sys.maxint - 1
+```
 
 Random
 -------------------------------------------------------------------------------
