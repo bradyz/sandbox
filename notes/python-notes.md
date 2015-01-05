@@ -12,8 +12,9 @@ Table of Contents:
 4. Loops
 5. matplotlib
 6. Miscellaneous
-7. Random
-8. Threads
+7. Numpy
+8. Random
+9. Threads
 
 Dictionaries
 -------------------------------------------------------------------------------
@@ -76,7 +77,7 @@ Loops
 **conventional for loop** - python way!
 
 ```python
-for x in range(len(arr)):
+for i in range(len(arr)):
 ```
 
 matplotlib
@@ -121,6 +122,21 @@ import sys
 sys.maxint
 min = -sys.maxint - 1
 ```
+
+Numpy
+-------------------------------------------------------------------------------
+
+**grid** - init a bitmap grid
+
+```python
+import numpy as np
+grid = np.zeros([rows, cols])
+for i in range(rows):
+    for j in range(cols):
+        grid[i][j] = round(random.random())
+return grid
+```
+
 
 Random
 -------------------------------------------------------------------------------

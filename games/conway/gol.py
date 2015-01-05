@@ -1,10 +1,24 @@
-import numpy as np
 import random
+import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+grid = None
+
+def row_col_naive(grid):
+    num_row = len(grid)
+    num_col = len(grid[0])
+    return num_row, num_col
 
 
-def step(grid):
-    print 0
+def row_col_long(grid):
+    num_col = 0
+    num_row = 0
+    for row in grid:
+        for col in row:
+            num_col += 1
+            num_row += 1
+            return num_row, num_col
 
 
 def init_grid(rows, cols):
@@ -15,19 +29,15 @@ def init_grid(rows, cols):
             return grid
 
 
+def update(data):
+    return 0
+
+
 if __name__ == "__main__":
-    print str(init_grid(10, 10))
-    pars = 3, 2, 3
-    rows, cols = 20, 20
-    fig = plt.figure()
-    ax = plt.axes()
-    im = ax.matshow(init_grid(rows, cols), cmap=plt.cm.binary)
-    im.set_data(init_grid(rows, cols))
-    ax.set_axis_off()
-
-
-def animate(i):
-    a = im.get_array()
-    a = evolve_random(a)
-    im.set_array(a)
-    return [im]
+    rows, cols = 30, 30
+    my_grid = init_grid(rows, cols)
+    print str(my_grid)
+    fig, ax = plt.subplots()
+    mat = ax.matshow(grid)
+    ani = animation.FuncAnimation(fig, update, interval=50, save_count=50)
+    plt.show()
