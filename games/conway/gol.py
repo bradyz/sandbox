@@ -3,7 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-grid = None
+
+count = 0
+my_grid = None
+rows = None
+cols = None
+
 
 def row_col_naive(grid):
     num_row = len(grid)
@@ -21,23 +26,24 @@ def row_col_long(grid):
             return num_row, num_col
 
 
-def init_grid(rows, cols):
-    grid = np.zeros([rows, cols], dtype=int)
+def init():
+    global my_grid, rows, cols
+    my_grid = np.zeros([rows, cols], dtype=int)
     for i in range(rows):
         for j in range(cols):
-            grid[i][j] = round(random.random())
-            return grid
+            my_grid[i][j] = round(random.random())
 
 
-def update(data):
-    return 0
+def animate(*args):
+    for i in range(rows):
+        for j in range(cols):
+            my_grid[i][j] = round(random.random())
+    mat.set_data(my_grid)
 
 
-if __name__ == "__main__":
-    rows, cols = 30, 30
-    my_grid = init_grid(rows, cols)
-    print str(my_grid)
-    fig, ax = plt.subplots()
-    mat = ax.matshow(grid)
-    ani = animation.FuncAnimation(fig, update, interval=50, save_count=50)
-    plt.show()
+rows, cols = 30, 30
+fig, ax = plt.subplots()
+init()
+mat = ax.matshow(my_grid)
+anim = animation.FuncAnimation(fig, animate, interval=1, frames=1)
+plt.show()
