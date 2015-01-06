@@ -66,5 +66,5 @@ if __name__ == "__main__":
     fig, ax = plt.subplots()
     init()
     mat = ax.matshow(my_grid)
-    anim = animation.FuncAnimation(fig, animate, interval=100)
+    anim = animation.FuncAnimation(fig, animate, interval=10)
     plt.show()
