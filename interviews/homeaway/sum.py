@@ -24,18 +24,17 @@ def has_pair_sort(arr, n):
 
 
 def has_pair_dict(arr, n):
-    d = dict()
+    d = {}
     for x in arr:
         d[x] = n - x
     for x in d:
-        if d.get(x) in arr:
-            return str(d.get(x)) + " " + str(x)
+        if d[x] in arr:
+            return str(d[x]) + " " + str(x)
     return ""
 
 
 if __name__ == "__main__":
-    print 10
-    with open('input.txt', 'r') as f:
+    with open('sum-input.txt', 'r') as f:
         lines = f.readlines()
 
     for idx, line in enumerate(lines):
