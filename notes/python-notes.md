@@ -15,6 +15,7 @@ Table of Contents:
 7. Numpy
 8. Random
 9. Threads
+10. Strings
 
 Dictionaries
 -------------------------------------------------------------------------------
@@ -172,4 +173,15 @@ for x in range(len(threads)):
 
 for x in range(len(threads)):
     threads[x].join()
+```
+
+Strings
+-------------------------------------------------------------------------------
+
+**strip trailing/heading** - removes characters from the sides of the string
+
+```python
+str = "asdf\n"
+str.strip('\n')
+# str => "asdf"
 ```
