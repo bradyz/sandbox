@@ -16,6 +16,7 @@ Table of Contents:
 8. Random
 9. Threads
 10. Strings
+11. Overloading
 
 Dictionaries
 -------------------------------------------------------------------------------
@@ -184,4 +185,14 @@ Strings
 str = "asdf\n"
 str.strip('\n')
 # str => "asdf"
+```
+
+Overloading
+-------------------------------------------------------------------------------
+
+**[] overload** - use the [] operator
+
+```python
+def __getitem__(self, index):
+  return self.my_arr[index]
 ```
