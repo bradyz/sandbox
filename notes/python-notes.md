@@ -73,6 +73,16 @@ line = [str(n) for n in x.split()]
 if not arr
 ```
 
+**binary search** - log(n) search time on a sorted array
+
+```python
+import bisect
+i = bisect.bisect_left(sorted_arr, el)
+if sorted_arr[i] == el:
+  # element is found
+```
+
+
 Loops
 -------------------------------------------------------------------------------
 
