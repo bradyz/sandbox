@@ -1,4 +1,4 @@
-Python Quick Reference!
+Python Reference
 -------------------------------------------------------------------------------
 
 #####Author: B-rad
