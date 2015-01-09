@@ -83,6 +83,13 @@ if sorted_arr[i] == el:
   # element is found
 ```
 
+**last element of array** - so pythonic
+
+```python
+my_arr = [1, 2, 3]
+my_arr[-1]
+# returns 3
+```
 
 Loops
 -------------------------------------------------------------------------------
@@ -114,7 +121,7 @@ plt.show()
 Miscellaneous
 -------------------------------------------------------------------------------
 
-**\_\_name__** - code will only execute if the current file is run,
+**if name == main** - code will only execute if the current file is run,
 used for testing if later the file is modularized and imported into a project
   
 ```python
