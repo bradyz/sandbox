@@ -16,7 +16,8 @@ Table of Contents:
 8. Random
 9. Threads
 10. Strings
-11. Overloading
+11. System
+12. Overloading
 
 Dictionaries
 -------------------------------------------------------------------------------
@@ -195,6 +196,26 @@ Strings
 str = "asdf\n"
 str.strip('\n')
 # str => "asdf"
+```
+
+**create new string without a char** - returns a new char without char at i
+
+```python
+# new_str = "asdf"
+# i = 1
+tmp_str = new_str[:i] + new_str[i+1:]
+# tmp_str = "adf"
+```
+
+System
+-------------------------------------------------------------------------------
+
+**stdin** - reading from stdin like a file
+
+```python
+import sys
+for i, line in enumerate(sys.stdin):
+  # do stuff
 ```
 
 Overloading
