@@ -13,11 +13,12 @@ Table of Contents:
 5. matplotlib
 6. Miscellaneous
 7. Numpy
-8. Random
-9. Threads
-10. Strings
-11. System
-12. Overloading
+8. Numbers
+9. Random
+10. Threads
+11. Strings
+12. System
+13. Overloading
 
 Dictionaries
 -------------------------------------------------------------------------------
@@ -157,6 +158,25 @@ for i in range(rows):
 return grid
 ```
 
+Numbers
+-------------------------------------------------------------------------------
+
+**binary** - prefix to declare binary number
+
+```python
+num = 0b100
+# num = 4
+```
+
+**int to binary** - conversion of number to binary string
+
+```python
+num = "100"
+a = int(num, 2)
+# a => 4
+# bin(a) = "0b100"
+
+```
 
 Random
 -------------------------------------------------------------------------------
