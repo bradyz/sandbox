@@ -242,6 +242,16 @@ tmp_str = new_str[:i] + new_str[i+1:]
 # tmp_str = "adf"
 ```
 
+**print int array** - includes format
+
+```python
+side = 4
+# tmp_map = [[1, 1], [2, 2], [3, 3], [4, 4]]
+for row in range(side):
+  print(''.join([str(x) for x in tmp_map[row]]))
+```
+
+
 System
 -------------------------------------------------------------------------------
 
