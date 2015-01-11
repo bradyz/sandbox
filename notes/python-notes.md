@@ -178,6 +178,14 @@ a = int(num, 2)
 
 ```
 
+**combinations** - returns all combinations of an array
+
+```python
+import itertools
+itertools.combinations([1, 2, 3], 2)
+# => [(1, 2), (1, 3), (2, 3)]
+```
+
 Random
 -------------------------------------------------------------------------------
 
