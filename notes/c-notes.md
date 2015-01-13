@@ -1,4 +1,4 @@
-#C/C++ Quick Reference!
+#C/C++ Reference
 
 ####Author: B-rad
 
@@ -8,6 +8,8 @@ Table of Contents:
 2. Miscellaneous
 3. Numbers
 4. Strings
+5. Templates
+6. Typedef
 
 Definitions
 -------------------------------------------------------------------------------
@@ -60,4 +62,28 @@ Numbers
 
 ```c++
 20 >> 1
+```
+
+Templates
+-------------------------------------------------------------------------------
+
+**abs**- type "T", returns the absolute value of input "a"
+
+```c++
+template<typename T> T abs(T a) { return a < 0 ? -a : a;  }
+```
+
+**square** - squares the input "a"
+```c++
+template<typename T> T sqr(T a) { return a*a;  }
+```
+
+Typedef
+-------------------------------------------------------------------------------
+
+**define a type** - li short for long long, ld short for long double
+
+```c++
+typedef long long li;
+typedef long double ld;
 ```
