@@ -37,7 +37,6 @@ int main(){
     }
 
     long long sum = 0;
-
     int cnt = 0;
 
     for(int i = arr_size - 1; i >= 0; --i) {

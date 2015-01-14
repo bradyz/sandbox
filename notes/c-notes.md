@@ -22,7 +22,7 @@ Miscellaneous
 
 **macro** - usually in all caps, used to define other functions
 
-```c
+```c++
 #define SQUARE(x) (x*x)
 ```
 
