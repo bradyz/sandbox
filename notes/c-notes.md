@@ -10,6 +10,7 @@ Table of Contents:
 4. Strings
 5. Templates
 6. Typedef
+7. Vectors
 
 Definitions
 -------------------------------------------------------------------------------
@@ -40,6 +41,7 @@ struct foo {
 class Foo
 ```
 
+
 Strings
 -------------------------------------------------------------------------------
 
@@ -49,9 +51,9 @@ Strings
 strcpy(pString, "Hello world."); 
 ```
 
-**sprintf(dest, format, src)** - copies the number "number" into the memory located at string
+**sprintf(dest, format, src)** - copies the number "number" into memory
 
-```c+
+```c++
 sprintf(string, "%d", number); 
 ```
 
@@ -74,6 +76,7 @@ template<typename T> T abs(T a) { return a < 0 ? -a : a;  }
 ```
 
 **square** - squares the input "a"
+
 ```c++
 template<typename T> T sqr(T a) { return a*a;  }
 ```
@@ -87,3 +90,14 @@ Typedef
 typedef long long li;
 typedef long double ld;
 ```
+
+Vectors
+-------------------------------------------------------------------------------
+
+**initialization** - how to
+
+```c++
+int n = 100;
+vector<int> a(n);
+```
+

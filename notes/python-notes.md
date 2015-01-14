@@ -1,4 +1,4 @@
-Python Reference
+#Python Reference
 -------------------------------------------------------------------------------
 
 #####Author: B-rad
@@ -112,7 +112,7 @@ import matplotlib.pyplot as plt
 
 **basic plotting** - provide x,y points and type of dots
 
-```python```
+```python
 x = [1, 2, 3]
 y = [1, 2, 3]
 plt.plot(x, y, 'ro')
