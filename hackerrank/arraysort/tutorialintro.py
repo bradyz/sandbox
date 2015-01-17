@@ -39,5 +39,5 @@ if __name__ == "__main__":
         else:
             haystack = [int(x) for x in line.split()]
             print(find_needle(needle, haystack))
-            print(n_scan(needle, haystack))
-            print(bin_search(needle, haystack))
+            # print(n_scan(needle, haystack))
+            # print(bin_search(needle, haystack))
