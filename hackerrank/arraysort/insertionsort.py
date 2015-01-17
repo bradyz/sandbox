@@ -10,19 +10,19 @@ def print_arr(arr):
 
 
 def insertion_sort(a, s):
-    n = a[s - 1]
-    is_sorted = False
+    if a == 1:
+        print_arr(a)
+        return
 
-    for x in range(s - 1, 0, -1):
-        if not is_sorted:
-            if n < a[x - 1]:
-                tmp = a[x]
-                a[x] = a[x - 1]
-                a[x - 1] = tmp
-            else:
-                a[x] = n
-                is_sorted = True
-            print_arr(a)
+    for x in range(1, s):
+        while x > 0 and a[x] < a[x - 1]:
+            tmp = a[x]
+            a[x] = a[x - 1]
+            a[x - 1] = tmp
+            x -= 1
+        print_arr(a)
+
+    return
 
 
 def insertion_sort1(a, s):
@@ -44,4 +44,5 @@ if __name__ == "__main__":
             size = int(line.strip("\n"))
         else:
             parsed = [int(x) for x in line.split()]
-            insertion_sort1(parsed, size)
+            # insertion_sort1(parsed, size)
+            insertion_sort(parsed, size)
