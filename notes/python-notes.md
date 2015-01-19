@@ -251,6 +251,13 @@ for row in range(side):
   print(''.join([str(x) for x in tmp_map[row]]))
 ```
 
+**print 1d int array** - the map converts each element into a string
+
+```python
+a = [1, 2, 3]
+print(" ".join(map(str, a)))
+```
+
 
 System
 -------------------------------------------------------------------------------
