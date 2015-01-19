@@ -15,7 +15,7 @@ def quicksort1(a, s):
     return less + [p] + greater
 
 
-def quicksort(a, s):
+def quicksort2(a, s):
     if s == 1 or s == 0:
         if s == 0:
             return [None]
@@ -32,8 +32,8 @@ def quicksort(a, s):
         elif not a[x] is p:
             greater.append(a[x])
 
-    l = quicksort(less, len(less))
-    g = quicksort(greater, len(greater))
+    l = quicksort2(less, len(less))
+    g = quicksort2(greater, len(greater))
 
     if l == [None]:
         tmp = [p] + g
@@ -45,6 +45,14 @@ def quicksort(a, s):
     print(" ".join(map(str, tmp)))
     return tmp
 
+
+def quicksort3(a, s):
+    p = s - 1
+
+    while p != -1:
+        for x in range(p - 1):
+            return 0
+
 if __name__ == "__main__":
     for i, line in enumerate(sys.stdin):
         if i == 0:
@@ -53,4 +61,5 @@ if __name__ == "__main__":
             parsed = [int(x) for x in line.split()]
             # a = quicksort1(parsed, size)
             # print(" ".join(map(str, a)))
-            quicksort(parsed, size)
+
+            # quicksort2(parsed, size)
