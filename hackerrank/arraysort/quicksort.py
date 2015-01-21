@@ -52,20 +52,18 @@ def quicksort3(aList):
 
 def _quicksort(aList, first, last):
     if first < last:
-        pivot = partition(aList, first, last)
+        pivot = _partition(aList, first, last)
         print(" ".join(map(str, aList)))
         _quicksort(aList, first, pivot - 1)
         _quicksort(aList, pivot + 1, last)
 
 
-def partition(aList, first, last):
-    pivot = last - 1
-    swap(aList, pivot, last)
+def _partition(aList, first, last):
     for i in range(first, last):
         if aList[i] <= aList[last]:
-            swap(aList, i, first)
+            aList[i], aList[first] = aList[first], aList[i]
             first += 1
-    swap(aList, first, last)
+    aList[last], aList[first] = aList[first], aList[last]
     return first
 
 
@@ -82,4 +80,5 @@ if __name__ == "__main__":
             # print(" ".join(map(str, a)))
 
             # quicksort2(parsed, size)
+
             quicksort3(parsed)
