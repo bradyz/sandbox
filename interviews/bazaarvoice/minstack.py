@@ -1,21 +1,18 @@
-class SmartStack:
+class Minstack:
     def __init__(self):
-        self.__init__stack = []
-        self.min = []
+        self.s1 = []
+        self.s2 = []
 
-    def stack_push(self, x):
-        self.stack.append(x)
-        if len(self.min) != 0:
-            if x < self.stack_min():
-                self.min.append(x)
-            else:
-                self.min.append(x)
+    def spush(self, x):
+        self.s1.append(x)
+        if len(self.s2) == 0 or x <= self.stack_min():
+            self.s2.append(x)
 
-    def stack_pop(self):
-        x = self.stack.pop()
+    def spop(self):
+        x = self.s1.pop()
         if x == self.stack_min():
-            self.min.pop()
+            self.s2.pop()
         return x
 
-    def stack_min(self):
-        return self.min[-1]
+    def smin(self):
+        return self.s2[-1]
