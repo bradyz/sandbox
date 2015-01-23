@@ -1,0 +1,4 @@
+camelCase
+camelcase
+AaBbCc
+aabbcc
