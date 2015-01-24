@@ -1,0 +1,12 @@
+import sys
+
+if __name__ == "__main__":
+    for i, line in enumerate(sys.stdin):
+        if i == 0:
+            num_cases = int(line.strip("\n"))
+        elif i > 0:
+            if i % 3 == 2:
+                lock = line.split()
+            elif i % 3 == 0:
+                key_list = line.split()
+                print(key_list, lock)

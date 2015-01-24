@@ -1,0 +1,108 @@
+5
+2 10.00
+Josh 2
+Driving Van
+Blowing Safe
+Jaime 1
+Blowing Safe
+3 60.00
+Josh 2
+Driving Van
+Blowing Safe
+Jaime 1
+Blowing Safe
+Jon 1
+Coffee Run
+5 66339.20
+Jon 1
+Receptionist
+Jaime 2
+butler
+Pay off guards
+Dan 2
+Artist
+Cater Food
+Matt 2
+Coffee Run
+butler
+David 1
+Receptionist
+8 33601.49
+Josh 4
+butler
+IT
+Receptionist
+Blowing Safe
+Adam 5
+Washing Dishes
+Wroting Software
+Artist
+Cater Food
+butler
+Jaime 1
+Artist
+Katie 3
+Coffee Run
+Artist
+Washing Dishes
+Matt 1
+butler
+Dan 5
+Team Leader
+Blowing Safe
+Receptionist
+butler
+Cater Food
+David 4
+Receptionist
+distract cops
+Driving Van
+Blowing Safe
+Dillon 4
+Cater Food
+Artist
+Washing Dishes
+Buying Guns
+10 14375.59
+Dan 4
+Receptionist
+Artist
+Cater Food
+IT
+Jaime 1
+Artist
+Jon 5
+Blowing Safe
+Cater Food
+Wroting Software
+Buying Guns
+Burglar Evangelist
+Josh 2
+Cater Food
+Manager
+Matt 1
+IT
+David 6
+Doing Taxes
+Manager
+Recruiting Criminals
+Receptionist
+Coffee Run
+butler
+Adam 4
+Artist
+Washing Dishes
+Doing Taxes
+Receptionist
+John 2
+Washing Dishes
+Spreadsheet Manager
+Katie 3
+Burglar Evangelist
+Driving Van
+Artist
+Dillon 4
+Coffee Run
+Receptionist
+Blowing Safe
+Doing Taxes

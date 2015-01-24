@@ -1,0 +1,7 @@
+Case #1:
+Josh: 75.00
+Jaime: 25.00
+Case #2:
+Josh: 350.00
+Jaime: 116.67
+Jon: 233.33
