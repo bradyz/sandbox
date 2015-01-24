@@ -144,6 +144,12 @@ sys.maxint
 min = -sys.maxint - 1
 ```
 
+**find all indices of element** - using enumerate and index
+
+```python
+indices = [i for i, x in enumerate(my_list) if x == "whatever"]
+```
+
 Numpy
 -------------------------------------------------------------------------------
 
@@ -258,6 +264,14 @@ a = [1, 2, 3]
 print(" ".join(map(str, a)))
 ```
 
+**cast string to int** - using ascii values and ord() function
+
+```python
+a = '0'
+b = '9'
+c = ord(b) - ord(a)
+# c => 9
+```
 
 System
 -------------------------------------------------------------------------------
