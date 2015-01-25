@@ -5,7 +5,8 @@ def has_key(key_list, lock):
     closest = 999
     ind = -1
 
-    print(key_list, lock)
+    if(lock.count("1") == 0):
+        return "YES"
 
     if(len(key_list) == 0):
         return "NO"
@@ -16,8 +17,6 @@ def has_key(key_list, lock):
         if tmp < closest:
             closest = tmp
             ind = x
-            if tmp == 0:
-                return "YES"
 
     lock = bin(int(key_list[ind], 2) ^ int(lock, 2)).lstrip("0b")
     key_list.pop(ind)
