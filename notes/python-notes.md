@@ -19,6 +19,7 @@ Table of Contents:
 11. Strings
 12. System
 13. Overloading
+14. Sets
 
 Dictionaries
 -------------------------------------------------------------------------------
@@ -292,4 +293,15 @@ Overloading
 ```python
 def __getitem__(self, index):
   return self.my_arr[index]
+```
+
+Set
+-------------------------------------------------------------------------------
+
+**basics** - set doesnt contain duplicates O(1) for in
+
+```python
+from sets import Set
+a = Set()
+a.add(1)
 ```
