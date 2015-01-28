@@ -42,27 +42,8 @@ def max_cell(g):
 
 print(max_cell(grid))
 
-# all
-# 0s
-# =>
-# 0
-# all
-# values
-# =>
-# sum
-# of
-# grid
-# 0
-# 1
-# 0
-# 1
-# 1
-# 0
-# 1
-# 0
-# 0
-# 1
-# 0
-# 1
-# =>
-# 1
+# all 0s => 0
+# all values => sum of grid
+# 0 1 0 1
+# 1 0 1 0
+# 0 1 0 1 => 1
