@@ -44,26 +44,43 @@ def subscribe():
         sock.close()
 
 
-def trade():
+def init():
     global stocks
     global initial_money
 
+    stocks = []
     parsed = parsed_info()
 
     for x in parsed.keys():
         stocks.append(x)
 
+
+def trade():
+    init()
+
     # buy the max net one
     while(True):
-        quant = 5
-        stock = max_net_worth()
-        m_ask = market_price(stock)
-        bid(stock, m_ask, quant)
-        print("Bid", stock, m_ask, quant)
+        num = 5
+        for i, x in enumerate(top_vals()):
+            stock = x
+            m_ask = market_price(stock)
+            quant = num - i
+            bid(stock, m_ask, quant)
+            print("Bid", stock, m_ask, quant)
 
 
-# def top_vals():
-#
+def top_vals():
+    tmp = {}
+    for x in stocks:
+        tmp[net_worth(x)] = x
+    num = 0
+    res = []
+    for x in reversed(sorted(tmp.keys())):
+        if num <= 3:
+            res.append(tmp[x])
+            num += 1
+    return res
+
 
 def stocks_below_market(ticker):
     market_price = 0
@@ -190,7 +207,7 @@ def check_money():
 
 def sell(ticker, price, shares):
     res = "ASK " + ticker + " " + str(price) + " " + str(shares)
-    response = run(res)
+    run(res)
 
 
 def market_price(ticker):
@@ -225,8 +242,9 @@ def min_ask(ticker):
 
 
 def net_worth(ticker):
+    global stocks
     parsed = parsed_info()
-    if ticker in parsed:
+    if ticker in stocks:
         return float(parsed[ticker][0])
 
 
@@ -242,8 +260,8 @@ def dump():
             res[tmp_tick].append(response[x])
     for x in stocks:
         if x in res and int(res[x][0]) > 0:
-            print("Sell", x, market_price(x) * 0.993, res[x][0])
-            sell(x, float(market_price(x)) * (0.993), int(res[x][0]))
+            print("Sell", x, market_price(x) * 0.996, res[x][0])
+            sell(x, float(market_price(x)) * (0.996), int(res[x][0]))
     return
 
 
@@ -257,7 +275,8 @@ if __name__ == "__main__":
         sec += 1
         time.sleep(1)
         for x in stocks:
-            tmp = str(sec) + " " + x + " " + str(net_worth(x)) + " " + str(min_ask(x))
+            tmp = str(sec) + " " + x + " "
+            tmp += str(net_worth(x)) + " " + str(min_ask(x))
             tmp += " " + str(max_bid(x)) + "\n"
             print(tmp)
             with open('ticker.txt', 'a') as a:
