@@ -49,19 +49,21 @@ def trade():
     global initial_money
 
     parsed = parsed_info()
-    intial_money = check_money()
 
     for x in parsed.keys():
         stocks.append(x)
 
     # buy the max net one
     while(True):
+        quant = 5
         stock = max_net_worth()
         m_ask = market_price(stock)
-        quant = 5
         bid(stock, m_ask, quant)
         print("Bid", stock, m_ask, quant)
 
+
+# def top_vals():
+#
 
 def stocks_below_market(ticker):
     market_price = 0
@@ -111,13 +113,14 @@ def checkasks(ticker):
                 attach = True
                 tmp = [response[x]]
             else:
-               attach = False
+                attach = False
         else:
             if attach:
                 tmp.append(response[x])
                 if x % 4 == 3:
                     all_asks.append(tmp)
     return all_asks
+
 
 def ba_profit(ticker):
     asks = checkasks(ticker)
@@ -138,6 +141,17 @@ def max_net_worth():
     for x in stocks:
         if x in parsed and float(parsed[x][0]) > max_val:
             max_val = float(parsed[x][0])
+            stock = x
+    return stock
+
+
+def min_net_worth():
+    parsed = parsed_info()
+    min_val = 999
+    stock = ""
+    for x in stocks:
+        if x in parsed and float(parsed[x][0]) < min_val:
+            min_val = float(parsed[x][0])
             stock = x
     return stock
 
@@ -167,10 +181,12 @@ def bid(ticker, price, shares):
         print("No money, dumping...")
         dump()
 
+
 def check_money():
     resp = run("MY_CASH").lstrip("MY_CASH_OUT ").rstrip("\r\n")
     resp = float(resp)
     return resp
+
 
 def sell(ticker, price, shares):
     res = "ASK " + ticker + " " + str(price) + " " + str(shares)
@@ -181,7 +197,6 @@ def market_price(ticker):
     market_price = 0
     quantity = 0
     asks = checkasks(ticker)
-    res = []
 
     for x in asks:
         if x[3] > quantity:
@@ -190,25 +205,34 @@ def market_price(ticker):
 
     return market_price
 
+
 def max_bid(ticker):
     bids = checkbids(ticker)
     max_bid = 0
     for b in bids:
         if float(b[2]) > max_bid:
-            max_bid  = float(b[2])
+            max_bid = float(b[2])
     return max_bid
 
 
 def min_ask(ticker):
     asks = checkasks(ticker)
-    min_ask = 9999999999
+    min_ask = None
     for a in asks:
-        if float(a[2]) < min_ask:
+        if min_ask is None or float(a[2]) < min_ask:
             min_ask = float(a[2])
     return min_ask
 
+
+def net_worth(ticker):
+    parsed = parsed_info()
+    if ticker in parsed:
+        return float(parsed[ticker][0])
+
+
 def dump():
-    response = run("MY_SECURITIES").lstrip("MY_SECURITIES_OUT ").rstrip("\r\n").split()
+    response = run("MY_SECURITIES").lstrip("MY_SECURITIES_OUT ")
+    response = response.rstrip("\r\n").split()
     res = {}
     for x in range(len(response)):
         if x % 3 == 0:
@@ -218,6 +242,23 @@ def dump():
             res[tmp_tick].append(response[x])
     for x in stocks:
         if x in res and int(res[x][0]) > 0:
-            print("Sell", x, market_price(x) * 0.9945, res[x][0])
-            sell(x, float(market_price(x)) * 0.9945, int(res[x][0]))
+            print("Sell", x, market_price(x) * 0.993, res[x][0])
+            sell(x, float(market_price(x)) * (0.993), int(res[x][0]))
     return
+
+
+if __name__ == "__main__":
+    sec = 0
+    parsed = parsed_info()
+
+    for x in parsed.keys():
+        stocks.append(x)
+    while 1 > 0:
+        sec += 1
+        time.sleep(1)
+        for x in stocks:
+            tmp = str(sec) + " " + x + " " + str(net_worth(x)) + " " + str(min_ask(x))
+            tmp += " " + str(max_bid(x)) + "\n"
+            print(tmp)
+            with open('ticker.txt', 'a') as a:
+                a.write(tmp)
