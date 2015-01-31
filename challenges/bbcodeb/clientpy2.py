@@ -35,11 +35,11 @@ def subscribe():
         sock.sendall(data)
         sfile = sock.makefile()
         rline = sfile.readline()
-        with open("test.txt", "a") as myfile:
-            while rline:
-                rline = sfile.readline()
+        while rline:
+            with open("test.txt", "a") as myfile:
                 myfile.write(rline)
-                print(rline)
+            print(rline)
+            rline = sfile.readline()
     finally:
         sock.close()
 
