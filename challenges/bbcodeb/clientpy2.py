@@ -190,6 +190,23 @@ def market_price(ticker):
 
     return market_price
 
+def max_bid(ticker):
+    bids = checkbids(ticker)
+    max_bid = 0
+    for b in bids:
+        if float(b[2]) > max_bid:
+            max_bid  = float(b[2])
+    return max_bid
+
+
+def min_ask(ticker):
+    asks = checkasks(ticker)
+    min_ask = 9999999999
+    for a in asks:
+        if float(a[2]) < min_ask:
+            min_ask = float(a[2])
+    return min_ask
+
 def dump():
     response = run("MY_SECURITIES").lstrip("MY_SECURITIES_OUT ").rstrip("\r\n").split()
     res = {}
@@ -201,7 +218,6 @@ def dump():
             res[tmp_tick].append(response[x])
     for x in stocks:
         if x in res and int(res[x][0]) > 0:
-            print("Sell", x, market_price(x) * 0.995, res[x][0])
-            sell(x, float(market_price(x)) * 0.995, int(res[x][0]))
-            break
+            print("Sell", x, market_price(x) * 0.9945, res[x][0])
+            sell(x, float(market_price(x)) * 0.9945, int(res[x][0]))
     return
