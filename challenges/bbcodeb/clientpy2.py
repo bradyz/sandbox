@@ -50,34 +50,17 @@ def trade():
 
     parsed = parsed_info()
     intial_money = check_money()
-    cur_money = check_money()
 
     for x in parsed.keys():
         stocks.append(x)
 
     # buy the max net one
-    # while(True):
-    #     stock = max_net_worth()
-    #     quant = 1
-    #     asks = checkasks(stock)
-    #     min_ask = 999
-    #     for x in asks:
-    #         if float(x[2]) < min_ask:
-    #             min_ask = float(x[2])
-    #     bid(stock, min_ask, quant)
-    #     print(stock, min_ask, quant)
-    #     time.sleep(1)
-
     while(True):
-        for stock in stocks:
-            buyables = stocks_below_market(stock)
-            if len(buyables) > 0:
-                print(stock, buyables)
-            for buy in buyables:
-                bid(buy[1], float(buy[2]), buy[3])
-                sell(buy[1], float(buy[2]) * 1.005, buy[3])
-                print("Bought", buy[1], float(buy[2]), buy[3])
-                print("Sold", buy[1], float(buy[2]) * 1.005, buy[3])
+        stock = max_net_worth()
+        m_ask = market_price(stock)
+        quant = 5
+        bid(stock, m_ask, quant)
+        print("Bid", stock, m_ask, quant)
 
 
 def stocks_below_market(ticker):
@@ -153,7 +136,7 @@ def max_net_worth():
     max_val = 0
     stock = ""
     for x in stocks:
-        if float(parsed[x][0]) > max_val:
+        if x in parsed and float(parsed[x][0]) > max_val:
             max_val = float(parsed[x][0])
             stock = x
     return stock
@@ -179,11 +162,10 @@ def securities():
 def bid(ticker, price, shares):
     res = "BID " + ticker + " " + str(price) + " " + str(shares)
     response = run(res)
-
-    if response == "ERROR Not enouch cash to make bid order.":
-        return False
-    else:
-        return True
+    print(response.strip())
+    if len(response) >= 15:
+        print("No money, dumping...")
+        dump()
 
 def check_money():
     resp = run("MY_CASH").lstrip("MY_CASH_OUT ").rstrip("\r\n")
@@ -193,5 +175,33 @@ def check_money():
 def sell(ticker, price, shares):
     res = "ASK " + ticker + " " + str(price) + " " + str(shares)
     response = run(res)
-    return True
 
+
+def market_price(ticker):
+    market_price = 0
+    quantity = 0
+    asks = checkasks(ticker)
+    res = []
+
+    for x in asks:
+        if x[3] > quantity:
+            quantity = x[3]
+            market_price = float(x[2])
+
+    return market_price
+
+def dump():
+    response = run("MY_SECURITIES").lstrip("MY_SECURITIES_OUT ").rstrip("\r\n").split()
+    res = {}
+    for x in range(len(response)):
+        if x % 3 == 0:
+            tmp_tick = response[x]
+            res[tmp_tick] = []
+        else:
+            res[tmp_tick].append(response[x])
+    for x in stocks:
+        if x in res and int(res[x][0]) > 0:
+            print("Sell", x, market_price(x) * 0.995, res[x][0])
+            sell(x, float(market_price(x)) * 0.995, int(res[x][0]))
+            break
+    return
