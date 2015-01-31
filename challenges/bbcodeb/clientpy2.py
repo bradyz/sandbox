@@ -40,10 +40,10 @@ def subscribe():
         sfile = sock.makefile()
         rline = sfile.readline()
         with open("test.txt", "a") as myfile:
-            myfile.write("appended text")
             while rline:
-                myfile.write(rline.strip())
                 rline = sfile.readline()
+                myfile.write(rline)
+                print(rline)
     finally:
         sock.close()
 
@@ -71,4 +71,5 @@ def bid(ticker, price, shares):
         return True
 
 if __name__ == "__main__":
+    print("Subscribing...")
     subscribe()
