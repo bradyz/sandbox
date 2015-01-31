@@ -38,6 +38,28 @@ def max_fence(grid, row, col):
     else:
         return max_p
 
+
+def max_fence_improved(grid, row, col):
+    max_p = 0
+
+    for r in range(row - 1):
+        for c in range(col - 1):
+            for row_l in range(1, row - r):
+                for col_l in range(1, col - c):
+                    sum_row = sum(grid[r][c: c + row_l + 1])
+                    sum_row += sum(grid[r+col_l][c: c+row_l + 1])
+                    sum_col = 0
+                    print(r, c, row_l, col_l)
+                    for n in range(col_l):
+                        print(grid[r+n][c], grid[r+col_l+n][c])
+                        sum_col += grid[r+n][c] + grid[r+col_l+n][c]
+                    total = sum_row + sum_col - 4
+
+                    if total == (row_l * col_l - 4):
+                        print(total)
+
+    return max_p
+
 if __name__ == "__main__":
     for i, line in enumerate(sys.stdin):
         if i == 0:
@@ -52,4 +74,4 @@ if __name__ == "__main__":
                     my_grid[i - 1][col] = 1
                 else:
                     my_grid[i - 1][col] = 0
-    print(max_fence(my_grid, rows, cols))
+    print(max_fence_improved(my_grid, rows, cols))

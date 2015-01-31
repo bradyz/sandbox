@@ -5,6 +5,7 @@ def collatz(low, high):
     cache = {}
     cached = set()
     max_val = 0
+
     if low > high:
         low, high = high, low
 
@@ -32,6 +33,10 @@ def collatz(low, high):
             if contain[y] not in cached:
                 cached.add(contain[y])
                 cache[contain[y]] = count - y
+
+        print("\n" + str(x))
+        print(contain)
+        print(cache)
 
     return max_val
 
