@@ -6,7 +6,6 @@ import time
 USER = "ibelieve"
 PASS = "pigthecat"
 stocks = []
-initial_money = 0
 
 
 def run(*commands):
@@ -52,20 +51,28 @@ def init():
 
     for x in parsed.keys():
         stocks.append(x)
+    print(stocks)
 
 
 def trade():
-    init()
-
-    # buy the max net one
     while(True):
-        num = 5
-        for i, x in enumerate(top_vals()):
+        num = 1
+
+        for x in top_vals():
             stock = x
             m_ask = market_price(stock)
-            quant = num - i
-            bid(stock, m_ask, quant)
-            print("Bid", stock, m_ask, quant)
+            bid(stock, m_ask, num)
+            print("High net", stock, m_ask, num * 2)
+
+        stock = min_net_worth()
+        m_ask = market_price(stock)
+        bid(stock, m_ask, num * 2)
+        print("min val", stock, m_ask, num * 2)
+
+        # stock = high_div()
+        # m_ask = market_price(stock)
+        # bid(stock, m_ask, num)
+        # print("High div", stock, m_ask, num * 1)
 
 
 def top_vals():
@@ -75,7 +82,7 @@ def top_vals():
     num = 0
     res = []
     for x in reversed(sorted(tmp.keys())):
-        if num < 3:
+        if num < 2:
             res.append(tmp[x])
             num += 1
     return res
@@ -158,6 +165,7 @@ def max_net_worth():
         if x in parsed and float(parsed[x][0]) > max_val:
             max_val = float(parsed[x][0])
             stock = x
+    # print("max worth " + str(max_val))
     return stock
 
 
@@ -192,8 +200,8 @@ def securities():
 def bid(ticker, price, shares):
     res = "BID " + ticker + " " + str(price) + " " + str(shares)
     response = run(res)
-    print(response.strip())
-    if len(response) >= 15:
+    while len(response) >= 15:
+        print(response)
         print("No money, dumping...")
         dump()
 
@@ -243,8 +251,40 @@ def min_ask(ticker):
 def net_worth(ticker):
     global stocks
     parsed = parsed_info()
-    if ticker in stocks:
+    if ticker in parsed and ticker in parsed:
         return float(parsed[ticker][0])
+
+
+def high_div():
+    tmp = {}
+    for x in stocks:
+        tmp[div(x)] = x
+    for x in reversed(sorted(tmp.keys())):
+        # print("high div " + str(x))
+        return tmp[x]
+
+
+def low_vol():
+    tmp = {}
+    for x in stocks:
+        tmp[vol(x)] = x
+    for x in sorted(tmp.keys()):
+        # print("low vol " + str(x))
+        return tmp[x]
+
+
+def div(ticker):
+    global stocks
+    parsed = parsed_info()
+    if ticker in parsed and ticker in parsed:
+        return float(parsed[ticker][1])
+
+
+def vol(ticker):
+    global stocks
+    parsed = parsed_info()
+    if ticker in parsed and ticker in parsed:
+        return float(parsed[ticker][2])
 
 
 def dump():
@@ -259,24 +299,12 @@ def dump():
             res[tmp_tick].append(response[x])
     for x in stocks:
         if x in res and int(res[x][0]) > 0:
-            print("Sell", x, market_price(x) * 0.996, res[x][0])
-            sell(x, float(market_price(x)) * (0.996), int(res[x][0]))
+            print("Sell", x, market_price(x) * 0.999, res[x][0])
+            sell(x, float(market_price(x)) * 0.998, res[x][0])
     return
+
+init()
 
 
 if __name__ == "__main__":
-    sec = 0
-    parsed = parsed_info()
-
-    for x in parsed.keys():
-        stocks.append(x)
-    while 1 > 0:
-        sec += 1
-        time.sleep(1)
-        for x in stocks:
-            tmp = str(sec) + " " + x + " "
-            tmp += str(net_worth(x)) + " " + str(min_ask(x))
-            tmp += " " + str(max_bid(x)) + "\n"
-            print(tmp)
-            with open('ticker.txt', 'a') as a:
-                a.write(tmp)
+    trade()
