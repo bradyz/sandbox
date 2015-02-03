@@ -3,22 +3,27 @@ import sys
 
 def to_remove(string):
     string = list(string)
-    need_remove = False
-    to_remove = -1
+    indexes = {}
+    odds = []
 
-    for x in range(len(string) / 2):
-        front = x
-        end = len(string) - x - 1
-        if not need_remove:
-            if string[front] != string[end]:
-                need_remove = True
+    if string == list(reversed(string)):
+        return -1
+
+    for idx, x in enumerate(string):
+        if x not in indexes:
+            indexes[x] = [idx]
         else:
-            if string[front] == string[end]:
+            indexes[x].append(idx)
 
+    for x in indexes:
+        if len(indexes[x]) % 2 == 1:
+            odds.append(indexes[x])
 
-
-
-    return to_remove
+    for x in odds:
+        for y in x:
+            removed = string[:y] + string[y+1:]
+            if removed == list(reversed(removed)):
+                return y
 
 if __name__ == "__main__":
     for i, line in enumerate(sys.stdin):
