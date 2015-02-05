@@ -19,11 +19,12 @@ def replaced_num(string):
     for x in b_str:
         b_count[x] += 1
 
-    # my_set = set(a_count.keys() + b_count.keys())
-    replaced = [item for item in a_str if item not in b_str]
-    to_replace = len(replaced)
+    my_set = set(a_count.keys() + b_count.keys())
 
-    return to_replace
+    for x in my_set:
+        to_replace += min(a_count[x], b_count[x])
+
+    return len(a_str) - to_replace
 
 if __name__ == "__main__":
     for i, line in enumerate(sys.stdin):
