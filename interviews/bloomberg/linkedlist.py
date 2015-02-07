@@ -1,17 +1,41 @@
 class SinglyLinkedList:
     def __init__(self):
         self.front = None
-        self.nodelist = []
 
-    def insert(self, node):
+    def add(self, value):
+        tmp = Node(value)
         if not self.front:
-            self.front = node
+            self.front = tmp
         else:
-            tmp = self.front
-            while tmp.next:
-                tmp = tmp.next
-            tmp.next = node
-        self.nodelist.append(node)
+            it = self.front
+            while it.next:
+                it = it.next
+            it.next = tmp
+
+    def getFirst(self):
+        return 0
+
+    def getLast(self):
+        return 0
+
+    def indexOf(self):
+        return 0
+
+    def side(self):
+        return 0
+
+    def removeFirst(self):
+        return 0
+
+    def toArray(self):
+        tmp_list = [self.front.value]
+        if self.front:
+            it = self.front
+            while it.next:
+                it = it.next
+                tmp_list.append(it.value)
+
+        return tmp_list
 
 
 class Node:
@@ -23,6 +47,6 @@ class Node:
         return str(self.value)
 
 a = SinglyLinkedList()
-b = Node(10)
-a.insert(b)
-print(a.nodelist)
+a.add(10)
+a.add(1)
+print(a.toArray())
