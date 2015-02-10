@@ -90,6 +90,15 @@ class SinglyLinkedList:
                 tmp_list.append(it.value)
         return tmp_list
 
+    def reverse(self):
+        times = self.size()
+        for _ in range(times, -1, -1):
+            cur = self.front
+            for x in range(_ - 1):
+                print(self.to_array())
+                cur.value, cur.head.value = cur.head.value, cur.value
+                cur = cur.head
+
 
 class Node:
     def __init__(self, val=None):
@@ -121,3 +130,5 @@ if __name__ == "__main__":
     print("Added 10: " + str(a.to_array()))
     a.insert(2, 8)
     print("Insert 8 at 2: " + str(a.to_array()))
+    a.reverse()
+    print("After Reverse: " + str(a.to_array()))
