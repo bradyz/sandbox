@@ -1,0 +1,14 @@
+romane
+romunus
+romulus
+rubens
+ruber
+rubicon
+rubicundus
+
+r : ro, ru
+ro: rom
+ru: rub
+rom: roma, rumu
+roma: roman
+roman: romane
