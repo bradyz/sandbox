@@ -52,3 +52,8 @@ if __name__ == "__main__":
     print("Backwards Grid: ")
     second_val = backwards_max(my_g)
     print("O(nm): " + str(second_val))
+
+# Given a 2d grid of integers, find the max sum of the path
+# starting from the top left going to the bottom right
+# assuming that you can only move to the right (col + 1)
+# and down (row + 1)
