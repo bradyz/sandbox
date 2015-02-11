@@ -20,6 +20,7 @@ Table of Contents:
 12. System
 13. Overloading
 14. Sets
+15. Yield/Generators
 
 Dictionaries
 -------------------------------------------------------------------------------
@@ -304,4 +305,29 @@ Set
 from sets import Set
 a = Set()
 a.add(1)
+```
+
+Yield/Generators
+-------------------------------------------------------------------------------
+
+**basics** - yield is used for generators, example is a permutation generator
+
+```python
+def permutations(a_string):
+    arr = list(a_string)
+    for x in range(len(arr)):
+        for y in _permutations(arr[x], arr[:x] + arr[x+1:]):
+            yield y
+
+def _permutations(prefix, arr):
+    if len(arr) == 0:
+        yield prefix
+
+    for x in range(len(arr)):
+        for y in _permutations(prefix + arr[x], arr[:x] + arr[x+1:]):
+            yield y
+
+a = permutations("asdf")
+for perm in a:
+    print(perm)
 ```
