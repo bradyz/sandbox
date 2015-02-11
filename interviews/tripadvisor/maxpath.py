@@ -1,5 +1,6 @@
 import sys
 import numpy as np
+from copy import copy
 
 
 def max_path(grid):
@@ -20,10 +21,22 @@ def _max_path(grid, row, col):
 
 
 def backwards_max(grid):
-    return 0
+    new_g = copy(grid)
+    for r in range(rows - 1, -1, -1):
+        for c in range(cols - 1, -1, -1):
+            if r == rows - 1:
+                if c < cols - 1:
+                    new_g[r][c] += new_g[r][c + 1]
+            elif c == cols - 1:
+                if r < rows - 1:
+                    new_g[r][c] += new_g[r + 1][c]
+            else:
+                new_g[r][c] += max(new_g[r + 1][c], new_g[r][c + 1])
+
+    print(new_g)
+    return new_g[0][0]
 
 if __name__ == "__main__":
-    my_grid = []
     for i, line in enumerate(sys.stdin):
         if i == 0:
             rows = int(line.strip("\n"))
@@ -32,6 +45,10 @@ if __name__ == "__main__":
         else:
             for j, num in enumerate(line.split()):
                 my_g[i-1][j] = int(num)
-    print(my_g)
+    print("Start Grid: ")
+    print(str(my_g))
     max_val = max_path(my_g)
-    print("Max Val: " + str(max_val))
+    print("O(2^nm): " + str(max_val) + "\n")
+    print("Backwards Grid: ")
+    second_val = backwards_max(my_g)
+    print("O(nm): " + str(second_val))
