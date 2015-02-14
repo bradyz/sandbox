@@ -14,6 +14,18 @@ def sortedby(new, unsorted):
                 result.append(unsorted[num])
     return "".join(result)
 
+
+def sbimproved(new, unsorted):
+    new = list(new)
+    unsorted = list(unsorted)
+    head = 0
+    for c in new:
+        for i in range(head, len(unsorted)):
+            if unsorted[i] == c:
+                unsorted[head], unsorted[i] = unsorted[i], unsorted[head]
+                head += 1
+    return unsorted
+
 if __name__ == "__main__":
     for i, line in enumerate(sys.stdin):
         if i % 2 == 0:
@@ -21,6 +33,8 @@ if __name__ == "__main__":
         else:
             tosort = line.strip("\n")
             res = sortedby(newalpha, tosort)
+            another = sbimproved(newalpha, tosort)
             print(newalpha)
             print(tosort)
             print(res)
+            print(another)
