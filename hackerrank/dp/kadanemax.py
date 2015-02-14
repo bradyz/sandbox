@@ -15,7 +15,7 @@ def max_sub(arr):
     max_end = 0
     max_ = 0
     for val in arr:
-        max_end = max(0, max_end + val)
+        max_end = max(val, max_end + val)
         max_ = max(max_, max_end)
 
     return max_
