@@ -1,3 +1,8 @@
+# Min Stack Description:
+# implement a stack that allows a function min() that
+# returns the minimum value in O(1)
+
+
 class Minstack:
     def __init__(self):
         self.s1 = []
