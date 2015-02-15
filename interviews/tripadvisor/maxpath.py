@@ -1,3 +1,10 @@
+# Max Path Description:
+# Given a 2d array of integers,
+# Return the maximum value that can be acquired
+# By going in two directions, down and right,
+# Starting from the top left and ending
+# at the bottom right
+
 import sys
 import numpy as np
 from copy import copy
