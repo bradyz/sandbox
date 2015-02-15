@@ -1,3 +1,7 @@
+# Permutations Descriptions:
+# Return all possible permutations of a string
+
+
 import sys
 
 

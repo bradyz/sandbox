@@ -1,3 +1,8 @@
+# Rearrange Description:
+# Given a string, say "ddabcbd"
+# Return a string sorted by frequency, then alpha
+# Ex: "dddbbac"
+
 import sys
 from collections import Counter
 
