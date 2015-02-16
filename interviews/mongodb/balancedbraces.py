@@ -1,3 +1,8 @@
+# Balanced Braces Description:
+# given a str or array of different braces
+# return if the array is balanced (is correct syntax)
+
+
 pairs = {"}": "{", ")": "("}
 opener = ["{", "("]
 
@@ -26,4 +31,4 @@ if __name__ == "__main__":
 
     for x in lines:
         line = [str(n) for n in x.split()]
-        print isBalanced(line)
+        print(isBalanced(line))

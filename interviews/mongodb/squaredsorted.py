@@ -1,3 +1,8 @@
+# Squared Sort Description:
+# Given an array of positive and negative
+# integers, return the squared elements
+
+
 def square_elements(arr):
     minEl = 0
 
@@ -11,11 +16,11 @@ def square_elements(arr):
 
     while x >= 0 or y < len(arr):
         if abs(arr[x]) < abs(arr[y]):
-            print arr[x]
+            print(arr[x])
             result.append(arr[x] * arr[x])
             x -= 1
         else:
-            print arr[y]
+            print(arr[y])
             result.append(arr[y] * arr[y])
             y += 1
 
@@ -28,5 +33,5 @@ if __name__ == "__main__":
 
     for n in lines:
         my_arr = [int(x) for x in n.split()]
-        print my_arr
-        print str(square_elements(my_arr))
+        print(my_arr)
+        print(str(square_elements(my_arr)))
