@@ -1,3 +1,9 @@
+# Count Blobs Description:
+# given a 2d array of ones and zeroes,
+# return the number of disjunct adjacent
+# blob of ones
+
+
 def count_blobs(grid, row, col):
     blobs = 0
     visited = [[False for x in range(row)] for x in range(col)]
