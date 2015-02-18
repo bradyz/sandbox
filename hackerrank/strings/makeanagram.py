@@ -13,11 +13,10 @@ def num_to_anagram(a_str, b_str):
     for char in b_str:
         b_count[char] += 1
 
-    for x in a_count.keys():
-        if a_count[x] == b_count[x]:
-            num += a_count[x]
+    for x in (a_count.keys() + b_count.keys()):
+        num += min(a_count[x], b_count[x])
 
-    return len(a_str) - num + len(b_str) - num
+    return len(a_str) + len(b_str) - num
 
 if __name__ == "__main__":
     for i, line in enumerate(sys.stdin):
