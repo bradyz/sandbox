@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+.xMarker {
+    height: 100px;
+    width: 100px;
+}
+.xMarker:before {
+    content: "x";
+}
+</style>
+    <body>
+        <div id="theGrid"></div>
+        <script>
+        // Necessary as vanilla javascript doesn't contain
+        // Query strings.
+        var myUrl = window.location.href;
+        var queryPos = window.location.href.indexOf("?");
+        var params = myUrl.substring(queryPos + 1).split("&");
+        var dimen = {};
+
+        for(i = 0; i < params.length; i++) {
+            var keyVal = params[i].split("=");
+            dimen[keyVal[0]] = keyVal[1];
+        }
+        console.log(dimen);
+        
+        var cols;
+        var rows;
+
+        if('height' in dimen && 'width' in dimen) {
+            width = dimen.height;
+            height = dimen.width;
+        }
+
+        var snippet = "";
+        var markerStyles = ["xMarker", "oMarker"];
+
+        for(h = 0; h < height; h++) {
+            for(w = 0; w < width; w++) {
+                console.log(w)
+                snippet += '<div class="';
+                snippet += markerStyles[Math.floor(Math.random()*markerStyles.length)];
+                snippet += '"<\/div>';
+            }
+        }
+        
+        var asdf = document.getElementById("theGrid");
+        asdf.innerHTML = snippet;
+        
+        </script>
+
+        <h1>My First JavaScript</h1>
+
+
+    </body>
+</html> 
