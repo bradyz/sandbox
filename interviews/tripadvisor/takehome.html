@@ -1,57 +1,130 @@
 <!DOCTYPE html>
 <html>
-<style type="text/css">
-.xMarker, .oMarker {
-    font-family: sans-serif;
-    text-align: center;
-    height: 50px;
-    width: 50px;
-    display: inline-block;
-    font-size: 75px;
-}
-.xMarker:before {
-    content: "x";
-}
-.oMarker:before {
-    content: "o";
-}
-.gridRow {
-    display: block;
-}
-.front {
-    backface-visibility: hidden;
-    position: absolute;
-    transform: rotateY(0deg);
-}
-.back {
-    backface-visibility: hidden;
-    transform: rotateY(180deg);
-}
-.flip {
-    transform: rotateY(180deg);
-}
-.container {
-    transform-style: preserve-3d;
-    transition: .6s;
-    perspective: 600px;
-    display: inline-block;
-}
-#button {
-    margin: 15px 15px;
-    text-align: center;
-    padding: 10px 10px;
-    border: 2px solid #000;
-    border-radius: 10px;
-    width: 10%;
-    height: 10%;
-    cursor: pointer;
-}
-</style>
+    <style type="text/css">
+        body {
+            text-align: center;
+        }
+        .xMarker, .oMarker {
+            width: 50px;
+            font-family: sans-serif;
+            display: inline-block;
+            font-size: 75px;
+        }
+        .xMarker:before {
+            content: "x";
+        }
+        .oMarker:before {
+            content: "o";
+        }
+        .gridRow {
+            padding: 5px;
+            display: block;
+        }
+        .front {
+            backface-visibility: hidden;
+            position: absolute;
+            transform: rotateY(0deg);
+        }
+        .back {
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+        }
+        .flip {
+            transform: rotateY(180deg);
+        }
+        .container {
+            margin: 5px;
+            text-align: center;
+            border: 2px solid black;
+            padding: 5px;
+            transform-style: preserve-3d;
+            transition: .6s;
+            perspective: 600px;
+            display: inline-block;
+        }
+        .title {
+            padding-top: 10px;
+            font-family: sans-serif;
+        }
+        .myOptions {
+            padding-top: 10px;
+        }
+        #button {
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: sans-serif;
+            text-align: center;
+            padding: 10px 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+            width: 10%;
+            height: 10%;
+            cursor: pointer;
+        }
+        #theGrid {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
     <body>
+        <div class="title">
+            <h1>Flip Board</h1>
+        </div>
         <div id="theGrid"></div>
-        <script>
-        // Necessary as vanilla javascript doesn't contain
-        // Query strings.
+        <div class="myOptions">
+            <form action="javascript:changeGrid()">
+                <input id="hei" type="text" placeholder="height">
+                <input id="wid" type="text" placeholder="width">
+                <input type="submit">
+            </form>
+        </div>
+        <div id="button">FLIP</div>
+    </body>
+</html> 
+<script>
+    var flipAll = function flipAll() {
+        var containers = document.getElementsByClassName('container');
+        var flips = document.getElementsByClassName('flip');
+
+        if(flips.length == 0) {
+            for(i = 0; i < containers.length; i++) {
+                containers[i].classList.add('flip');
+            }
+        }
+        else {
+            for(i = 0; i < containers.length; i++) {
+                containers[i].classList.remove('flip');
+            }
+        }
+    }
+
+    document.getElementById('button').addEventListener("click", flipAll);
+    var myParams = getUrlParams();
+    var h = getHeight(myParams);
+    var w = getWidth(myParams);
+
+    if(h > 0 && w > 0)
+        populateGrid(h, w);
+    else {
+        alert("Invalid query params\nTry takehome.html?width=2&height=4");
+    }
+
+    function getWidth(params) {
+        var width = 0;
+        if('width' in params)
+            width = params.height;
+        return width;
+    }
+
+    function getHeight(params) {
+        var height = 0;
+        if('height' in params)
+            height = params.height;
+        return height;
+    }
+
+    function getUrlParams() {
         var myUrl = window.location.href;
         var queryPos = window.location.href.indexOf("?");
         var params = myUrl.substring(queryPos + 1).split("&");
@@ -61,22 +134,22 @@
             var keyVal = params[i].split("=");
             dimen[keyVal[0]] = keyVal[1];
         }
-        console.log(dimen);
-        
-        var width;
-        var height;
 
-        if('height' in dimen && 'width' in dimen) {
-            width = dimen.height;
-            height = dimen.width;
-        }
+        return dimen;
+    }
 
-        var snippet = "";
+    function changeGrid() {
+        var h = document.getElementById('hei').value;
+        var w = document.getElementById('wid').value;
+        populateGrid(h, w);
+    }
+
+    function populateGrid(rows, cols) {
         var markerStyles = ["xMarker", "oMarker"];
-
-        for(h = 0; h < height; h++) {
+        var snippet = "";
+        for(h = 0; h < rows; h++) {
             snippet += '<div class="gridRow">';
-            for(w = 0; w < width; w++) {
+            for(w = 0; w < cols; w++) {
                 var front = Math.floor(Math.random() * markerStyles.length);
                 var back = Math.abs(front - 1);
                 snippet += '<div class="container">';
@@ -90,31 +163,7 @@
             }
             snippet += '<\/div>';
         }
-        
-        var asdf = document.getElementById("theGrid");
-        asdf.innerHTML = snippet;
-        
-        </script>
 
-        <div id="button"> Flip </div>
-
-        <script>
-        var button = document.getElementById('button');
-        button.onclick = function() {
-            var containers = document.getElementsByClassName('container');
-
-            var flips = document.getElementsByClassName('flip');
-            if(flips.length == 0) {
-                for(i = 0; i < containers.length; i++) {
-                    containers[i].classList.add('flip');
-                }
-            }
-            else {
-                for(i = 0; i < containers.length; i++) {
-                    containers[i].classList.remove('flip');
-                }
-            }
-        };
-        </script>
-    </body>
-</html> 
+        document.getElementById("theGrid").innerHTML = snippet;
+    }
+</script>
