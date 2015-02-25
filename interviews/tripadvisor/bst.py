@@ -14,6 +14,20 @@ class Node:
                 for r in self.right.inorder():
                     yield r
 
+    def insert(self, d):
+        if not self.data:
+            self = Node(d)
+        if d < self.data:
+            if self.left:
+                self.left.insert(d)
+            else:
+                self.left = Node(d)
+        else:
+            if self.right:
+                self.right.insert(d)
+            else:
+                self.right = Node(d)
+
     def is_bst(self):
         prev = None
         for val in self.inorder():
@@ -29,13 +43,9 @@ class Node:
         return str(self.data)
 
 if __name__ == "__main__":
-    root = Node(4)
-    root.left = Node(2)
-    root.right = Node(6)
-    root.left.left = Node(1)
-    root.left.right = Node(3)
-    root.right.left = Node(5)
-    root.right.right = Node(7)
+    root = Node(3)
+    root.insert(2)
+    root.insert(1)
 
     res = ""
     for x in root.inorder():
