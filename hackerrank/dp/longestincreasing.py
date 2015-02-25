@@ -39,7 +39,7 @@ def long_inc(arr):
 def long_nlogn(arr):
     m = [0 for _ in range(len(arr)+1)]
     L = 0
-    print(arr)
+    # print(arr)
 
     for i in range(len(arr)):
         lo = 1
