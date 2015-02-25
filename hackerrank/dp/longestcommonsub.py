@@ -26,6 +26,26 @@ def longest_comm(a, b, m, n):
 
     return L[m][n]
 
+
+def lcs(a, b, m, n):
+    def _lcs(i, j):
+        if i == -1 or j == -1:
+            return 0
+        if mem[i][j] != -1:
+            return mem[i][j]
+        res = 0
+        res = max(res, _lcs(i-1, j))
+        res = max(res, _lcs(i, j-1))
+        if a[i] == b[j]:
+            res = max(res, _lcs(i-1, j-1)+1)
+        mem[i][j] = res
+        print(a[:i+1], b[:j+1])
+        pp.pprint(mem)
+        print("\n")
+        return res
+    mem = [[-1 for _ in range(n)] for _ in range(m)]
+    return _lcs(m-1, n-1)
+
 if __name__ == "__main__":
     for i, line in enumerate(sys.stdin):
         if i == 0:
@@ -35,5 +55,7 @@ if __name__ == "__main__":
         else:
             arr_b = [int(x) for x in line.split()]
             pp = pprint.PrettyPrinter()
-            res = longest_comm(arr_a, arr_b, len(arr_a), len(arr_b))
-            print(" ".join(map(str, res)))
+            # res = longest_comm(arr_a, arr_b, len(arr_a), len(arr_b))
+            # print(" ".join(map(str, res)))
+            res = lcs(arr_a, arr_b, len(arr_a), len(arr_b))
+            print(res)
