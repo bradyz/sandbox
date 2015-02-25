@@ -20,11 +20,28 @@ def max_sub(arr):
 
     return max_
 
+
+def ms(arr):
+    def _ms(i):
+        if i == -1:
+            return 0
+        if mem[i] != -1:
+            return mem[i]
+        _m = max(arr[i], mem[i-1] + arr[i])
+        mem[i] = _m
+        print(mem)
+        return _m
+    mem = [-1 for _ in range(len(arr))]
+    _ms(len(arr)-1)
+    return max(mem)
+
 if __name__ == "__main__":
     for i, line in enumerate(sys.stdin):
         if i > 0:
             if i % 2 == 0:
                 array = [int(x) for x in line.split()]
-                cont = max_sub(array)
-                noncont = max_noncont(array)
-                print(str(cont) + " " + str(noncont))
+                # cont = max_sub(array)
+                # noncont = max_noncont(array)
+                # print(str(cont) + " " + str(noncont))
+                print(array)
+                print(ms(array))
