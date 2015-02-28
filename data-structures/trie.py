@@ -7,9 +7,11 @@
 class Trie:
     def __init__(self):
         self._r = Node("")
+        self.words = set()
 
     # inserts word w at node n
     def insert(self, w, n=None):
+        self.words.add(w)
         if not n:
             n = self._r
         if len(w) > 0:
@@ -31,7 +33,8 @@ class Trie:
 
         res = []
         for x in cur.all():
-            res.append(w[:i] + x)
+            if (w[:i] + x) in self.words:
+                res.append(w[:i] + x)
         return res
 
     def remove(self, word):
@@ -97,4 +100,4 @@ a = Trie()
 a.insert("foobar")
 a.insert("foobarbaz")
 a.insert("football")
-print(a.auto("foo"))
+print(a.auto("foob"))
