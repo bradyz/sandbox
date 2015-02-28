@@ -26,7 +26,7 @@ int reach(map <int, vector <int> > graph, int start, int jump) {
         tmpv = graph[tmp];
         for(vector <int>::iterator it = tmpv.begin(); it != tmpv.end(); ++it) {
             if(v[tmp] - 1 > v[*it]) {
-                cout << *it << " " << v[tmp] - 1 << endl;
+                // cout << *it << " " << v[tmp] - 1 << endl;
                 v[*it] = v[tmp] - 1;
                 q.push(*it);
             }
@@ -37,6 +37,7 @@ int reach(map <int, vector <int> > graph, int start, int jump) {
 
     for(map <int, int>::iterator it = v.begin(); it != v.end(); ++it) 
     {
+        // cout << it->first << " " << it->second << endl;
         if(it->second > -1)
             count += 1;
     }
@@ -60,7 +61,7 @@ int main() {
             g[b].push_back(a);
         }
 
-        while(scanf("%d %d", &s, &e) && (s != 0 && e != 0)) {
+        while(scanf("%d %d", &s, &e) && (s != 0 || e != 0)) {
             res = reach(g, s, e);
             cout << "Case " << ++c << ": " << res << " nodes not reachable from node ";
             cout << s << " with TTL = " << e << "." << endl;
