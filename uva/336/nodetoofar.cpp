@@ -8,11 +8,15 @@
 
 using namespace std;
 
-int reach(map <int, vector <int> > graph, int start, int jump) {
-    int tmp;
-    vector <int> tmpv;
-    queue <int> q;
-    map <int, int> v;
+int tmp;
+vector <int> tmpv;
+queue <int> q;
+map <int, int> v;
+
+int reach(map <int, vector <int> > &graph, int start, int jump) {
+    tmpv.clear();
+    q.empty();
+    v.clear();
 
     for(map <int, vector <int> >::iterator it = graph.begin(); it != graph.end(); ++it) 
         v[it->first] = -1;
