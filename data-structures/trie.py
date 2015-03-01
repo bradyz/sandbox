@@ -96,8 +96,9 @@ class Node:
     def __iter__(self):
         return self._c
 
-a = Trie()
-a.insert("foobar")
-a.insert("foobarbaz")
-a.insert("football")
-print(a.auto("foob"))
+if __name__ == "__main__":
+    a = Trie()
+    a.insert("foobar")
+    a.insert("foobarbaz")
+    a.insert("football")
+    print(a.auto("f"))
