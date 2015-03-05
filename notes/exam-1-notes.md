@@ -12,13 +12,13 @@ C++ Notes
   + `sort()` - requires \[] (supported by vector)
 * **Algorithms**
   + `copy()` - returns OI, two typenames (II, OI)
-  + `count()`
-  + `equal()` - bool function, two typenames (II1, II2)
-  + `fill()` - void function, two typenames
-  + `find()`
-  + `remove()`
-  + `reverse()`
-  + `swap()`
+  + `count()` - returns int, two typesnames (II1, II2)
+  + `equal()` - returns bool, two typenames (II1, II2)
+  + `fill()` - returns void , two typenames (II, T)
+  + `find()` - returns II, two typenames (II, T)
+  + `remove()` - returns II, two typenames (II, T)
+  + `reverse()` - returns II, one typename (II)
+  + `swap()` - returns void, one typename (T)
 * **Flavors of Pointers**
   + `int* i` - R/W pointer must point at R/W target
   + `const int* i` - R pointer can point at R/W or R target
@@ -35,6 +35,11 @@ C++ Notes
   + `*(a + 1)` l-val element
 * **Operators**
   + `<<=` - return is an l-val, left argument is an l-val
+* **STL Containers**
+  + Vector - push_back(), size()
+  + Queue - empty(), size(), front(), back(), push_back(), pop_front()
+  + Set - find(), size(), insert()
+  + Stack - pop(), top(), push(), size()
 
 Java Notes
 -----
