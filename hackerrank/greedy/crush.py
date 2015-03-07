@@ -1,27 +1,15 @@
 def crush(n, m, a):
-    c = {}
-    f = {}
-    maxf = 0
-    save = 0
-    a = sorted(a, reverse=True)
-    for val in range(1, n+1):
-        c[val] = [0 for _ in range(m)]
-        f[val] = 0
-
-    for i in range(len(a)):
-        for v in range(a[i][0], a[i][1]+1):
-            f[v] += 1
-            if f[v] > maxf:
-                maxf = f[v]
-                save = v
-
-    res = 0
-
-    for i in range(len(a)):
-        if save >= a[i][0] and save <= a[i][1]:
-            res += a[i][2]
-
-    return res
+    va = []
+    for tri in a:
+        va.append([tri[0], tri[2]])
+        va.append([tri[1]+1, -tri[2]])
+    va.sort()
+    curv = 0
+    maxv = 0
+    for i in range(m * 2):
+        curv += va[i][1]
+        maxv = max(maxv, curv)
+    return maxv
 
 if __name__ == "__main__":
     nm = [int(x) for x in raw_input().split()]
