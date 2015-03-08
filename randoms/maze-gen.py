@@ -1,5 +1,6 @@
 from pprint import pprint
 from random import shuffle
+from copy import deepcopy
 
 
 def maze_gen(row=10, col=10):
@@ -36,7 +37,44 @@ def maze_gen(row=10, col=10):
 
     return maze
 
+
+def solver(maze, start, end, rows, cols):
+    path = [start]
+    s = []
+    vis = deepcopy(maze)
+    cur = start
+
+    for i in range(rows):
+        for j in range(cols):
+            vis[i][j] = 0
+
+    while cur != end:
+        if vis[cur[0]][cur[1]] == 0:
+            path.append(cur)
+            vis[cur[0]][cur[1]] = 1
+            neighbors = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+            for n in neighbors:
+                nr = cur[0] + n[0]
+                nc = cur[1] + n[1]
+
+                if nr >= 0 and nr < rows:
+                    if nc >= 0 and nc < cols:
+                        if vis[nr][nc] == 0 and maze[nr][nc] == 1:
+                            s.append((nr, nc))
+            cur = s[-1]
+        else:
+            cur = s.pop()
+            if vis[cur[0]][cur[1]] == 1:
+                path.pop()
+
+    for p in path:
+        maze[p[0]][p[1]] = 3
+
+    return
+
 if __name__ == "__main__":
-    r, c = 15, 15
+    r, c = 11, 11
     m = maze_gen(r, c)
+    solver(m, (0, 0), (r-1, c-1), r, c)
     pprint(m)
