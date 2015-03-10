@@ -12,6 +12,8 @@ Reached capacity! Evicting...
 ['2', '3', '4', '5']
 Get 2 => 2
 ['3', '4', '5', '2']
+Get 2 => 2
+['3', '4', '5', '2']
 Assigned Key: 5 Val: 5
 ['3', '4', '2', '5']
 Get 2 => 2
@@ -32,43 +34,3 @@ Reached capacity! Evicting...
 ['7', '2', '8', '9']
 Get 2 => 2
 ['7', '8', '9', '2']
-Assigned Key: 10 Val: 10
-Reached capacity! Evicting...
-['8', '9', '2', '10']
-Assigned Key: 11 Val: 11
-Reached capacity! Evicting...
-['9', '2', '10', '11']
-Get 2 => 2
-['9', '10', '11', '2']
-Assigned Key: 12 Val: 12
-Reached capacity! Evicting...
-['10', '11', '2', '12']
-Assigned Key: 13 Val: 13
-Reached capacity! Evicting...
-['11', '2', '12', '13']
-Get 2 => 2
-['11', '12', '13', '2']
-Assigned Key: 14 Val: 14
-Reached capacity! Evicting...
-['12', '13', '2', '14']
-Assigned Key: 15 Val: 15
-Reached capacity! Evicting...
-['13', '2', '14', '15']
-Get 2 => 2
-['13', '14', '15', '2']
-Assigned Key: 16 Val: 16
-Reached capacity! Evicting...
-['14', '15', '2', '16']
-Assigned Key: 17 Val: 17
-Reached capacity! Evicting...
-['15', '2', '16', '17']
-Get 2 => 2
-['15', '16', '17', '2']
-Assigned Key: 18 Val: 18
-Reached capacity! Evicting...
-['16', '17', '2', '18']
-Assigned Key: 19 Val: 19
-Reached capacity! Evicting...
-['17', '2', '18', '19']
-Get 2 => 2
-['17', '18', '19', '2']

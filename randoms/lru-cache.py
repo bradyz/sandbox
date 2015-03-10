@@ -52,6 +52,8 @@ class LRU:
         self.m.pop(tmp)
 
     def promote(self, key):
+        if self.m[key] == self.last:
+            return
         if self.m[key] == self.first:
             self.first = self.first.head
         if self.m[key].tail:
@@ -74,14 +76,15 @@ class LRU:
 
 if __name__ == "__main__":
     a = LRU(4)
-    a.assign(1, 1)
-    a.assign(2, 2)
-    a.assign(3, 3)
-    a.assign(4, 4)
-    a.assign(5, 5)
-    print("Get 2 => " + str(a.get(2)))
+    for i in range(1, 6):
+        a.assign(i, i)
+
+    print("Get 2 => " + str(a.get(2)))  # get least recent node
     print(a)
-    for i in range(5, 20):
+
+    print("Get 2 => " + str(a.get(2)))  # get most recent node
+    print(a)
+    for i in range(5, 10):
         a.assign(i, i)
         if i % 2:
             print("Get 2 => " + str(a.get(2)))
