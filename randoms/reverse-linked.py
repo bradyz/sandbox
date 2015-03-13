@@ -43,15 +43,6 @@ class singly:
         self.front = prev
 
     def reverse_words(self):
-        prev = self.front
-        cur = prev.head
-
-        while cur:
-            while cur.val != " ":
-                tmp = cur.head
-                cur.head = prev
-                prev = cur
-                cur = tmp
         return 0
 
     def __str__(self):
