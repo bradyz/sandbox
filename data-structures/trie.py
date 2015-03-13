@@ -5,13 +5,16 @@
 
 
 class Trie:
-    def __init__(self):
+    def __init__(self, words=None):
         self._r = Node("")
         self.words = set()
+        if words:
+            self.words = set(words)
+            for w in self.words:
+                self.insert(w)
 
     # inserts word w at node n
     def insert(self, w, n=None):
-        self.words.add(w)
         if not n:
             n = self._r
         if len(w) > 0:
@@ -97,8 +100,6 @@ class Node:
         return self._c
 
 if __name__ == "__main__":
-    a = Trie()
-    a.insert("foobar")
-    a.insert("foobarbaz")
-    a.insert("football")
-    print(a.auto("f"))
+    words = ["cat", "cow", "calf", "camry"]
+    a = Trie(words)
+    print(a.auto("ca"))
