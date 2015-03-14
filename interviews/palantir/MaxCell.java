@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class MaxCell {
     public static int max_cell(int[][] grid, int rows, int cols) {
         int res = 0;
@@ -17,7 +19,7 @@ public class MaxCell {
 
         if(r < rows && r >= 0 && c < cols && c >= 0 && g[r][c] > 0 && v[r][c] == 0) {
             v[r][c] = 1;
-            res += g[r][r];
+            res += g[r][c];
             res += blob(g, v, r+1, c, rows, cols);
             res += blob(g, v, r-1, c, rows, cols);
             res += blob(g, v, r, c+1, rows, cols);
