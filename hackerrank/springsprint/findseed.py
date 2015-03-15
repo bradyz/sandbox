@@ -11,10 +11,7 @@ if __name__ == "__main__":
     args = [int(x) for x in raw_input().split()]
     _n = args[0]
     _k = args[1]
-
-    fn = [int(x) for x in raw_input().split()]
+    kn = [-1 for _ in range(_k-_n+1)]+map(int, reversed(raw_input().split()))
     cn = [int(x) for x in raw_input().split()]
 
-    k = [-1 for _ in range(_k - _n + 1)] + list(reversed(fn))
-
-    populate_k(k, cn, _n)
+    populate_k(kn, cn, _n)
