@@ -1,21 +1,27 @@
 import sys
 
 
-def is_smith(n):
+def primes(n):
     pf = []
-    tmp = n
-    while n > 1:
-        for i in range(2, n+1):
-            if n % i == 0:
-                pf.append(i)
-                n /= i
-                break
+    d = 2
+    while d * d <= n:
+        while n % d == 0:
+            pf.append(d)
+            n //= d
+        d += 1
+    if n > 1:
+        pf.append(n)
+    return pf
+
+
+def is_smith(n):
+    pf = primes(n)
     pf = map(str, pf)
     p = 0
     for val in pf:
         for num in val:
             p += int(num)
-    if p == sum([int(x) for x in str(tmp)]):
+    if p == sum([int(x) for x in str(n)]):
         return 1
     else:
         return 0
