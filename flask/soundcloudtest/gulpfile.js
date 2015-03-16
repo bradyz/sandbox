@@ -38,3 +38,12 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['bower', 'icons', 'css']);
+
+var process = require('child_process');
+
+gulp.task('flask', function(){
+  var spawn = process.spawn;
+  console.info('Starting flask server');
+  var PIPE = {stdio: 'inherit'};
+  spawn('python', ['manage.py','runserver'], PIPE);
+});
