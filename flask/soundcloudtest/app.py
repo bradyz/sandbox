@@ -4,8 +4,10 @@ import json_util
 from flask import Flask, render_template, json, request
 
 app = Flask(__name__)
+app.config.from_pyfile('config.py')
 connection = pymongo.Connection('localhost', 27017)
 todos = connection['demo']['todos']
+stockhist = connection['bz']['stockhistory']
 
 
 def json_load(data):
@@ -50,6 +52,7 @@ def delete_todo(todo_id):
 def list_stocks():
     return render_template('stocks.html')
 
+# @app.route('/stocks/<ticker_id>', methods=['GET'])
 
 if __name__ == '__main__':
     app.run(debug=True)
