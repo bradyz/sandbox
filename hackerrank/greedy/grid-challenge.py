@@ -1,11 +1,14 @@
 def is_possible(grid, row):
     grid = [[y for y in x] for x in grid]
+
     for r in range(row):
         grid[r].sort()
+
     for c in range(row):
         for r in range(1, row):
             if grid[r][c] < grid[r-1][c]:
                 return "NO"
+
     return "YES"
 
 if __name__ == "__main__":
