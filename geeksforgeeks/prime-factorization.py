@@ -11,4 +11,4 @@ def prime_factorization(num):
 
 if __name__ == "__main__":
     print(prime_factorization(8))
-    print(prime_factorization(100110102))
+    print(prime_factorization(47))
