@@ -1,0 +1,36 @@
+Creating LRU of Capacity: 4
+Assigned Key: 1 Val: 1
+['1']
+Assigned Key: 2 Val: 2
+['1', '2']
+Assigned Key: 3 Val: 3
+['1', '2', '3']
+Assigned Key: 4 Val: 4
+['1', '2', '3', '4']
+Assigned Key: 5 Val: 5
+Reached capacity! Evicting...
+['2', '3', '4', '5']
+Get 2 => 2
+['3', '4', '5', '2']
+Get 2 => 2
+['3', '4', '5', '2']
+Assigned Key: 5 Val: 5
+['3', '4', '2', '5']
+Get 2 => 2
+['3', '4', '5', '2']
+Assigned Key: 6 Val: 6
+Reached capacity! Evicting...
+['4', '5', '2', '6']
+Assigned Key: 7 Val: 7
+Reached capacity! Evicting...
+['5', '2', '6', '7']
+Get 2 => 2
+['5', '6', '7', '2']
+Assigned Key: 8 Val: 8
+Reached capacity! Evicting...
+['6', '7', '2', '8']
+Assigned Key: 9 Val: 9
+Reached capacity! Evicting...
+['7', '2', '8', '9']
+Get 2 => 2
+['7', '8', '9', '2']
