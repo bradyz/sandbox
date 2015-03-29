@@ -11,16 +11,13 @@ def cipher(c, l, k):
 
 
 def cipher2(c, l, k):
-    res = [c[0]]
-    tmp = c[0]
-    for i in range(1, l):
-        if i >= k-1 and i <= l-k+1:
-            print("a")
-            tmp ^= res[-(k-1)] ^ c[i]
-        else:
-            tmp ^= res[-1]
-        res.append(tmp)
-        print(res)
+    res = []
+    tmp = False
+    for i in range(l):
+        res.append(tmp ^ c[i])
+        tmp ^= res[-1]
+        if i >= k-1:
+            tmp ^= res[-(k)]
 
     print("".join(list(map(lambda x: str(int(x)), res))))
 
