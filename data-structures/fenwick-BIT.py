@@ -18,6 +18,12 @@ class BIT:
             i_t -= i_t & -i_t
         return res
 
+    def update(self, i, val):
+        i_t = i + 1
+        while i_t <= self.n:
+            self.data[i_t] += val
+            i_t += i_t & -i_t
+
 
 def trivial_sum(arr):
     res = [0 for c in arr]
