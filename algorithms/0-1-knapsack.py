@@ -16,7 +16,7 @@ def knapsack(w, v, c):
     pp.pprint(dp)
 
 if __name__ == "__main__":
-    _w = [1, 2, 5, 6, 7]
-    _v = [1, 6, 18, 22, 28]
-    _c = 11
+    _w = [1, 5, 3, 4]
+    _v = [15, 10, 9, 5]
+    _c = 8
     knapsack(_w, _v, _c)
