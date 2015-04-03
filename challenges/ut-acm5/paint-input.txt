@@ -1,0 +1,19 @@
+3
+3 3 1
+WWW
+WWW
+WWW
+1 1 B
+3 4 2
+WWWA
+WWWA
+WWWA
+1 1 B
+0 0 R
+3 3 3
+WBW
+BWB
+WBW
+0 0 X
+1 1 Y
+2 2 Z
