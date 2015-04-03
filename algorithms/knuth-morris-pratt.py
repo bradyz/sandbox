@@ -7,13 +7,18 @@
 #                   Could be very large for large alphabets(unicode)
 
 
+# used for printing out dfa
+import pprint
+pp = pprint.PrettyPrinter()
+
+
 def kmp(pat, txt):
     def construct():
         # essentially the alphabet, all possible choices
         con = sorted(set(txt))
         d = {}
 
-        # initialize dict
+        # initialize all alphas and stages to 0
         for c in con:
             d[c] = {}
             for i in range(len(pat)):
@@ -37,6 +42,8 @@ def kmp(pat, txt):
         return d
 
     dfa = construct()
+    print("DFA: ")
+    pp.pprint(dfa)
     j = 0
 
     for i in range(len(txt)):
@@ -52,5 +59,7 @@ def kmp(pat, txt):
 if __name__ == "__main__":
     a = "ABABAC"
     b = "BCBAABACAABABACAA"
+    print("Txt: " + str(b))
+    print("Pat: " + str(a))
     c = kmp(a, b)
-    print(c)
+    print("Idx: " + str(c))
