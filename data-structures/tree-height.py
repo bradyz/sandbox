@@ -47,5 +47,6 @@ class node:
 
 if __name__ == "__main__":
     avl = AVL()
-    a = node(1)
+    a = node(1, node(2, node(3)))
+    print(a.left.height())
     b = node(1)
