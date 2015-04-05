@@ -1,15 +1,6 @@
-for _ in range(int(input())):
-    args = [int(v) for v in input().split()]
-    n = args[0]
-    m = args[1]
-    k = args[2]
-    b = 2 * args[2] + 1
-    grid = []
-
-    for __ in range(n):
-        grid.append([int(v) for v in input().split()])
-
+def brute_force(g, n, m, k):
     new_grid = []
+    b = 2*k+1
 
     for i in range(n):
         new_row = []
@@ -25,3 +16,17 @@ for _ in range(int(input())):
 
     for row in new_grid:
         print(" ".join(map(str, row)))
+
+    return
+
+for _ in range(int(input())):
+    args = [int(v) for v in input().split()]
+    nA = args[0]
+    mA = args[1]
+    kA = args[2]
+    grid = []
+
+    for __ in range(nA):
+        grid.append([int(v) for v in input().split()])
+
+    brute_force(grid, nA, mA, kA)
