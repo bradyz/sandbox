@@ -1,31 +1,28 @@
 def brute_force(c, k):
     res = [v for v in c]
+
     for i in range(len(c)):
         for j in range(1, k+1):
             if i+j < len(c):
                 res[i] += c[i+j]
             if i-j >= 0:
                 res[i] += c[i-j]
+
     print(res)
 
 
 def moving_av(c, k):
-    avs = [0 for _ in range(len(c)+2*k)]
-    for i in range(len(c)):
-        avs[i+k] = c[i]
+    avs = [0 for val in c]
+    avs[0] = sum(c[:k+1])
 
-    avs[k] = sum(c[:k+1])
+    for i in range(1, len(c)):
+        avs[i] = avs[i-1]
+        if i+k < len(c):
+            avs[i] += c[i+k]
+        if i-(k+1) >= 0:
+            avs[i] -= c[i-k-1]
 
     print(avs)
-
-    for i in range(k-1, len(c)):
-        avs[i+k] = avs[i+k-1] + avs[i+k+k]
-
-        if i - k - 1 >= 0:
-            avs[i+k] -= c[i-k-1]
-            print(c[i-k-1])
-
-        print(avs)
 
 
 if __name__ == "__main__":
