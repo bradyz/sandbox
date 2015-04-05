@@ -19,17 +19,17 @@ def moving_av(c, k):
     print(avs)
 
     for i in range(k-1, len(c)):
-        print(avs[i+k-1], avs[i+k+k])
         avs[i+k] = avs[i+k-1] + avs[i+k+k]
 
         if i - k - 1 >= 0:
-            avs[i+k] -= avs[i] - avs[i-1]
-            print(avs[i], avs[i-1])
+            avs[i+k] -= c[i-k-1]
+            print(c[i-k-1])
 
         print(avs)
 
 
 if __name__ == "__main__":
-    a = [1, 1, 1, 1, 1, 1, 1, 1]
+    a = [2, 4, 6, 8, 10, 12, 14, 16]
+    print(a)
     b = moving_av(a, 2)
     c = brute_force(a, 2)
