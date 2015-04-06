@@ -1,3 +1,4 @@
+# O(n^2) adding up averages
 def brute_force(c, k):
     res = [v for v in c]
 
@@ -11,6 +12,7 @@ def brute_force(c, k):
     print(res)
 
 
+# O(k+n) adding up averages
 def moving_av(c, k):
     avs = [0 for val in c]
     avs[0] = sum(c[:k+1])
