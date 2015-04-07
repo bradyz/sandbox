@@ -9,25 +9,22 @@ class Graph:
     def add_edge(self, a, b):
         self.nodes.add(a)
         self.nodes.add(b)
-        self.edges.append((a, b))
+        self.edges[a].append(b)
 
-    def dfs(self, vis=None, cur=-1):
+    def dfs(self, vis=None, cur=-1, path=None):
         if not vis:
-            vis = [False for _ in self.nodes]
+            vis = set()
             for i in range(len(self.edges)):
-                for j in range(len(self.edges[i])):
-                    if not vis[self.edges[i][j]]:
-                        print("New Start: " + str(self.edges[i][j]))
-                        a = copy(vis)
-                        a[self.edges[i][j]] = True
-                        self.dfs(a, self.edges[i][j])
+                if i not in vis:
+                    vis.add(i)
+                    self.dfs(set([i]), i, [i])
         else:
             for j in range(len(self.edges[cur])):
-                if not vis[self.edges[cur][j]]:
-                    print(self.edges[cur][j])
-                    a = copy(vis)
-                    a[self.edges[cur][j]] = True
-                    self.dfs(a, self.edges[cur][j])
+                if self.edges[cur][j] not in vis:
+                    vis.add(self.edges[cur][j])
+                    self.dfs(vis, self.edges[cur][j], path+[self.edges[cur][j]])
+            if len(set(self.edges[cur])-vis) == 0:
+                print(path)
 
 
 if __name__ == "__main__":
@@ -38,4 +35,4 @@ if __name__ == "__main__":
     g.add_edge(2, 0)
     g.add_edge(2, 3)
     g.add_edge(3, 3)
-    g.dfs()
+    g.dfs(cur=2)
