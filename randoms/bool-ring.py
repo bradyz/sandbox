@@ -61,6 +61,31 @@ class AxiomChecker:
                         return False
         return True
 
+# 3 Element Ring
+if __name__ == "__main__":
+    r = ["0", "1", "x"]
+    plus = {}
+    times = {}
+    for i in range(len(r)):
+        plus[frozenset([r[i], "0"])] = r[i]
+        plus[frozenset(r[i])] = "0"
+
+    plus[frozenset(["1"])] = "x"
+    plus[frozenset(["1", "x"])] = "0"
+    plus[frozenset(["x"])] = "1"
+
+    for i in range(len(r)):
+        times[frozenset([r[i], "0"])] = "0"
+        times[frozenset([r[i], "1"])] = r[i]
+        times[frozenset([r[i]])] = r[i]
+
+    times[frozenset(["x"])] = "1"
+
+    print("plus: " + str(AxiomChecker.a2(r, plus)))
+    print("times: " + str(AxiomChecker.md(r, times, plus)))
+
+
+# 4 Element Ring
 if __name__ == "__main__":
     r = ["0", "1", "x", "y"]
     plus = {}                                       # can use sets due to A3
