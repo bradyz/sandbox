@@ -1,60 +1,39 @@
 # Addition
 # ===================
-# plus
 # 0   1   x   y
 # 1   0   y   x
 # x   y   0
 # y   x       0
-# plus1
-# 0   1   x   y
-# 1   0   y   x
-# x   y   0   y
-# y   x   y   0
-# plus2
+# solution
 # 0   1   x   y
 # 1   0   y   x
 # x   y   0   1
 # y   x   1   0
-# plus3
-# 0   1   x   y
-# 1   0   x   y
-# x   x   0   1
-# y   y   1   0
 
 # Multiplication
 # ===================
 # 0   0   0   0
 # 0   1   x   y
-# 0   x   x   a
-# 0   y   a   y
-
-from copy import deepcopy
+# 0   x   x
+# 0   y       y
+# solution
+# 0   0   0   0
+# 0   1   x   y
+# 0   x   x   0
+# 0   y   0   y
+# Checks validity of A2, M
 
 r = ["0", "1", "x", "y"]
-plus = {}
-times = {}
+
+plus = {}                                       # can use sets due to A3
 
 for i in range(len(r)):
     plus[frozenset([r[i], "0"])] = r[i]
     plus[frozenset(r[i])] = "0"
 
-for i in range(len(r)):
-    times[frozenset([r[i], "0"])] = "0"
-    times[frozenset([r[i], "1"])] = r[i]
-    times[frozenset([r[i]])] = r[i]
-
-
 plus[frozenset(["1", "x"])] = "y"
 plus[frozenset(["1", "y"])] = "x"
-
-plus1 = deepcopy(plus)
-plus2 = deepcopy(plus)
-plus3 = deepcopy(plus)
-
-plus[frozenset(["x", "y"])] = "x"
-plus1[frozenset(["x", "y"])] = "y"
-plus2[frozenset(["x", "y"])] = "1"
-plus3[frozenset(["x", "y"])] = "0"
+plus[frozenset(["x", "y"])] = "1"
 
 
 def a2(_r, _p):
@@ -64,15 +43,39 @@ def a2(_r, _p):
                 a = _r[i]
                 b = _r[j]
                 c = _r[k]
-                ab = _p[frozenset([a, b])]
-                bc = _p[frozenset([b, c])]
-                ab_c = _p[frozenset([ab, c])]
-                a_bc = _p[frozenset([a, bc])]
-                if ab_c != a_bc:
+                ab = _p[frozenset([a, b])]      # (a+b)
+                bc = _p[frozenset([b, c])]      # (b+c)
+                ab_c = _p[frozenset([ab, c])]   # (a+b)+c
+                a_bc = _p[frozenset([a, bc])]   # a+(b+c)
+                if ab_c != a_bc:                # checking equality
                     return False
     return True
 
 print("plus: " + str(a2(r, plus)))
-print("plus1: " + str(a2(r, plus1)))
-print("plus2: " + str(a2(r, plus2)))
-print("plus3: " + str(a2(r, plus3)))
+
+times = {}
+
+for i in range(len(r)):
+    times[frozenset([r[i], "0"])] = "0"
+    times[frozenset([r[i], "1"])] = r[i]
+    times[frozenset([r[i]])] = r[i]
+
+times[frozenset(["x", "y"])] = "0"
+
+
+def md(_r, _t, _p):
+    for i in range(len(r)):
+        for j in range(len(r)):
+            for k in range(len(r)):
+                a = _r[i]
+                b = _r[j]
+                c = _r[k]
+                bpc = _p[frozenset([b, c])]
+                axb = _t[frozenset([a, b])]
+                axc = _t[frozenset([a, c])]
+                if _t[frozenset([a, bpc])] != _p[frozenset([axb, axc])]:
+                    print(a, b, c)
+                    return False
+    return True
+
+print("times: " + str(md(r, times, plus)))
