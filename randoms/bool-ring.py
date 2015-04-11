@@ -54,7 +54,6 @@ class RingGenerator:
         for i in range(self.n):
             for j in range(i, self.n):
                 self.comb.add(frozenset([self.r[i], self.r[j]]))
-        self.solution()
 
     def add_rule(self, x, y, z):
         self.add[frozenset([x, y])] = z
@@ -99,28 +98,28 @@ class RingGenerator:
             for i in range(len(miss_add)):
                 tmp[miss_add[i]] = com[i]
             if AxiomChecker.a2(self.r, tmp):
-                self.poss_add.append(tmp)
+                self.mult_solution(tmp)
 
-    def mult_solution(self):
+    def mult_solution(self, add_sol):
         miss_mult = list(self.comb - self.mult.keys())
-        for adds in self.poss_add:
-            tmp_add = adds
-            for com in product(self.r, repeat=len(miss_mult)):
-                tmp = copy(self.mult)
-                for i in range(len(miss_mult)):
-                    tmp[miss_mult[i]] = com[i]
-                if AxiomChecker.md(self.r, tmp, tmp_add):
-                    self.poss.append([tmp_add, tmp])
-                    break
+        for com in product(self.r, repeat=len(miss_mult)):
+            tmp = copy(self.mult)
+            for i in range(len(miss_mult)):
+                tmp[miss_mult[i]] = com[i]
+            if AxiomChecker.md(self.r, tmp, add_sol):
+                self.poss.append([add_sol, tmp])
+                break
 
     def solution(self):
         self.add_solution()
-        self.mult_solution()
         for (i, j) in self.poss:
             self.add = i
             self.mult = j
 
     def __str__(self):
+        if not self.poss:
+            return "No Solutions"
+
         res = "Addition of " + str(self.n) + " Elements\n"
         res += " " + "-" * ((self.n + 1) * 4 - 1) + "\n"
         res += "| + | " + " | ".join(self.r) + " |\n"
@@ -162,5 +161,6 @@ class BoolRingGenerator(RingGenerator):
                 if self.r[i] == self.r[j]:
                     self.mult_rule(self.r[i], self.r[j], self.r[i])
 
-print(BoolRingGenerator(4))
-print(BoolRingGenerator(2))
+a = BoolRingGenerator(4)
+a.solution()
+print(a)
