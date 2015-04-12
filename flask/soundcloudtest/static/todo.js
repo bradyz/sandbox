@@ -1,42 +1,26 @@
 // Load the application once the DOM is ready, using `jQuery.ready`:
 $(function(){
-
-  // Todo Model
-  // ----------
-
-  // Our basic **Todo** model has `content`, `order`, and `done` attributes.
   window.Todo = Backbone.Model.extend({
-
     idAttribute: "_id",
-
-    // If you don't provide a todo, one will be provided for you.
     EMPTY: "empty todo...",
 
-    // Ensure that each todo created has `content`.
     initialize: function() {
       if (!this.get("content")) {
         this.set({"content": this.EMPTY});
       }
     },
 
-    // Toggle the `done` state of this todo item.
     toggle: function() {
       this.save({done: !this.get("done")});
     },
 
-    // Remove this Todo from *localStorage* and delete its view.
     clear: function() {
       this.destroy();
       this.view.remove();
     }
-
   });
 
-  // Todo Collection
-  // ---------------Ï
   window.TodoList = Backbone.Collection.extend({
-
-    // Reference to this collection's model.
     model: Todo,
     url: '/todos',
 
@@ -61,7 +45,6 @@ $(function(){
     comparator: function(todo) {
       return todo.get('order');
     }
-
   });
 
   // Create our global collection of **Todos**.
@@ -77,7 +60,7 @@ $(function(){
     tagName:  "li",
 
     // Cache the template function for a single item.
-    template: _.template($('#item-template').html()),
+    template: "butts", 
 
     // The DOM events specific to an item.
     events: {
@@ -94,13 +77,22 @@ $(function(){
       _.bindAll(this, 'render', 'close');
       this.model.bind('change', this.render);
       this.model.view = this;
+      this.render();
     },
 
-    // Re-render the contents of the todo item.
-    render: function() {
-      $(this.el).html(this.template(this.model.toJSON()));
-      this.setContent();
-      return this;
+    // // Re-render the contents of the todo item.
+    // render: function() {
+    //   $(this.el).html(this.template(this.model.toJSON()));
+    //   this.setContent();
+    //   return this;
+    // },
+    render: function(){
+      // Compile the external template file using underscore
+      $.get('/stocks', function (data) {
+        this.template = _.template(data, {});
+        this.$el.html(this.template(this.model.toJSON()));  
+        console.log(this.template);
+      });
     },
 
     // To avoid XSS (not that it would be harmful in this particular app),
@@ -197,9 +189,8 @@ $(function(){
     // Add a single todo item to the list by creating a view for it, and
     // appending its element to the `<ul>`.
     addOne: function(todo) {
-      console.log('add one');
       var view = new TodoView({model: todo});
-      this.$("#todo-list").append(view.render().el);
+      this.$("#todo-list").append(view.el);
     },
 
     // Add all items in the **Todos** collection at once.
