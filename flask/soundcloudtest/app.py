@@ -1,15 +1,14 @@
-import pymongo
+from pymongo import MongoClient
 import requests
 import json_util
-from flask import Flask, render_template, json, request
+from flask import Flask, render_template, json, request, jsonify
 
 from csv import DictReader
 from StringIO import StringIO
-from collections import namedtuple
 
 app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('config.py')
-stockhist = pymongo.Connection('localhost', 27017)['bz']['stockhistory']
+stockhist = MongoClient('mongodb://localhost:27017/')["bz"]["stockhistory"]
 
 
 def json_load(data):
@@ -25,26 +24,32 @@ def hello_world():
     return render_template('index.html')
 
 
-@app.route('/stocks', methods=['GET'])
-def func1():
-    return stocks("aapl")
-
-
-@app.route('/stocks/<ticker>', methods=['GET'])
-def stocks(ticker):
-    fn = ("Date", "Open", "High", "Low", "Close", "Volume", "Adj")
-    query = list(stockhist.find().limit(1))
-    if not query:
-        site = "http://ichart.finance.yahoo.com/table.csv?s=" + ticker
-        reader = DictReader(StringIO(requests.get(site).content))
-        Data = namedtuple('Data', fn[1:])
-        query = {"ticker": ticker, "data": []}
-        for r in reader:
-            print(r.values())
-            query["data"].append(Data(*r.values()[1:]))
-        stockhist.save(query)
-    print(json_dump(query))
+@app.route('/stocks/', methods=['GET'])
+def stocks():
+    ticker = request.args.get('ticker', '')
+    print(ticker)
+    if ticker:
+        print("a")
+        query = list(stockhist.find({"ticker": ticker.upper()}).limit(10))
+        if not query:
+            query = get_info(ticker)
+    else:
+        print("b")
+        query = list(stockhist.find().limit(10))
     return json_dump(query)
+
+
+def get_info(ticker):
+    site = "http://ichart.finance.yahoo.com/table.csv?s=" + ticker
+    print(site)
+    query = DictReader(StringIO(requests.get(site).content))
+    queries = []
+    for q in query:
+        q["ticker"] = ticker.upper()
+        queries.append(q)
+    stockhist.insert_many(queries)
+    return list(stockhist.find({"ticker": ticker.upper()}).limit(10))
+
 
 # @app.route('/todos')
 # def list_todos():
