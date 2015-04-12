@@ -1,20 +1,11 @@
-import csv
-import json
+from csv import DictReader
 import requests
+from StringIO import StringIO
 
-site = "http://ichart.finance.yahoo.com/table.csv?s=AAPL&c=2014"
-a = requests.get(site).content
-a = a[:152]
-a = a[:35]+a[41:]
-print(a)
+site = "http://ichart.finance.yahoo.com/table.csv?s=AAPL&c=2013"
+f = StringIO(requests.get(site).content)
 
-out = open("asdf.txt", "w+")
-out.write(a)
-out.close()
 
 fn = ("Date", "Open", "High", "Low", "Close", "Volume", "Adj")
-reader = csv.DictReader(open("asdf.txt"))
-
-for row in reader:
-    print(type(row))
-    print(row)
+reader = DictReader(f, fn)
+print([r for r in reader])
