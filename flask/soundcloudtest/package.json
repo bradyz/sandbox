@@ -1,0 +1,22 @@
+{
+  "name": "soundcloudtest",
+  "version": "1.0.0",
+  "description": "Conversion of Jérôme Gravel-Niquet's todo app from local storage to mongodb.   Uses flask for request handling.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-bower": "^0.0.10",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-notify": "^2.2.0"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.5.3",
+    "gulp-ruby-sass": "^0.7.1",
+    "tiny-lr": "^0.1.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
