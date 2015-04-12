@@ -10,13 +10,16 @@
     "gulp-notify": "^2.2.0"
   },
   "devDependencies": {
+    "browserify": "^9.0.8",
     "connect-livereload": "^0.5.3",
     "gulp-ruby-sass": "^0.7.1",
-    "tiny-lr": "^0.1.5"
+    "hbsfy": "^2.2.1",
+    "tiny-lr": "^0.1.5",
+    "watchify": "^3.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "brad",
   "license": "ISC"
 }

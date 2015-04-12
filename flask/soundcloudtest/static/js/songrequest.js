@@ -14,7 +14,7 @@ $(function(){
 
   window.StockView = Backbone.View.extend({
     tagName: "li",
-    template: "<div class='song-entry'><%= title %></div>",
+    template: "<div class='stock-entry'><%=ticker%>: <%=Date%> $<%=High%></div>",
 
     initialize: function() {
       this.render();
@@ -29,18 +29,17 @@ $(function(){
     el: "#app",
 
     events: {
-      "keydown #new-song":  "createOnEnter"
+      "keydown #new-stock":  "createOnEnter"
     },
     
     initialize: function() {
       _.bindAll(this, 'addOne', 'addAll', 'render');
-
       var handlers = {
           "success": this.addAll,
           "error": function() {console.log("fetch failed")}
          };
       
-      // Songs.fetch(handlers);
+      Stocks.fetch(handlers);
     },
 
     addOne: function(stock) {
@@ -52,9 +51,26 @@ $(function(){
       Stocks.each(this.addOne);
      },
 
+     refresh: function () {
+       var handlers = {
+         "success": this.addAll,
+         "error": function() {console.log("fetch failed")}
+       };
+      
+       Stocks.fetch(handlers);
+     },
+
      createOnEnter: function(e) {
-       if(e.keyCode == 13)
-         console.log("123");
+       var self = this;
+       if(e.keyCode == 13) {
+         $.get("/stocks/", {"ticker": $("#asdf").val()}, function(data) {
+           _.each(JSON.parse(data), function(x){
+             console.log(x);
+             self.addOne(x);
+           });
+           $("#asdf").val("");
+         });
+       }
      }
   });
 
