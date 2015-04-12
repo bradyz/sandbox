@@ -1,18 +1,18 @@
 $(function(){
-  window.Song = Backbone.Model.extend({
+  window.Stock = Backbone.Model.extend({
     idAttribute: "_id",
   });
 
-  window.SongList = Backbone.Collection.extend({
-    model: Song,
-    url: '/songs',
+  window.StockList = Backbone.Collection.extend({
+    model: Stock,
+    url: '/stocks',
 
     initialize: function() {
-      // this.fetch();
+      this.fetch();
     }
   });
 
-  window.SongView = Backbone.View.extend({
+  window.StockView = Backbone.View.extend({
     tagName: "li",
     template: "<div class='song-entry'><%= title %></div>",
 
@@ -43,13 +43,13 @@ $(function(){
       // Songs.fetch(handlers);
     },
 
-    addOne: function(song) {
-      var view = new SongView({model: song});
+    addOne: function(stock) {
+      var view = new StockView({model: stock});
       $("#song-list").append(view.el);
     },
 
     addAll: function() {
-      Songs.each(this.addOne);
+      Stocks.each(this.addOne);
      },
 
      createOnEnter: function(e) {
@@ -58,6 +58,6 @@ $(function(){
      }
   });
 
-  window.Songs = new SongList;
+  window.Stocks = new StockList;
   window.App = new AppView;
 });
