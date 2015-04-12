@@ -1,23 +1,17 @@
-var gulp = require('gulp'),     
-  sass = require('gulp-ruby-sass') 
-
-var config = {
-  sassPath: './assets/styles',
-}
+var gulp = require('gulp');
+var sass = require('gulp-ruby-sass');
 
 gulp.task('sass', function() { 
-  return gulp.src('./assets/**/*.scss')
+  return gulp.src('static/css/**/*.scss')
     .pipe(sass())
-    .pipe(gulp.dest('./assets/')); 
+    .pipe(gulp.dest('static/css')); 
 });
 
 gulp.task('watch', function() {
-  gulp.watch(config.sassPath + '/**/*.scss', ['css']); 
+  gulp.watch('static/css/**/*.scss', ['sass']); 
 });
 
-gulp.task('default', ['sass'], function(){
+gulp.task('default', ['sass', 'watch'], function(){
   var process = require('child_process');
-  var spawn = process.spawn;
-  var PIPE = {stdio: 'inherit'};
-  spawn('python', ['app.py'], PIPE);
+  process.spawn('python', ['app.py'], {stdio: 'inherit'});
 });

@@ -40,7 +40,7 @@ $(function(){
           "error": function() {console.log("fetch failed")}
          };
       
-      Songs.fetch(handlers);
+      // Songs.fetch(handlers);
     },
 
     addOne: function(song) {

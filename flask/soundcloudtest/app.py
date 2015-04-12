@@ -3,12 +3,10 @@ from bson.objectid import ObjectId
 import json_util
 from flask import Flask, render_template, json, request
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('config.py')
 connection = pymongo.Connection('localhost', 27017)
-todos = connection['demo']['todos']
 stockhist = connection['bz']['stockhistory']
-ratings = connection['techfest']['ratings']
 
 
 def json_load(data):
@@ -24,37 +22,35 @@ def hello_world():
     return render_template('index.html')
 
 
-@app.route('/todos')
-def list_todos():
-    return json_dump(list(todos.find()))
+# @app.route('/todos')
+# def list_todos():
+#     return json_dump(list(todos.find()))
+#
+#
+# @app.route('/todos',  methods=['POST'])
+# def new_todo():
+#     todo = json_load(request.data)
+#     todos.save(todo)
+#     return json_dump(todo)
+#
+#
+# @app.route('/todos/<todo_id>', methods=['PUT'])
+# def update_todo(todo_id):
+#     todo = json_load(request.data)
+#     todos.save(todo)
+#     return json_dump(todo)
+#
+#
+# @app.route('/todos/<todo_id>', methods=['DELETE'])
+# def delete_todo(todo_id):
+#     todos.remove(ObjectId(todo_id))
+#     return ""
 
 
-@app.route('/todos',  methods=['POST'])
-def new_todo():
-    todo = json_load(request.data)
-    todos.save(todo)
-    return json_dump(todo)
-
-
-@app.route('/todos/<todo_id>', methods=['PUT'])
-def update_todo(todo_id):
-    todo = json_load(request.data)
-    todos.save(todo)
-    return json_dump(todo)
-
-
-@app.route('/todos/<todo_id>', methods=['DELETE'])
-def delete_todo(todo_id):
-    todos.remove(ObjectId(todo_id))
-    return ""
-
-
-@app.route('/songs', methods=['GET'])
-def songs():
+@app.route('/stocks', methods=['GET'])
+def stocks():
     print(list(stockhist.find().limit(1)))
     return json_dump(list(stockhist.find().limit(1)))
 
-# @app.route('/stocks/<ticker_id>', methods=['GET'])
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
