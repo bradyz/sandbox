@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,700,300);
-@import url(../../app/bower_components/bootstrap/dist/css/bootstrap-theme.min.css);
-@import url(../../app/bower_components/font-awesome/css/font-awesome.min.css);
+@import url(font-awesome.min.css);
+@import url(bootstrap.min.css);
 #app {
   text-align: "center";
   width: 100%;
