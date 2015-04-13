@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import requests
 import json_util
-from flask import Flask, render_template, json, request, jsonify
+from flask import Flask, render_template, json, request, jsonify, Response
 
 from csv import DictReader
 from StringIO import StringIO
@@ -35,8 +35,9 @@ def stocks():
             query = get_info(ticker)
     else:
         print("b")
-        query = list(stockhist.find().limit(10))
-    return json_dump(query)
+        query = list(stockhist.find({}).sort("_id", -1).limit(10))
+    print(query)
+    return Response(json_dump(query))
 
 
 def get_info(ticker):
