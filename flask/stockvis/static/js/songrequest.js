@@ -8,7 +8,6 @@ $(function(){
     url: '/stocks',
 
     initialize: function() {
-      this.fetch();
     }
   });
 
@@ -33,42 +32,23 @@ $(function(){
     },
     
     initialize: function() {
-      _.bindAll(this, 'addOne', 'addAll', 'render');
-      var handlers = {
-          "success": this.addAll,
-          "error": function() {console.log("fetch failed")}
-         };
-      
-      Stocks.fetch(handlers);
+      _.bindAll(this, 'addOne', 'render');
     },
 
     addOne: function(stock) {
-      var view = new StockView({model: stock});
+      var mod = new Stock(stock);
+      Stocks.add(mod)
+      var view = new StockView({model: mod});
       $("#song-list").append(view.el);
     },
-
-    addAll: function() {
-      Stocks.each(this.addOne);
-     },
-
-     refresh: function () {
-       var handlers = {
-         "success": this.addAll,
-         "error": function() {console.log("fetch failed")}
-       };
-      
-       Stocks.fetch(handlers);
-     },
 
      createOnEnter: function(e) {
        var self = this;
        if(e.keyCode == 13) {
          $.get("/stocks/", {"ticker": $("#asdf").val()}, function(data) {
-           _.each(JSON.parse(data), function(x){
-             console.log(x);
-             self.addOne(x);
+           _.each(JSON.parse(data), function(d) {
+             self.addOne(d);
            });
-           $("#asdf").val("");
          });
        }
      }
