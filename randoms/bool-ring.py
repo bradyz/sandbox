@@ -5,47 +5,49 @@ from itertools import product
 class AxiomChecker:
     @staticmethod
     def a1(_r, _p):
-        for a in _p.values():
-            for b in _p.values():
+        for a in _r:
+            for b in _r:
                 ab = _p[frozenset([a, b])]      # (a+b)
                 ba = _p[frozenset([b, a])]      # (b+a)
                 if ab != ba:
-                    print("A1 Fails: " + str(a) + " " + str(b))
+                    # print("A1 Fails: " + str(a) + " " + str(b))
                     return False
         return True
 
     @staticmethod
     def a2(_r, _p):
-        for a in _p.values():
-            for b in _p.values():
-                for c in _p.values():
+        for a in _r:
+            for b in _r:
+                for c in _r:
                     ab = _p[frozenset([a, b])]      # (a+b)
                     bc = _p[frozenset([b, c])]      # (b+c)
                     ab_c = _p[frozenset([ab, c])]   # (a+b)+c
                     a_bc = _p[frozenset([a, bc])]   # a+(b+c)
                     if ab_c != a_bc:                # checking equality
-                        print("A2 Fails: " + str(a) + " " + str(b) + " " + str(c))
+                        # print("A2 Fails: " + str(a) + " " + str(b) +
+                        #       " " + str(c))
                         return False
         return True
 
     @staticmethod
     def a5(_r, _p):
-        for a in _p.values():
+        for a in _r:
             count = 0
-            for b in _p.values():
-                if b != a:
-                    ab = _p[frozenset([a, b])]      # (a+b)
-                    if ab == 0:
-                        count += 1
+            for b in _r:
+                ab = _p[frozenset([a, b])]      # (a+b)
+                if ab == "0":
+                    count += 1
             if count != 1:
+                # print("A5 Fails: " + str(a), count,
+                #       str(_p).replace("frozenset", ""))
                 return False
         return True
 
     @staticmethod
     def md(_r, _t, _p):
-        for a in _p.values():
-            for b in _p.values():
-                for c in _p.values():
+        for a in _r:
+            for b in _r:
+                for c in _r:
                     bpc = _p[frozenset([b, c])]     # (b+c)
                     axb = _t[frozenset([a, b])]     # (axb)
                     axc = _t[frozenset([a, c])]     # (axc)
@@ -111,9 +113,10 @@ class RingGenerator:
             tmp = copy(self.add)
             for i in range(len(miss_add)):
                 tmp[miss_add[i]] = com[i]
-            print(str(tmp).replace("frozenset", ""))
             if AxiomChecker.a2(self.r, tmp) and AxiomChecker.a5(self.r, tmp):
-                self.poss_add.append(tmp)
+                if self.mult_solution(tmp):
+                    return True
+        return False
 
     def mult_solution(self, add_sol):
         miss_mult = list(self.comb - self.mult.keys())
@@ -123,15 +126,14 @@ class RingGenerator:
                 tmp[miss_mult[i]] = com[i]
             if AxiomChecker.md(self.r, tmp, add_sol):
                 self.poss.append([add_sol, tmp])
-                break
+                return True
+        return False
 
     def solution(self):
-        self.add_solution()
-        for x in self.poss_add:
-            self.mult_solution(x)
-        for (i, j) in self.poss:
-            self.add = i
-            self.mult = j
+        if self.add_solution():
+            for (i, j) in self.poss:
+                self.add = i
+                self.mult = j
 
     def __str__(self):
         if not self.poss:
@@ -178,6 +180,6 @@ class BoolRingGenerator(RingGenerator):
                 if self.r[i] == self.r[j]:
                     self.mult_rule(self.r[i], self.r[j], self.r[i])
 
-a = RingGenerator(3)
+a = RingGenerator(5)
 a.solution()
 print(a)
