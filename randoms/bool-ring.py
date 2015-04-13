@@ -70,6 +70,7 @@ class RingGenerator:
         for i in range(self.n):
             for j in range(i, self.n):
                 self.comb.add(frozenset([self.r[i], self.r[j]]))
+        self.solution()
 
     def add_rule(self, x, y, z):
         self.add[frozenset([x, y])] = z
@@ -137,7 +138,7 @@ class RingGenerator:
 
     def __str__(self):
         if not self.poss:
-            return "No Solutions"
+            return "No Solutions\n"
 
         res = "Addition of " + str(self.n) + " Elements\n"
         res += " " + "-" * ((self.n + 1) * 4 - 1) + "\n"
@@ -180,6 +181,10 @@ class BoolRingGenerator(RingGenerator):
                 if self.r[i] == self.r[j]:
                     self.mult_rule(self.r[i], self.r[j], self.r[i])
 
-a = RingGenerator(5)
-a.solution()
-print(a)
+for n in range(2, 5):
+    print("Bool Ring with " + str(n) + " elements")
+    print(BoolRingGenerator(n))
+
+for n in range(2, 6):
+    print("Ring with " + str(n) + " elements")
+    print(RingGenerator(n))
