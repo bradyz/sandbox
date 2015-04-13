@@ -11,9 +11,13 @@
   </head> 
 
   <body> 
-    <div class="text-left container-fluid">
-      <h1>Stock Hist</h1>
-    </div>
+    <nav role="navigation" class="navbar navbar-default">
+      <div class="navbar-header">
+        <a href="#" class="navbar-brand">Stocks</a>
+      </div>
+      <div id="navbarCollapse" class="collapse navbar-collapse">
+      </div>
+    </nav>
     <div id="app" class="container"> 
       <ul id="song-list">
       </ul>
@@ -21,5 +25,6 @@
         <input id="asdf" type="text" name="Artist" value="" /><br />
       </div>
     </div>
+    <div class="hidden" id="wait">loading</div>
   </body> 
 </html>

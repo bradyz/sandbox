@@ -27,22 +27,17 @@ def hello_world():
 @app.route('/stocks/', methods=['GET'])
 def stocks():
     ticker = request.args.get('ticker', '')
-    print(ticker)
     if ticker:
-        print("a")
         query = list(stockhist.find({"ticker": ticker.upper()}).limit(10))
         if not query:
             query = get_info(ticker)
     else:
-        print("b")
         query = list(stockhist.find({}).sort("_id", -1).limit(10))
-    print(query)
     return Response(json_dump(query))
 
 
 def get_info(ticker):
     site = "http://ichart.finance.yahoo.com/table.csv?s=" + ticker
-    print(site)
     query = DictReader(StringIO(requests.get(site).content))
     queries = []
     for q in query:
