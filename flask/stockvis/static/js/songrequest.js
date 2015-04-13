@@ -45,10 +45,12 @@ $(function(){
      createOnEnter: function(e) {
        var self = this;
        if(e.keyCode == 13) {
+         $("#wait").show();
          $.get("/stocks/", {"ticker": $("#asdf").val()}, function(data) {
            _.each(JSON.parse(data), function(d) {
              self.addOne(d);
            });
+           $("#wait").hide();
          });
        }
      }

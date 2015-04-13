@@ -1,6 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,700,300);
 @import url(font-awesome.min.css);
 @import url(bootstrap.min.css);
+.navbar {
+  background-color: #2F343A; }
+  .navbar .navbar-brand {
+    color: #BDB69C; }
+
+body {
+  background-color: #DDDDDD; }
+
 #app {
   text-align: "center";
   width: 100%;
