@@ -45,10 +45,10 @@ _RE_TYPE = type(re.compile("foo"))
 
 
 def object_hook(dct):
-    print 'oh', dct
-    if '_id' in dct: 
+    print('oh', dct)
+    if '_id' in dct:
         dct['_id'] = ObjectId(str(dct["_id"]))
-        return dct 
+        return dct
     if "$oid" in dct:
         return ObjectId(str(dct["$oid"]))
     if "$ref" in dct:
