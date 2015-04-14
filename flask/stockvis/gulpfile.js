@@ -13,5 +13,5 @@ gulp.task('watch', function() {
 
 gulp.task('default', ['sass', 'watch'], function(){
   var process = require('child_process');
-  process.spawn('python', ['app.py'], {stdio: 'inherit'});
+  process.spawn('python3', ['app.py'], {stdio: 'inherit'});
 });

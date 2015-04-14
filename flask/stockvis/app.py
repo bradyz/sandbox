@@ -4,7 +4,7 @@ import json_util
 from flask import Flask, render_template, json, request, jsonify, Response
 
 from csv import DictReader
-from StringIO import StringIO
+from io import StringIO
 
 app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('config.py')
