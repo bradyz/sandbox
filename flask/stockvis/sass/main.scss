@@ -1,13 +1,12 @@
 @import 'font-awesome.min.css';
 @import 'bootstrap.min.css';
 
-
 .navbar {
   background-color: #2F343A;
   .navbar-brand {
+    padding-left: 50%;
     color: #BDB69C;
   }
-
 }
 
 body {
@@ -21,7 +20,26 @@ body {
 }
 
 #wait {
+  // margin: 10% auto;
+  margin: -3% 16%;
+  border-bottom: 6px solid #fff;
+  border-left: 6px solid #fff;
+  border-right: 6px solid #FDAA8F;
+  border-top: 6px solid #FDAA8F;
+  border-radius: 100%;
+  height: 50px;
+  width: 50px;
+  animation: spin 1.2s infinite ease;
+}
 
+@keyframes "spin" {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
 }
 
 ul {
