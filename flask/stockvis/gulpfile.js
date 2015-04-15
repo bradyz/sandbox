@@ -3,10 +3,7 @@ var sass = require('gulp-ruby-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var minifycss = require('gulp-minify-css');
 var rename = require('gulp-rename');
-var livereload = require('gulp-livereload');
 var process = require('child_process');
-var lr = require('tiny-lr'),
-    server = lr();
 
 var browserSync = require('browser-sync'),
     reload = browserSync.create().reload;
@@ -19,8 +16,7 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('static/css'))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
-    .pipe(gulp.dest('static/css'))
-    .pipe(reload({stream: true}));
+    .pipe(gulp.dest('static/css'));
 });
 
 gulp.task('browser-sync', function() {
@@ -33,9 +29,7 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('watch', function() {
-  livereload.listen({start: true});
   gulp.watch('sass/*.scss', ['styles']); 
-  gulp.watch('templates/*.html').on('change', reload);
 });
 
 gulp.task('default', ['styles', 'browser-sync', 'watch'], function(){

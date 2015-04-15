@@ -38,12 +38,13 @@ def stocks():
 
 def get_info(ticker):
     site = "http://ichart.finance.yahoo.com/table.csv?s=" + ticker
-    query = DictReader(StringIO(requests.get(site).content))
+    query = DictReader(StringIO(requests.get(site).text))
     queries = []
     for q in query:
         q["ticker"] = ticker.upper()
         queries.append(q)
-    stockhist.insert_many(queries)
+    if queries:
+        stockhist.insert_many(queries)
     return list(stockhist.find({"ticker": ticker.upper()}).limit(10))
 
 
