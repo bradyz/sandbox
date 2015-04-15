@@ -1,29 +1,43 @@
 <!DOCTYPE html> 
 <html> 
+
   <head> 
-    <title>Stocks</title> 
     <link rel="stylesheet" type="text/css" href="../static/css/main.min.css" media="all">
+
+    <title>Stocks</title> 
   </head> 
+
   <body> 
+
     <nav role="navigation" class="navbar navbar-default">
       <div class="navbar-header">
         <a href="#" class="navbar-brand">Stocks</a>
       </div>
-      <div id="navbarCollapse" class="collapse navbar-collapse">
-      </div>
     </nav>
-    
+
     <div id="app" class="container"> 
+
       <ul id="song-list">
       </ul>
+
       <div id="new-stock">
-        <input id="asdf" type="text" name="Artist" value="" /><br />
+        <input id="asdf">
+        <div id="wait" style="display: block"></div>
       </div>
+
     </div>
-    <div class="hidden" id="wait">loading</div>
+
+    <!-- spinny wheel -->
+
+    <!-- todo: figure out browserify -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <script src="http://ajax.cdnjs.com/ajax/libs/underscore.js/1.1.4/underscore-min.js"></script>
     <script src="../static/js/backbone.js"></script> 
     <script src="../static/js/songrequest.js"></script> 
+
+    <!-- temporary templates, see above -->
+    <script type="bz" id="stock-row">
+      <div class='stock-entry'><%=ticker%>: <%=Date%> $<%=High%></div>
+    </script>
   </body> 
 </html>

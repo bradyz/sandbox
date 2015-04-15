@@ -13,13 +13,14 @@ $(function(){
 
   window.StockView = Backbone.View.extend({
     tagName: "li",
-    template: "<div class='stock-entry'><%=ticker%>: <%=Date%> $<%=High%></div>",
+    template: $("#stock-row").html(),
 
     initialize: function() {
       this.render();
     },
 
     render: function() {
+      console.log(this.template);
       $(this.el).html(_.template(this.template, this.model.toJSON()));
     }
   });
@@ -46,10 +47,12 @@ $(function(){
        var self = this;
        if(e.keyCode == 13) {
          $("#wait").show();
+
          $.get("/stocks/", {"ticker": $("#asdf").val()}, function(data) {
            _.each(JSON.parse(data), function(d) {
              self.addOne(d);
            });
+
            $("#wait").hide();
          });
        }
