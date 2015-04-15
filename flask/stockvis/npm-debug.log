@@ -1,0 +1,89 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'browserSync',
+1 verbose cli   '--save-dev' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 warn package.json soundcloudtest@1.0.0 No repository field.
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'browserSync', null ]
+7 verbose cache add name=undefined spec="browserSync" args=["browserSync",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'browserSync',
+8 verbose parsed url   path: 'browserSync',
+8 verbose parsed url   href: 'browserSync' }
+9 silly lockFile 3387f2a2-browserSync browserSync
+10 verbose lock browserSync /Users/brady/.npm/3387f2a2-browserSync.lock
+11 silly lockFile 3387f2a2-browserSync browserSync
+12 silly lockFile 3387f2a2-browserSync browserSync
+13 verbose addNamed [ 'browserSync', '' ]
+14 verbose addNamed [ null, '*' ]
+15 silly lockFile c50515c3-browserSync browserSync@
+16 verbose lock browserSync@ /Users/brady/.npm/c50515c3-browserSync.lock
+17 silly addNameRange { name: 'browserSync', range: '*', hasData: false }
+18 verbose request where is /browserSync
+19 verbose request registry https://registry.npmjs.org/
+20 verbose request id 1611c5aaca5dd103
+21 verbose url raw /browserSync
+22 verbose url resolving [ 'https://registry.npmjs.org/', './browserSync' ]
+23 verbose url resolved https://registry.npmjs.org/browserSync
+24 verbose request where is https://registry.npmjs.org/browserSync
+25 info trying registry request attempt 1 at 00:49:25
+26 http GET https://registry.npmjs.org/browserSync
+27 http 404 https://registry.npmjs.org/browserSync
+28 verbose headers { date: 'Wed, 15 Apr 2015 05:49:25 GMT',
+28 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+28 verbose headers   'content-type': 'application/json',
+28 verbose headers   'cache-control': 'max-age=0',
+28 verbose headers   'content-length': '51',
+28 verbose headers   'accept-ranges': 'bytes',
+28 verbose headers   via: '1.1 varnish',
+28 verbose headers   age: '0',
+28 verbose headers   'x-served-by': 'cache-dfw1827-DFW',
+28 verbose headers   'x-cache': 'MISS',
+28 verbose headers   'x-cache-hits': '0',
+28 verbose headers   'x-timer': 'S1429076965.297777,VS0,VE49',
+28 verbose headers   'keep-alive': 'timeout=10, max=50',
+28 verbose headers   connection: 'Keep-Alive' }
+29 silly registry.get cb [ 404,
+29 silly registry.get   { date: 'Wed, 15 Apr 2015 05:49:25 GMT',
+29 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+29 silly registry.get     'content-type': 'application/json',
+29 silly registry.get     'cache-control': 'max-age=0',
+29 silly registry.get     'content-length': '51',
+29 silly registry.get     'accept-ranges': 'bytes',
+29 silly registry.get     via: '1.1 varnish',
+29 silly registry.get     age: '0',
+29 silly registry.get     'x-served-by': 'cache-dfw1827-DFW',
+29 silly registry.get     'x-cache': 'MISS',
+29 silly registry.get     'x-cache-hits': '0',
+29 silly registry.get     'x-timer': 'S1429076965.297777,VS0,VE49',
+29 silly registry.get     'keep-alive': 'timeout=10, max=50',
+29 silly registry.get     connection: 'Keep-Alive' } ]
+30 silly lockFile c50515c3-browserSync browserSync@
+31 silly lockFile c50515c3-browserSync browserSync@
+32 error 404 404 Not Found: browserSync
+32 error 404
+32 error 404 'browserSync' is not in the npm registry.
+32 error 404 You should bug the author to publish it
+32 error 404 It was specified as a dependency of 'soundcloudtest'
+32 error 404
+32 error 404 Note that you can also install from a
+32 error 404 tarball, folder, or http url, or git url.
+33 error System Darwin 14.0.0
+34 error command "node" "/usr/local/bin/npm" "install" "browserSync" "--save-dev"
+35 error cwd /Users/brady/code/sandbox/flask/stockvis
+36 error node -v v0.10.32
+37 error npm -v 1.4.28
+38 error code E404
+39 verbose exit [ 1, true ]
