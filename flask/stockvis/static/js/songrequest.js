@@ -12,7 +12,7 @@ $(function(){
   });
 
   window.StockView = Backbone.View.extend({
-    tagName: "li",
+    tagName: "tr",
     template: $("#stock-row").html(),
 
     initialize: function() {
