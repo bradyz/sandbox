@@ -15,20 +15,19 @@
       </div>
     </nav>
 
-    <div id="app" class="container"> 
+    <div id="app" class="col-md-4"> 
 
-      <table id="song-list">
-      </table>
+      <table id="song-list"></table>
 
-      <div id="new-stock">
+      <div class="col-md-4 pull-right" id="new-stock">
         <input id="asdf">
-        <div id="wait" style="display: block"></div>
+        <div id="wait" style="display: none"></div>
       </div>
 
     </div>
 
     <!-- todo: figure out browserify -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
     <script src="http://ajax.cdnjs.com/ajax/libs/underscore.js/1.1.4/underscore-min.js"></script>
     <script src="../static/js/backbone.js"></script> 
     <script src="../static/js/songrequest.js"></script> 

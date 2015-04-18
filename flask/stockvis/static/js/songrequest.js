@@ -45,18 +45,24 @@ $(function(){
 
      createOnEnter: function(e) {
        var self = this;
-       if(e.keyCode == 13) {
-         $("#wait").show();
+       if(e.keyCode != 13) 
+         return;
 
-         $.get("/stocks/", {"ticker": $("#asdf").val()}, function(data) {
-           _.each(JSON.parse(data), function(d) {
-             self.addOne(d);
-           });
+        $("#wait").show();
 
-           $("#wait").hide();
-         });
-       }
-     }
+        var jqxhr = $.get("/stocks/", {"ticker": $("#asdf").val()}, function(data) {
+          _.each(JSON.parse(data), function(d) {
+            self.addOne(d);
+          });
+
+          $("#wait").hide();
+        }).done(function() {
+          console.log(123);
+        }).always(function() {
+          $("#wait").hide();
+          $("#asdf").val("");
+        });
+      }
   });
 
   window.Stocks = new StockList;
