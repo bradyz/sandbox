@@ -17,8 +17,8 @@
 
     <div id="app" class="container"> 
 
-      <ul id="song-list">
-      </ul>
+      <table id="song-list">
+      </table>
 
       <div id="new-stock">
         <input id="asdf">
@@ -26,8 +26,6 @@
       </div>
 
     </div>
-
-    <!-- spinny wheel -->
 
     <!-- todo: figure out browserify -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
@@ -37,7 +35,9 @@
 
     <!-- temporary templates, see above -->
     <script type="bz" id="stock-row">
-      <div class='stock-entry'><%=ticker%>: <%=Date%> $<%=High%></div>
+      <td> <%=ticker%> </td>
+      <td> <%=Date%> </td>
+      <td> <%=High%> </td>
     </script>
   </body> 
 </html>

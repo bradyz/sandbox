@@ -18,6 +18,10 @@ body {
   height: 100%;
 }
 
+#song-list {
+  width: 80%;
+}
+
 #wait {
   margin: -3% 16%;
   border-bottom: 6px solid #fff;
