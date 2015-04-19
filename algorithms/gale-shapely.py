@@ -1,7 +1,13 @@
 import queue
 
-# x => men : preferences
-# y => women: preferences
+
+class q(queue.Queue):
+    def __init__(self, l=None):
+        for i in l:
+            queue.Queue.put(i)
+
+    def get(self):
+        queue.Queue.get()
 
 
 def match(x, y):
@@ -26,7 +32,7 @@ def match(x, y):
     print("\n".join(map(str, [(i, res[i]) for i in res])))
 
 if __name__ == "__main__":
-    Queue = queue.Queue
+    Queue = q
     a = {"A": Queue("YXZ"), "B": Queue("ZYX"), "C": Queue("XZY")}
     b = {"X": list("BAC"), "Y": list("CBA"), "Z": list("ACB")}
     match(a, b)
