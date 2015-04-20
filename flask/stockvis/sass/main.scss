@@ -3,6 +3,7 @@
 
 .navbar {
   background-color: #2F343A;
+
   .navbar-brand {
     padding-left: 50%;
     color: #BDB69C;
@@ -20,6 +21,8 @@ body {
 }
 
 #song-list {
+  margin-left: auto;
+  margin-right: auto;
   width: 80%;
 }
 

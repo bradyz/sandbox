@@ -43,26 +43,26 @@ $(function(){
       $("#song-list").append(view.el);
     },
 
-     createOnEnter: function(e) {
-       var self = this;
-       if(e.keyCode != 13) 
-         return;
+    createOnEnter: function(e) {
+      var self = this;
+      if(e.keyCode != 13) 
+        return;
 
-        $("#wait").show();
+      $("#wait").show();
 
-        var jqxhr = $.get("/stocks/", {"ticker": $("#asdf").val()}, function(data) {
-          _.each(JSON.parse(data), function(d) {
-            self.addOne(d);
-          });
-
-          $("#wait").hide();
-        }).done(function() {
-          console.log(123);
-        }).always(function() {
-          $("#wait").hide();
-          $("#asdf").val("");
+      var jqxhr = $.get("/stocks/", {"ticker": $("#asdf").val()}, function(data) {
+        _.each(JSON.parse(data), function(d) {
+          self.addOne(d);
         });
-      }
+
+        $("#wait").hide();
+      }).done(function() {
+        console.log(123);
+      }).always(function() {
+        $("#wait").hide();
+        $("#asdf").val("");
+      });
+    }
   });
 
   window.Stocks = new StockList;
