@@ -47,30 +47,5 @@ def get_info(ticker):
         stockhist.insert_many(queries)
     return list(stockhist.find({"ticker": ticker.upper()}).limit(10))
 
-
-# @app.route('/todos')
-# def list_todos():
-#     return json_dump(list(todos.find()))
-#
-#
-# @app.route('/todos',  methods=['POST'])
-# def new_todo():
-#     todo = json_load(request.data)
-#     todos.save(todo)
-#     return json_dump(todo)
-#
-#
-# @app.route('/todos/<todo_id>', methods=['PUT'])
-# def update_todo(todo_id):
-#     todo = json_load(request.data)
-#     todos.save(todo)
-#     return json_dump(todo)
-#
-#
-# @app.route('/todos/<todo_id>', methods=['DELETE'])
-# def delete_todo(todo_id):
-#     todos.remove(ObjectId(todo_id))
-#     return ""
-
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)
