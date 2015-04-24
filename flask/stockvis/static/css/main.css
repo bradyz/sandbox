@@ -23,6 +23,12 @@ body {
   margin-right: auto;
   width: 80%;
 }
+#song-list .table-header {
+  border-bottom: 1px solid;
+}
+#song-list .table-header td + td {
+  border-left: 1px solid;
+}
 
 #wait {
   margin: -3% 16%;
