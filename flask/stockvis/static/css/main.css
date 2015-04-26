@@ -26,7 +26,7 @@ body {
 #song-list .table-header {
   border-bottom: 1px solid;
 }
-#song-list .table-header td + td {
+#song-list td + td {
   border-left: 1px solid;
 }
 
