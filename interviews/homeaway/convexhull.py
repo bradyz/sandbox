@@ -1,7 +1,7 @@
 from scipy.spatial import ConvexHull
 import math
 import matplotlib.pyplot as plt
-from random import randrange
+import numpy as np
 
 PI = math.pi
 
@@ -45,14 +45,12 @@ def angle(a, b):
 
 
 def convex_hull(arr):
-    res = []
     a = min(arr, key=lambda x: x[0])
-    print 'Start: ' + str(a)
-    res.append(a)
+    res = []
     b = a
+    print('Start: ' + str(a))
     count = 0
-    # cont = True
-    while count == 0 or b != a:
+    while not res or b != a:
         min_angle = .51 * PI
         min_coor = None
         max_angle = .49 * PI
@@ -73,55 +71,25 @@ def convex_hull(arr):
                 if cc_diff(tmp) > cc_diff(max_angle) and cond:
                     max_angle = tmp
                     max_coor = y
-        # if min_coor == a:
-        #     cont = False
-        #     break
-        count += 1
-        res.append(min_coor)
+        count -= 1
+        res.append((b, min_coor))
         b = min_coor
     return res
 
 
 if __name__ == "__main__":
-    # with open('convexhull-input.txt', 'r') as f:
-    #     lines = f.readlines()
     num_points = 10
 
-    tmp_x = [randrange(5) for i in range(10)]
-    tmp_y = [randrange(5) for i in range(10)]
+    test = np.random.rand(10, 2)
 
-    given = [1]
+    points = test
+    print(test)
+    hull = ConvexHull(test, 2)
 
-    # for l in lines:
+    print(test[hull.vertices, 0])
 
-    for l in given:
-        x = tmp_x
-        y = tmp_y
+    plt.plot(test[:, 0], test[:, 1], 'bo')
+    plt.plot(test[hull.vertices, 0], test[hull.vertices, 1], "r--")
+    plt.plot(test[hull.vertices[0], 0], test[hull.vertices[0], 1], 'ro')
 
-        # x = []
-        # y = []
-        # coor_list = l.split()
-        #
-        # for coor in coor_list:
-        #     xy = coor.split(',')
-        #     x.append(xy[0])
-        #     y.append(xy[1])
-
-        inp = merge_xy(x, y)
-        points = inp
-        rim = convex_hull(inp)
-        hull = ConvexHull(inp)
-        rim_x = []
-        rim_y = []
-
-        print 'Input: ' + str(inp)
-        print 'Rim: ' + str(rim)
-
-        for i in range(len(rim)):
-            tmp_coor = rim[i]
-            rim_x.append(tmp_coor[0])
-            rim_y.append(tmp_coor[1])
-
-    plt.plot(x, y, 'bo')
-    plt.plot(rim_x, rim_y, 'g-')
     plt.show()
