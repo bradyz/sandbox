@@ -27,10 +27,10 @@ body {
 
   .table-header {
     border-bottom: 1px solid;
+  }
 
-    td + td {
-      border-left: 1px solid;
-    }
+  td + td {
+    border-left: 1px solid;
   }
 }
 
