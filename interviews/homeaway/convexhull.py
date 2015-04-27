@@ -78,18 +78,18 @@ def convex_hull(arr):
 
 
 if __name__ == "__main__":
-    num_points = 10
+    t = np.random.rand(10, 2)
 
-    test = np.random.rand(10, 2)
+    hull = ConvexHull(t, 2)
 
-    points = test
-    print(test)
-    hull = ConvexHull(test, 2)
+    x_rim = [t[i][0] for i in hull.vertices]
+    y_rim = [t[i][1] for i in hull.vertices]
 
-    print(test[hull.vertices, 0])
+    x_rim += [x_rim[0]]
+    y_rim += [y_rim[0]]
 
-    plt.plot(test[:, 0], test[:, 1], 'bo')
-    plt.plot(test[hull.vertices, 0], test[hull.vertices, 1], "r--")
-    plt.plot(test[hull.vertices[0], 0], test[hull.vertices[0], 1], 'ro')
+    plt.plot(t[:, 0], t[:, 1], 'bo')
+    plt.plot(x_rim, y_rim, "r--")
+    plt.plot(t[hull.vertices[0], 0], t[hull.vertices[0], 1], 'ro')
 
     plt.show()
