@@ -6,7 +6,9 @@ import numpy as np
 
 def angle(x, y):
     res = math.atan2(float(y[1]) - float(x[1]), float(y[0]) - float(x[0]))
-    return res % (2 * math.pi)
+    if res >= math.pi:
+        res -= 2 * math.pi
+    return res
 
 
 def convex_hull(arr):
@@ -34,9 +36,8 @@ def convex_hull(arr):
         c_ang = tmp_c
 
         res.append(b)
-        print(c_ang, b)
 
-    print('Res: ' + str(res))
+    res += [res[0]]
 
     plt.plot(a[0], a[1], "ro")
     plt.plot([x[0] for x in res], [x[1] for x in res], "b--")
@@ -45,8 +46,8 @@ def convex_hull(arr):
 
 
 if __name__ == "__main__":
-    t = np.random.rand(10, 2)
-    t = [[1, 1], [0, 2], [1, 3], [2, 1], [3, 2], [2, 3], [1, 2], [2, 2]]
+    t = np.random.rand(10, 2) * 5
+    # t = [[1, 1], [0, 2], [1, 3], [2, 1], [3, 2], [2, 3], [1, 2], [2, 2]]
     n = len(t)
 
     hull = ConvexHull(t, 2)
@@ -60,8 +61,8 @@ if __name__ == "__main__":
     plt.plot([t[i][0] for i in range(n)], [t[i][1] for i in range(n)], 'bo')
     # plt.plot(x_rim, y_rim, "r--")
 
-    plt.ylim([0, 4])
-    plt.xlim([-1, 4])
+    plt.ylim([-1, 6])
+    plt.xlim([-1, 6])
 
     convex_hull(t)
 
