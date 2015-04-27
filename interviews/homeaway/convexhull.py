@@ -14,25 +14,27 @@ def convex_hull(arr):
     res = [a]
 
     b = a
-    c_d = 0
-    c_a = 2 * math.pi
+    c_ang = 1.5 * math.pi
 
     while len(res) == 1 or b is not a:
+        m_diff = 2 * math.pi
         for c in arr:
             if c is not b:
-                d = angle(b, c)
-                if d - c_d > 0 and d - c_d < c_a:
-                    c_a = c_d - d
-                    c_d = d
-                    n_b = c
-            b = n_b
-            c_d = c_a
-        if b is n_b:
-            print(b, n_b)
+                tmp_a = angle(b, c)
+
+                if c_ang - tmp_a > 0 and c_ang - tmp_a < m_diff:
+                    m_diff = c_ang - tmp_a
+                    new_b = c
+                    tmp_c = tmp_a
+
+        if b is new_b:
             break
-        b = n_b
+
+        b = new_b
+        c_ang = tmp_c
+
         res.append(b)
-        print("tmp: " + str(res))
+        print(c_ang, b)
 
     print('Res: ' + str(res))
 
@@ -44,15 +46,15 @@ def convex_hull(arr):
 
 if __name__ == "__main__":
     t = np.random.rand(10, 2)
-    t = [[1, 1], [0, 2], [1, 3], [2, 1], [3, 2], [2, 3]]
+    t = [[1, 1], [0, 2], [1, 3], [2, 1], [3, 2], [2, 3], [1, 2], [2, 2]]
     n = len(t)
 
     hull = ConvexHull(t, 2)
 
     x_rim = [t[i][0] for i in hull.vertices]
-    y_rim = [t[i][1] for i in hull.vertices]
-
     x_rim += [x_rim[0]]
+
+    y_rim = [t[i][1] for i in hull.vertices]
     y_rim += [y_rim[0]]
 
     plt.plot([t[i][0] for i in range(n)], [t[i][1] for i in range(n)], 'bo')
