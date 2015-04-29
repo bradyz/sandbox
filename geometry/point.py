@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import functools
 import unittest
 
@@ -28,18 +29,15 @@ class Line:
     def __init__(self, p1, p2):
         self._p1 = p1 if p1 < p2 else p2
         self._p2 = p2 if p1 < p2 else p1
+        self._y_diff = self._p2._y - self._p1._y
+        self._x_diff = self._p2._x - self._p1._x
+        self._slope = (self._p2._y-self._p1._y)/(self._p2._x-self._p1._x)
 
     def point_given_x(self, x):
-        y_diff = self._p2._y - self._p1._y
-        x_diff = self._p2._x - self._p1._x
-        slope = y_diff / x_diff
-        return Point(x, self._p1._y + slope * x)
+        return Point(x, self._p1._y + self._slope * (x-self._p1._x))
 
     def point_given_y(self, y):
-        y_diff = self._p2._y - self._p1._y
-        x_diff = self._p2._x - self._p1._x
-        slope = y_diff / x_diff
-        return Point((y - self._p1._y) / slope, y)
+        return Point(self._p1._x + (y - self._p1._y) / self._slope, y)
 
     def __str__(self):
         return str(self._p1) + " " + str(self._p2)
@@ -77,4 +75,25 @@ class TestLine(unittest.TestCase):
         self.assertTrue(True)
 
 if __name__ == "__main__":
-    unittest.main(verbosity=2)
+    # unittest.main(verbosity=2)
+
+    a = Point(1, 3)
+    b = Point(3, 7)
+    c = Line(a, b)
+    d = c.point_given_x(2)
+    e = c.point_given_y(4)
+
+    print(a)
+    print(b)
+    print(d)
+    print(e)
+
+    plt.ylim([-1, 10])
+    plt.xlim([-1, 10])
+
+    plt.plot([a._x, b._x], [a._y, b._y], "b--")
+
+    plt.plot(d._x, d._y, "ro")
+    plt.plot(e._x, e._y, "co")
+
+    plt.show()
