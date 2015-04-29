@@ -10,7 +10,7 @@ def angle(x, y):
     return res % (2 * math.pi)
 
 
-# jarvis marching algorithm O(nh)
+# Jarvis Marching Algorithm O(nh)
 # n => number of points in rim
 # h => number of points - 1
 def convex_hull(arr):
@@ -48,9 +48,14 @@ def convex_hull(arr):
     return res
 
 
+# Graham Scan Algorithm O(n log n)
+def convex_hull2(arr):
+    return 0
+
+
 if __name__ == "__main__":
     # 100 random 2d arrays
-    t = np.random.rand(100, 2) * 50
+    t = np.random.rand(10, 2) * 50
     n = len(t)
 
     # use scipy's convex hull to compare
