@@ -1,6 +1,6 @@
 # 489C: Given Length and Sum of Digits
 # Start: 2:41 p.m. 4-29-15
-# End: p.m. 4-29-15
+# End: 3:54 p.m. 4-29-15
 
 # from pprint import PrettyPrinter
 # pp = PrettyPrinter(indent=1)
