@@ -7,11 +7,14 @@ from copy import copy
 
 def solve(n, l, c):
     s = copy(c)
+
+    # array of sums of values
     for i in range(1, n):
         s[i] += s[i-1]
 
     dp = [0 for _ in range(n-l+1)]
 
+    # moving window of size l
     for i in range(n-l+1):
         if i == 0:
             dp[i] = s[l-1]
