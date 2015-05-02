@@ -13,9 +13,15 @@ class Point:
     def left_of(self, l):
         a = l.point_given_y(self._y)
         if a:
-            return self._x <= a._x
+            return self._x < a._x or self.on(l)
         else:
-            return self._y >= l._p1._y
+            return self._y > l._p1._y
+
+    def on(self, l):
+        return l.point_given_y(self._y) == self
+
+    def right_of(self, l):
+        return not self.left_of(l) or self.on(l)
 
     def __eq__(self, rhs):
         return self._x == rhs._x and self._y == rhs._y

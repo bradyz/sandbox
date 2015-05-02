@@ -13,7 +13,7 @@ def angle(x, y):
 # Jarvis Marching Algorithm O(nh)
 # n => number of points in rim
 # h => number of points - 1
-def convex_hull(arr):
+def jarvis(arr):
     # a => leftmost point
     a = min(arr, key=lambda x: x[0])
     res = [a]
@@ -53,37 +53,68 @@ def convex_hull2(arr):
     return 0
 
 
+def minkowski(a, b):
+    res = []
+    for i in a:
+        for j in b:
+            res.append(i+j)
+
+    if res:
+        res.append(res[0])
+
+    return res
+
+
 if __name__ == "__main__":
     # 100 random 2d arrays
     t = np.random.rand(10, 2) * 50
+    t = np.array([[0, 1],
+                  [0, -1],
+                  [1, 0],
+                  [0, 1]])
+    t1 = np.array([[1, 1],
+                   [1, -1],
+                   [0, 0],
+                   [1, 1]])
     n = len(t)
 
     # use scipy's convex hull to compare
-    hull = ConvexHull(t, 2)
+    # hull = ConvexHull(t, 2)
 
     # array of x coordinates of solutions
-    x_rim = [t[i][0] for i in hull.vertices]
-    x_rim += [x_rim[0]]
+    # x_rim = [t[i][0] for i in hull.vertices]
+    # x_rim += [x_rim[0]]
 
     # array of y coordinates of solutions
-    y_rim = [t[i][1] for i in hull.vertices]
-    y_rim += [y_rim[0]]
+    # y_rim = [t[i][1] for i in hull.vertices]
+    # y_rim += [y_rim[0]]
 
     # jarvis algorithm using modular subtraction
-    t_h = convex_hull(t)
+    # t_h = jarvis(t)
 
     # axis
-    plt.ylim([-1, 51])
-    plt.xlim([-1, 51])
+    # plt.ylim([-1, 51])
+    # plt.xlim([-1, 51])
+    plt.ylim([-3, 3])
+    plt.xlim([-1, 3])
 
     # plot all of the points with cyan dot
-    plt.plot([t[i][0] for i in range(n)], [t[i][1] for i in range(n)], 'co')
+    plt.plot([t[i][0] for i in range(n)], [t[i][1] for i in range(n)], 'ro')
+    plt.plot([t1[i][0] for i in range(n)], [t1[i][1] for i in range(n)], 'bo')
 
     # plot the solution points with blue dashed lines
-    plt.plot([v[0] for v in t_h], [v[1] for v in t_h], 'b--')
+    # plt.plot([v[0] for v in t_h], [v[1] for v in t_h], 'b--')
 
     # plot starting point, leftmost point with red dot
-    plt.plot(t_h[0][0], t_h[0][1], 'ro')
+    # plt.plot(t_h[0][0], t_h[0][1], 'ro')
+
+    # convex hull of minkowski addition of t and t1
+    ms = jarvis(minkowski(t, t1))
+    print(ms)
+    m = len(ms)
+
+    # plot minkowski convex hull
+    plt.plot([ms[i][0] for i in range(m)], [ms[i][1] for i in range(m)], 'c--')
 
     # show plot
     plt.show()
