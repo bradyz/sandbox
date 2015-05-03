@@ -1,4 +1,3 @@
-from scipy.spatial import ConvexHull
 import math
 import matplotlib.pyplot as plt
 import numpy as np
@@ -66,12 +65,21 @@ def minkowski(a, b):
     return res
 
 
+def minkowski_dif(a, b):
+    res = []
+    for i in a:
+        for j in b:
+            res.append(i-j)
+
+    if res:
+        res.append(res[0])
+
+    return res
+
+
 if __name__ == "__main__":
     # 100 random 2d arrays
     # t = np.random.rand(10, 2) * 50
-
-    # use scipy's convex hull to compare
-    # hull = ConvexHull(t, 2)
 
     # array of x coordinates of solutions
     # x_rim = [t[i][0] for i in hull.vertices]
@@ -114,19 +122,21 @@ if __name__ == "__main__":
     n = len(t)
 
     # minkowski test axis
-    plt.ylim([-1, 10])
-    plt.xlim([-1, 10])
+    plt.ylim([-10, 10])
+    plt.xlim([-10, 10])
 
     # plot all of the points with cyan dot
     plt.plot([t[i][0] for i in range(n)], [t[i][1] for i in range(n)], 'r-')
     plt.plot([t1[i][0] for i in range(n)], [t1[i][1] for i in range(n)], 'b-')
 
     # convex hull of minkowski addition of t and t1
-    ms = jarvis(minkowski(t, t1))
+    ms = jarvis(minkowski_dif(t, t1))
     m = len(ms)
 
     # plot minkowski convex hull
     plt.plot([ms[i][0] for i in range(m)], [ms[i][1] for i in range(m)], 'c--')
+
+    plt.plot([0], [0], "ko")
 
     # show plot
     plt.show()
