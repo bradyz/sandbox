@@ -1,5 +1,4 @@
 import math
-import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -75,68 +74,3 @@ def minkowski_dif(a, b):
         res.append(res[0])
 
     return res
-
-
-if __name__ == "__main__":
-    # 100 random 2d arrays
-    # t = np.random.rand(10, 2) * 50
-
-    # array of x coordinates of solutions
-    # x_rim = [t[i][0] for i in hull.vertices]
-    # x_rim += [x_rim[0]]
-
-    # array of y coordinates of solutions
-    # y_rim = [t[i][1] for i in hull.vertices]
-    # y_rim += [y_rim[0]]
-
-    # jarvis algorithm using modular subtraction
-    # t_h = jarvis(t)
-
-    # plot the solution points with blue dashed lines
-    # plt.plot([v[0] for v in t_h], [v[1] for v in t_h], 'b--')
-
-    # plot starting point, leftmost point with red dot
-    # plt.plot(t_h[0][0], t_h[0][1], 'ro')
-
-    # axis
-    # plt.ylim([-1, 51])
-    # plt.xlim([-1, 51])
-
-    # two triangles
-    t = np.random.rand(3, 2) * 5
-    t = np.concatenate((t, [t[0]]), axis=0)
-
-    t1 = np.random.rand(3, 2) * 5
-    t1 = np.concatenate((t1, [t1[0]]), axis=0)
-
-    # t = np.array([[0, 1],
-    #               [0, -1],
-    #               [1, 0],
-    #               [0, 1]])
-    #
-    # t1 = np.array([[1, 1],
-    #                [1, -1],
-    #                [0, 0],
-    #                [1, 1]])
-
-    n = len(t)
-
-    # minkowski test axis
-    plt.ylim([-10, 10])
-    plt.xlim([-10, 10])
-
-    # plot all of the points with cyan dot
-    plt.plot([t[i][0] for i in range(n)], [t[i][1] for i in range(n)], 'r-')
-    plt.plot([t1[i][0] for i in range(n)], [t1[i][1] for i in range(n)], 'b-')
-
-    # convex hull of minkowski addition of t and t1
-    ms = jarvis(minkowski_dif(t, t1))
-    m = len(ms)
-
-    # plot minkowski convex hull
-    plt.plot([ms[i][0] for i in range(m)], [ms[i][1] for i in range(m)], 'c--')
-
-    plt.plot([0], [0], "ko")
-
-    # show plot
-    plt.show()
