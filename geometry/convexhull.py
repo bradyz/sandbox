@@ -13,6 +13,7 @@ def angle(x, y):
 # Jarvis Marching Algorithm O(nh)
 # n => number of points in rim
 # h => number of points - 1
+# TODO: add fix for vertical edges
 def jarvis(arr):
     # a => leftmost point
     a = min(arr, key=lambda x: x[0])
@@ -49,7 +50,7 @@ def jarvis(arr):
 
 
 # Graham Scan Algorithm O(n log n)
-def convex_hull2(arr):
+def graham(arr):
     return 0
 
 
@@ -67,16 +68,7 @@ def minkowski(a, b):
 
 if __name__ == "__main__":
     # 100 random 2d arrays
-    t = np.random.rand(10, 2) * 50
-    t = np.array([[0, 1],
-                  [0, -1],
-                  [1, 0],
-                  [0, 1]])
-    t1 = np.array([[1, 1],
-                   [1, -1],
-                   [0, 0],
-                   [1, 1]])
-    n = len(t)
+    # t = np.random.rand(10, 2) * 50
 
     # use scipy's convex hull to compare
     # hull = ConvexHull(t, 2)
@@ -92,25 +84,45 @@ if __name__ == "__main__":
     # jarvis algorithm using modular subtraction
     # t_h = jarvis(t)
 
-    # axis
-    # plt.ylim([-1, 51])
-    # plt.xlim([-1, 51])
-    plt.ylim([-3, 3])
-    plt.xlim([-1, 3])
-
-    # plot all of the points with cyan dot
-    plt.plot([t[i][0] for i in range(n)], [t[i][1] for i in range(n)], 'ro')
-    plt.plot([t1[i][0] for i in range(n)], [t1[i][1] for i in range(n)], 'bo')
-
     # plot the solution points with blue dashed lines
     # plt.plot([v[0] for v in t_h], [v[1] for v in t_h], 'b--')
 
     # plot starting point, leftmost point with red dot
     # plt.plot(t_h[0][0], t_h[0][1], 'ro')
 
+    # axis
+    # plt.ylim([-1, 51])
+    # plt.xlim([-1, 51])
+
+    # two triangles
+    t = np.random.rand(3, 2) * 5
+    t = np.concatenate((t, [t[0]]), axis=0)
+
+    t1 = np.random.rand(3, 2) * 5
+    t1 = np.concatenate((t1, [t1[0]]), axis=0)
+
+    # t = np.array([[0, 1],
+    #               [0, -1],
+    #               [1, 0],
+    #               [0, 1]])
+    #
+    # t1 = np.array([[1, 1],
+    #                [1, -1],
+    #                [0, 0],
+    #                [1, 1]])
+
+    n = len(t)
+
+    # minkowski test axis
+    plt.ylim([-1, 10])
+    plt.xlim([-1, 10])
+
+    # plot all of the points with cyan dot
+    plt.plot([t[i][0] for i in range(n)], [t[i][1] for i in range(n)], 'r-')
+    plt.plot([t1[i][0] for i in range(n)], [t1[i][1] for i in range(n)], 'b-')
+
     # convex hull of minkowski addition of t and t1
     ms = jarvis(minkowski(t, t1))
-    print(ms)
     m = len(ms)
 
     # plot minkowski convex hull
