@@ -1,28 +1,27 @@
 import queue
 
 
-class q(queue.Queue):
+class q():
     def __init__(self, l=None):
+        self._q = queue.Queue()
         for i in l:
-            queue.Queue.put(i)
+            self._q.put(i, False)
 
     def get(self):
-        queue.Queue.get()
+        return self._q.get()
 
 
 def match(x, y):
     free_x = set(x)
     res = {}
-    print(123)
     while free_x:
-        print(123)
         m = free_x.pop()
         w = x[m].get()
-        print((m, w))
-        if w in res:
-            res.add((m, w))
+        if w not in res:
+            res[w] = m
         else:
-            if y[w].index(res[y]) > y[y].index(m):
+            print(res)
+            if y[w].index(res[w]) > y[y].index(m):
                 d = res.pop(y, None)
                 free_x.add(d)
                 res[w] = m
@@ -32,7 +31,6 @@ def match(x, y):
     print("\n".join(map(str, [(i, res[i]) for i in res])))
 
 if __name__ == "__main__":
-    Queue = q
-    a = {"A": Queue("YXZ"), "B": Queue("ZYX"), "C": Queue("XZY")}
+    a = {"A": q("YXZ"), "B": q("ZYX"), "C": q("XZY")}
     b = {"X": list("BAC"), "Y": list("CBA"), "Z": list("ACB")}
     match(a, b)
