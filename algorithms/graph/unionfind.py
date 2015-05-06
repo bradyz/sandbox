@@ -1,14 +1,11 @@
-import numpy as np
-import matplotlib.pyplot as plt
-
-
 class edge:
-    def __init__(self, a, b):
+    def __init__(self, a, b, w):
         self._a = a
         self._b = b
+        self._w = w
 
     def __str__(self):
-        return str(self._a) + " " + str(self._b)
+        return "A: "+str(self._a)+" B: "+str(self._b)+" W: "+str(self._w)
 
 
 # O(n) complexity, depends on find
