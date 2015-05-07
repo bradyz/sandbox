@@ -39,11 +39,10 @@ CS 371P Exam 2 Notes
 
 **Vector**
 ----
-  + `assign()`
-  + `push_back()`
-  + `pop_back()`
-  + `insert()`
-  + `size()`
+  + `void push_back(const T& val)`
+  + `void pop_back()`
+  + `insert(II position, const T& val)`
+  + `size_t size() const`
   + `void erase(II i)`
   + `II begin()`
   + `II end()`
@@ -51,25 +50,39 @@ CS 371P Exam 2 Notes
 
 **Queue**
 ----
-  + `empty()`
-  + `size()`
-  + `front()`
-  + `back()`
-  + `push_back()`
-  + `pop_front()`
+  + `bool empty() const`
+  + `size_t size() const`
+  + `T& front()`
+  + `T& back()`
+  + `void push(const T& val)`
+  + `void pop()`
 
 **Set**
 ----
-  + `find()`
-  + `size()`
-  + `insert()`
+  + `bool empty() const`
+  + `II find(const T& val)`
+  + `size_t size() const`
+  + `void insert(const T& val)`
+  + `void clear()`
+  + `size_t count(const T& val) const`
+  + `size_t erase(const T& val)`
 
 **Stack**
 ----
-  + `pop()`
-  + `top()`
-  + `push()`
+  + `bool empty() const`
+  + `size_t size() const`
+  + `void pop()`
+  + `T& top()`
+  + `void push(const T& val)`
 
 **List**
 ----
-
+  + `bool empty() const`
+  + `size_t size() const`
+  + `void push_front(const T& val)`
+  + `void push_back(const T& val)`
+  + `void pop_front()`
+  + `void pop_back()`
+  + `T& back()`
+  + `T& front()`
+  + `II erase(II i)`
