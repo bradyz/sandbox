@@ -47,6 +47,8 @@ CS 371P Exam 2 Notes
   + `II begin()`
   + `II end()`
   + `T& operator[](size_t i)`
+  + `T& front()`
+  + `T& back()`
 
 **Queue**
 ----
@@ -61,9 +63,9 @@ CS 371P Exam 2 Notes
 ----
   + `bool empty() const`
   + `II find(const T& val)`
-  + `size_t size() const`
   + `void insert(const T& val)`
   + `void clear()`
+  + `size_t size() const`
   + `size_t count(const T& val) const`
   + `size_t erase(const T& val)`
 
