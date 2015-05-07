@@ -86,3 +86,34 @@ CS 371P Exam 2 Notes
   + `T& back()`
   + `T& front()`
   + `II erase(II i)`
+
+**Handle**
+----
+  + `virtual T* clone() const = 0`
+  + `friend bool operator==(const T& lhs, const T& rhs)`
+  + `protected virtual bool equals(const T& that) const = 0`
+  + `Handle (pointer p)`
+  + `Handle (const Handle& that)`
+  + `Handle& operator = (Handle that)`
+  + `~Handle ()`
+
+**Handle1**
+----
+  + `protected pointer get ()`
+  + `protected const_pointer get () const`
+
+**Handle2**
+----
+  + `reference operator * ()`
+  + `const_reference operator * () const`
+  + `pointer operator -> ()`
+  + `const_pointer operator -> () const`
+
+**Handle3** 
+----
+  + `struct count (pointer q)`
+  + `protected pointer get ()`
+  + `protected const_pointer get ()`
+  + `Handle (const Handle& rhs)`
+  + `bool unique () const`
+  + `int use_count () const`
