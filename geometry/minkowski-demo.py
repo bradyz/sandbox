@@ -11,16 +11,6 @@ if __name__ == "__main__":
     t1 = np.random.rand(3, 2) * 5
     t1 = np.concatenate((t1, [t1[0]]), axis=0)
 
-    # t = np.array([[0, 1],
-    #               [0, -1],
-    #               [1, 0],
-    #               [0, 1]])
-    #
-    # t1 = np.array([[1, 1],
-    #                [1, -1],
-    #                [0, 0],
-    #                [1, 1]])
-
     n = len(t)
 
     # minkowski test axis
