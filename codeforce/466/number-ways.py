@@ -13,29 +13,50 @@ def solve(n, c):
     return count
 
 
+# O(n^2) solution
 def solve1(n, c):
     dp = [0 for _ in range(n)]
-    poss = []
     count = 0
 
     for i in range(n):
         dp[i] = c[i] + dp[i-1] if i > 0 else c[i]
 
-    if (dp[n-1] / 3) % 1 != 0:
+    third = dp[n-1] // 3
+
+    if third * 3 != dp[n-1]:
         return 0
 
     for i in range(n-2):
-        if dp[i] == dp[n-1] // 3:
-            poss.append(i+1)
-
-    for i in poss:
-        for j in range(i, n-1):
-            if dp[j] - dp[i-1] == dp[n-1] // 3:
-                count += 1
+        if dp[i] == third:
+            for j in range(i+1, n-1):
+                if dp[j] - dp[i] == third:
+                    count += 1
 
     return count
+
+
+def solve2(n, c):
+    dp = [0 for _ in range(n)]
+    r = 0
+    p = 0
+
+    for i in range(n):
+        dp[i] = c[i] + dp[i-1] if i > 0 else c[i]
+
+    t = dp[n-1] // 3
+
+    if t * 3 != dp[n-1]:
+        return 0
+
+    for i in range(n-1):
+        if dp[i] == 2 * t:
+            r += p
+        if dp[i] == t:
+            p += 1
+
+    return r
 
 if __name__ == "__main__":
     num_el = int(input())
     values = list(map(int, input().split()))
-    print(solve1(num_el, values))
+    print(solve2(num_el, values))
