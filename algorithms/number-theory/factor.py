@@ -1,9 +1,9 @@
 def prime_factors(n):
-    p = set()
+    p = []
     i = 2
     while n > 1:
         if n % i == 0:
-            p.add(i)
+            p.append(i)
             n //= i
         else:
             i += 1

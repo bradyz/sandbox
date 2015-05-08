@@ -1,4 +1,6 @@
-from unionfind import edge, union, find
+import numpy as np
+import matplotlib.pyplot as plt
+from unionfind import edge, point, union, find
 
 
 def kruskal(g):
@@ -13,10 +15,11 @@ def kruskal(g):
 
     # add disjoint edges by weight
     for e in sorted(g, key=lambda x: x._w):
-        if find(p, e._a) != find(p, e._b):
+        if find(p, e.a.v) != find(p, e.b.v):
             res.append(e)
-            union(p, e._a, e._b)
+            union(p, e.a.v, e.b.v)
 
+    # res has v - 1 edges
     for e in res:
         print(e)
 

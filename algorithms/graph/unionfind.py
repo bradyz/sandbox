@@ -1,11 +1,18 @@
 class edge:
     def __init__(self, a, b, w):
-        self._a = a
-        self._b = b
-        self._w = w
+        self.a = a      # to
+        self.b = b      # from
+        self.w = w      # weight
 
     def __str__(self):
-        return "A: "+str(self._a)+" B: "+str(self._b)+" W: "+str(self._w)
+        return "A: "+str(self.a)+" B: "+str(self.b)+" W: "+str(self.w)
+
+
+class point:
+    def __init__(self, v, x, y):
+        self.v = v      # point id
+        self.x = x      # x coordinate
+        self.y = y      # y coordinate
 
 
 # O(n) complexity, depends on find
