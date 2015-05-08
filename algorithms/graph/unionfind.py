@@ -7,6 +7,10 @@ class edge:
     def __str__(self):
         return "A: "+str(self.a)+" B: "+str(self.b)+" W: "+str(self.w)
 
+    # used for plotting
+    def tuple_rep(self):
+        return ((self.a.x, self.a.y), (self.b.x, self.b.y))
+
 
 class point:
     def __init__(self, v, x, y):
@@ -17,7 +21,7 @@ class point:
 
 # O(n) complexity, depends on find
 def union(p, x, y):
-    p[find(p, x)] = find(p, y)
+    p[find(p, x)] = find(p, y)      # join subsets
 
 
 # O(n) complexity, has to go through at most all nodes
@@ -29,6 +33,7 @@ def find(p, i):
 
 def has_cycle(g, p):
     for e in g:
+        # find the two subsets the nodes belong to
         x = find(p, e._a)
         y = find(p, e._b)
 
@@ -42,8 +47,6 @@ def has_cycle(g, p):
     return False
 
 if __name__ == "__main__":
-    n = 3
-
     # graph vis
     # 0
     # | \
@@ -54,6 +57,7 @@ if __name__ == "__main__":
 
     # adjacency graph
     graph = [edge_1, edge_2, edge_3]
+    n = len(graph)
 
     # initialize all parents to -1
     parents = [-1 for _ in range(n)]
