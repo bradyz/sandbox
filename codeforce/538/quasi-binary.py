@@ -18,17 +18,32 @@ def solve(n):
             elif j == 1:
                 dp[i][j] = dp[i-1][j] + [1]
             else:
-                if i-b(j) >= 0:
-                    if len(dp[i-b(j)][j]) + 1 < len(dp[i][j-1]):
+                if i-b(j) >= 0 and len(dp[i-b(j)][j]) + 1 < len(dp[i][j-1]):
                         dp[i][j] = dp[i-b(j)][j] + [b(j)]
-                    else:
-                        dp[i][j] = dp[i][j-1]
                 else:
                     dp[i][j] = dp[i][j-1]
 
     print(len(dp[n][c]))
     print(" ".join(map(str, dp[n][c])))
 
+
+def greedy(n):
+    c = int(len(str(n)) * "1", 2)
+    r = []
+    a = 0
+
+    while n > 0:
+        if n - b(c) >= 0:
+            n -= b(c)
+            r.append(b(c))
+        else:
+            c -= 1
+        a += 1
+
+    print(len(r))
+    print(" ".join(map(str, r)))
+
 if __name__ == "__main__":
     num = int(input())
+    greedy(num)
     solve(num)
