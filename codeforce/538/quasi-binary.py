@@ -43,7 +43,18 @@ def greedy(n):
     print(len(r))
     print(" ".join(map(str, r)))
 
+
+def solve1(n):
+    r = []
+
+    while n > 0:
+        t = int("".join(["0" if x == "0" else "1" for x in str(n)]))
+        n -= int(t)
+        r.append(t)
+
+    print(len(r))
+    print(" ".join(map(str, r)))
+
 if __name__ == "__main__":
     num = int(input())
-    greedy(num)
-    solve(num)
+    solve1(num)
