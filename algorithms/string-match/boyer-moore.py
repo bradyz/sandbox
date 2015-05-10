@@ -28,3 +28,10 @@ if __name__ == "__main__":
     needle = "needle"
     haystack = "findingahaystackneedleina"
     boyermoore(needle, haystack)
+
+    # Output:
+    # findingahaystackneedleina
+    # findin
+    #      ngahay
+    #            stackn
+    #                 needle
