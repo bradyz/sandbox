@@ -22,11 +22,16 @@ if __name__ == "__main__":
     plt.plot([t1[i][0] for i in range(n)], [t1[i][1] for i in range(n)], 'b-')
 
     # convex hull of minkowski addition of t and t1
-    ms = jarvis(minkowski_dif(t, t1))
-    m = len(ms)
+    md = minkowski_dif(t, t1)
+    ms = jarvis(md)
+    msl = len(ms)
+    mdl = len(md)
 
     # plot minkowski convex hull
-    plt.plot([ms[i][0] for i in range(m)], [ms[i][1] for i in range(m)], 'c--')
+    plt.plot([ms[i][0] for i in range(msl)], [ms[i][1] for i in range(msl)], 'c--')
+
+    # plot minkowski
+    plt.plot([md[i][0] for i in range(mdl)], [md[i][1] for i in range(mdl)], 'co')
 
     plt.plot([0], [0], "ko")
 
