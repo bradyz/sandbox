@@ -38,7 +38,21 @@ def solve1(c, k):
 
     print(r)
 
+
+def solve2(c, k):
+    from collections import Counter
+    dp = Counter()
+    dp[0] = 1
+    j = 0
+    r = 0
+    for i in range(len(c)):
+        if c[i] == "1":
+            j += 1
+        r += dp[j-k]
+        dp[j] += 1
+    print(r)
+
 if __name__ == "__main__":
     find = int(input())
-    values = [int(x) for x in input()]
-    solve1(values, find)
+    values = input()
+    solve2(values, find)
