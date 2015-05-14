@@ -1,6 +1,6 @@
 def primes_below(n):
     p = [True for _ in range(n)]
-    r = []
+    r = [0]
     for i in range(2, n):
         if p[i]:
             for j in range(i + i, n, i):
@@ -25,6 +25,22 @@ def solve(n, p):
     pp.pprint(dp)
     return 0
 
+
+def solve1(n):
+    p = primes_below(n)
+    s = set(p)
+    r = 0
+    a = 0
+
+    for i in range(1, len(p)):
+        p[i] += p[i-1]
+
+    for i in range(len(p)):
+        for j in range(i+a, len(p)):
+            if p[j]-p[i] in s:
+                r = p[j]-p[i]
+                a = j-i
+    print(r)
+
 if __name__ == "__main__":
-    primes = primes_below(20)
-    solve1(20, primes)
+    solve1(1000000)
