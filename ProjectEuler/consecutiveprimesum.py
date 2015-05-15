@@ -1,12 +1,10 @@
-def primes_below(n):
+def primes_below(n, low=0):
     p = [True for _ in range(n)]
-    r = [0]
     for i in range(2, n):
         if p[i]:
             for j in range(i + i, n, i):
                 p[j] = False
-            r.append(i)
-    return r
+    return [i for i, prime in enumerate(p) if prime and i >= low]
 
 
 # i misread the question

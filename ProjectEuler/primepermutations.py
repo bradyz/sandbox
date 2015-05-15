@@ -1,4 +1,5 @@
 from consecutiveprimesum import primes_below
+from collections import Counter
 
 
 def is_perm(a, b):
@@ -16,6 +17,11 @@ def is_perm(a, b):
     return x == y
 
 
+# cheeky
+def is_perm1(a, b):
+    return Counter(a) == Counter(b)
+
+
 def solve(n):
     p = primes_below(n, low=1000)
     s = set(p)
@@ -23,7 +29,7 @@ def solve(n):
         for j in range(i+1, len(p)):
             t = p[j]+p[j]-p[i]
             if is_perm(p[i], p[j]) and t in s and is_perm(p[i], t):
-                print(str(p[i]) + str(p[j]) + str(t))
+                print("".join(map(str, [p[i], p[j], t])))
 
 if __name__ == "__main__":
     solve(10000)
