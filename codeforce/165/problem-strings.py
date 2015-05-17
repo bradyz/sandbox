@@ -39,6 +39,7 @@ def solve1(c, k):
     print(r)
 
 
+# N solution not fast enough - tle test 32
 def solve2(c, k):
     from collections import Counter
     dp = Counter()

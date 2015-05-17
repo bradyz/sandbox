@@ -1,12 +1,10 @@
 #include <iostream>
 #include <string>
-#include <string.h>
 
 using namespace std;
 
-
 int main() {
-    long long dp[21 << 2];
+    long long dp[2 << 10];
     int a;
     int j = 0;
     long long r = 0;
@@ -25,5 +23,8 @@ int main() {
         ++dp[j];
     }
 
-    cout << r << endl;
+    for(int i = 0; i < 2 << 10; ++i)
+        cout << dp[i];
+
+    // cout << r << endl;
 }
