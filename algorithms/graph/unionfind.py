@@ -11,12 +11,23 @@ class edge:
     def tuple_rep(self):
         return ((self.a.x, self.a.y), (self.b.x, self.b.y))
 
+    def to(self, fro):
+        if fro == self.a.v:
+            return self.b
+        elif fro == self.b.v:
+            return self.a
+        else:
+            return None
+
 
 class point:
     def __init__(self, v, x, y):
         self.v = v      # point id
         self.x = x      # x coordinate
         self.y = y      # y coordinate
+
+    def __str__(self):
+        return str(self.v)
 
 
 # O(n) complexity, depends on find

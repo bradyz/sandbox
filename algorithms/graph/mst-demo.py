@@ -25,6 +25,7 @@ if __name__ == "__main__":
 
     # find the mst
     mst = prim(graph, points)
+    kruskal(graph)
 
     # metadata
     plt.suptitle("Kruskal's MST")
@@ -45,4 +46,4 @@ if __name__ == "__main__":
         c = e.tuple_rep()
         plt.plot([x[0] for x in c], [x[1] for x in c], "b-")
 
-    # plt.show()
+    plt.show()
