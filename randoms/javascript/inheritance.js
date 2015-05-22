@@ -12,6 +12,37 @@ var mammal = function(spec) {
   return that;                                    // return two functions
 };
 
-var cat = mammal({name: "pig", call: "meow"});    // initialize mammal 
-console.log(cat.get_name());
-console.log(cat.get_call());
+var cat = function(spec) {
+  var that = mammal(spec);
+
+  that.get_call = function() {
+    return "Meow";
+  };
+
+  that.purr = function() {
+    return "Purr";
+  };
+
+  return that;
+};
+
+var dog = function(spec) {
+  var that = mammal(spec);
+
+  that.get_call = function() {
+    return "Bark";
+  };
+
+  return that;
+};
+
+var pig = cat({name: "Pig"});
+var skip = dog({name: "Skip"});
+
+console.log(pig.get_name());
+console.log(pig.get_call());
+console.log(pig.purr());
+
+console.log(skip.get_name());
+console.log(skip.get_call());
+// console.log(skip.purr());                        // no method error
