@@ -1,5 +1,4 @@
-from pprint import PrettyPrinter
-pp = PrettyPrinter()
+from fordfulkerson import ford_fulkerson
 
 
 class Person:
@@ -25,6 +24,26 @@ def adjacency(c, n):
         for j in range(n):
             if i != j and not similar(c[i], c[j]):
                 r[i][j] = 1
+    return r
+
+
+# c => list of people
+# n => length of list
+# this adds a source and sink node to all of the edges
+def source_sink(c, n):
+    r = [[0 for j in range(n+2)] for i in range(n+2)]
+    for i in range(n):
+        for j in range(n):
+            if i != j and not similar(c[i], c[j]):
+                r[i][j] = 1
+
+    # sink and source
+    for i in range(n):
+        r[n-1][i] = 1
+        r[n-2][i] = 1
+        r[i][n-1] = 1
+        r[i][n-2] = 1
+
     return r
 
 
@@ -71,3 +90,6 @@ if __name__ == "__main__":
     total = [Person(*input().split()) for _ in range(int(input()))]
     pos = adjacency(total, len(total))
     greed = greedy(total, pos, len(total))
+
+    graph = source_sink(total, len(total))
+    ford_fulkerson(graph, len(total)-2, len(total)-1)

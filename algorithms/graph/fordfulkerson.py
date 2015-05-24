@@ -21,9 +21,9 @@ def ford_fulkerson(a_graph, s, t):
                     vis.add(i)
                     parent[i] = cur                 # create the path
 
-        return t in v                               # can reach the sink
+        return t in vis                             # can reach the sink
 
-    r_graph = deepcopy(graph)                       # residual capacity graph
+    r_graph = deepcopy(a_graph)                     # residual capacity graph
     parent = [0 for _ in range(len(r_graph))]       # trace of path for bfs
     max_flow = 0
 
