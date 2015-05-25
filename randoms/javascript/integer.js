@@ -1,4 +1,4 @@
-Number.prototype.integer = function() {
+Number.prototype.integer = function () {
    return Math[this < 0 ? 'ceiling' : 'floor'](this);
 }
 

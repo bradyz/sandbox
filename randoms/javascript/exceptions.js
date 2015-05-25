@@ -1,4 +1,4 @@
-var myAdd = function(a, b) {
+var myAdd = function (a, b) {
   if (typeof a !== 'number' || typeof b !== 'number') {
     throw {
       name: 'TypeError',
@@ -9,7 +9,7 @@ var myAdd = function(a, b) {
   return a + b;             // doesn't reach this point for exceptions
 };
 
-var tryAdd = function(a, b) {
+var tryAdd = function (a, b) {
   try {
     console.log(myAdd(a, b));
   } catch (e) {

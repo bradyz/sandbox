@@ -1,35 +1,35 @@
-var mammal = function(spec) {
+var mammal = function (spec) {
   var that = {};
   
-  that.get_name = function() {
+  that.get_name = function () {
     return spec.name || "No Name";                // doesnt return undefined
   };
 
-  that.get_call = function() {
+  that.get_call = function () {
     return spec.call || "No Call";
   };
 
   return that;                                    // return two functions
 };
 
-var cat = function(spec) {
+var cat = function (spec) {
   var that = mammal(spec);
 
-  that.get_call = function() {
+  that.get_call = function () {
     return "Meow";
   };
 
-  that.purr = function() {
+  that.purr = function () {
     return "Purr";
   };
 
   return that;
 };
 
-var dog = function(spec) {
+var dog = function (spec) {
   var that = mammal(spec);
 
-  that.get_call = function() {
+  that.get_call = function () {
     return "Bark";
   };
 
