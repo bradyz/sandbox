@@ -1,8 +1,8 @@
-var myConstructor = function(str) {
+var myConstructor = function (str) {
   this.status = str;
 };
 
-myConstructor.prototype.getStatus = function() {                // class method
+myConstructor.prototype.getStatus = function () {                // class method
   return this.status;                                           // uses "this"
 };
 

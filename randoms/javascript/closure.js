@@ -1,4 +1,4 @@
-var quo = function(status) {
+var quo = function (status) {
   return {
     getStatus: function() {
       return status;              // has access to the parameter

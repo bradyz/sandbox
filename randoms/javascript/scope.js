@@ -1,8 +1,8 @@
-var myObject1 = function() {
+var myObject1 = function () {
   var val = 0;                      // scoped within function
 
   return {
-    increment: function(inc) {
+    increment: function (inc) {
       return val += typeof inc === 'number' ? inc : 1;
     },
     getVal: function() {

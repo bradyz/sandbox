@@ -1,5 +1,5 @@
-var memoizer = function(memo, fundamental) {
-  var shell = function(n) {
+var memoizer = function (memo, fundamental) {
+  var shell = function (n) {
     var result = memo[n];
 
     if(typeof result !== 'number') { 
