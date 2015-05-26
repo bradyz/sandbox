@@ -1,7 +1,7 @@
 def prim(g, p):
     r = []              # result edges
     s = [p[0].v]        # stack
-    v = set([p[0].v])         # visited
+    v = set([p[0].v])   # visited
     m = [[None for j in range(len(p))] for i in range(len(p))]
 
     # turn the graph into a matrix
@@ -11,6 +11,7 @@ def prim(g, p):
     # dfs for minimum edge costs
     while s:
         b_v = None
+
         # look for the minimum edge from the vertex
         for i, e in enumerate(m[s[-1]]):
             if e and i not in v and (not b_v or (b_v and e.w < b_v.w)):
@@ -21,7 +22,6 @@ def prim(g, p):
             v.add(b_v.to(s[-1]).v)
             s.append(b_v.to(s[-1]).v)
             r.append(b_v)
-            print(r[-1])
         else:
             # no match - backtrack
             s.pop()
