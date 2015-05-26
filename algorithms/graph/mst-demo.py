@@ -3,7 +3,8 @@ from unionfind import edge, point
 from kruskal import kruskal
 from prim import prim
 
-if __name__ == "__main__":
+
+def setup():
     p_0 = point(0, 0, 1)
     p_1 = point(1, 1, 2)
     p_2 = point(2, 2, 2)
@@ -23,27 +24,58 @@ if __name__ == "__main__":
              edge(p_1, p_2, 8), edge(p_3, p_4, 9), edge(p_5, p_4, 10),
              edge(p_1, p_7, 11), edge(p_3, p_5, 14)]
 
-    # find the mst
-    mst = prim(graph, points)
-    kruskal(graph)
+    return graph, points
 
-    # metadata
-    plt.suptitle("Kruskal's MST")
-    plt.ylim([-1, 5])
-    plt.xlim([-1, 5])
 
+# g => graph
+# p => points
+def plot_base(g, p):
     # plot all points
-    for p in points:
-        plt.plot(p.x, p.y, "ro")
+    for v in points:
+        plt.plot(v.x, v.y, "ro")
 
     # plot all edges
-    for e in graph:
+    for e in g:
         c = e.tuple_rep()
         plt.plot([x[0] for x in c], [x[1] for x in c], "b--")
 
-    # plot mst edges
-    for e in mst:
+
+# m => set of edges in mst
+def plot_mst(m):
+    for e in m:
         c = e.tuple_rep()
         plt.plot([x[0] for x in c], [x[1] for x in c], "b-")
+
+if __name__ == "__main__":
+    # base data
+    graph, points = setup()
+
+    # find the mst
+    mst_prim = prim(graph, points)
+    mst_kruskal = kruskal(graph)
+
+    # metadata for Kruskal
+    p1 = plt.subplot(221)
+    p1.set_title("Kruskal")
+    plt.ylim([-1, 5])
+    plt.xlim([-1, 5])
+
+    # basic
+    plot_base(graph, points)
+
+    # the goods
+    plot_mst(mst_kruskal)
+
+    # metadata for Prim
+    p2 = plt.subplot(222)
+    p2.set_title("Prim")
+    plt.ylim([-1, 5])
+    plt.xlim([-1, 5])
+
+    # basic
+    plot_base(graph, points)
+
+    # the goods
+    plot_mst(mst_prim)
 
     plt.show()
