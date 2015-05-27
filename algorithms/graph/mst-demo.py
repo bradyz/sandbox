@@ -76,6 +76,6 @@ if __name__ == "__main__":
     plot_base(graph, points)
 
     # the goods
-    # plot_mst(mst_prim)
+    plot_mst(mst_prim)
 
-    # plt.show()
+    plt.show()
