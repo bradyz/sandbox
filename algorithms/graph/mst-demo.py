@@ -51,7 +51,7 @@ if __name__ == "__main__":
     graph, points = setup()
 
     # find the mst
-    mst_prim = prim(graph, points)
+    mst_prim = prim(graph, points, len(points))
     mst_kruskal = kruskal(graph)
 
     # metadata for Kruskal
@@ -76,6 +76,6 @@ if __name__ == "__main__":
     plot_base(graph, points)
 
     # the goods
-    plot_mst(mst_prim)
+    # plot_mst(mst_prim)
 
-    plt.show()
+    # plt.show()
