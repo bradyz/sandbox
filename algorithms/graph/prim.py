@@ -1,29 +1,42 @@
-def prim(g, p):
-    r = []              # result edges
-    s = [p[0].v]        # stack
-    v = set([p[0].v])   # visited
-    m = [[None for j in range(len(p))] for i in range(len(p))]
+from sys import maxsize as MAXINT
+
+
+# k => key array (cost of connecting)
+# m => mst array (is it already included)
+def min_key(k, m):
+    m_v = MAXINT
+    m_i = -1
+
+    for i in range(len(k)):
+        if not m[i] and k[i] < m_v:
+            m_i = i
+            m_v = k[i]
+
+    print("min: " + str(m_i))
+    return m_i
+
+
+def prim(g, p, n):
+    m = [[None for j in range(n)] for i in range(n)]
+    mst = [False for _ in range(n)]
+    key = [MAXINT for _ in range(n)]
+    parent = [None for _ in range(n)]
+
+    key[0] = 0                  # make sure the first vertex is picked
+    parent[0] = -1              # first node is root of MST
 
     # turn the graph into a matrix
     for e in g:
         m[e.a.v][e.b.v] = m[e.b.v][e.a.v] = e
 
-    # dfs for minimum edge costs
-    while s:
-        b_v = None
+    for i in range(n):
+        u = min_key(key, mst)
+        mst[u] = True
+        for v in range(n):
+            if not mst[v] and m[u][v] and m[u][v].w < key[u]:
+                parent[v] = u
+                key[v] = m[u][v].w
+                print(parent, key)
 
-        # look for the minimum edge from the vertex
-        for i, e in enumerate(m[s[-1]]):
-            if e and i not in v and (not b_v or (b_v and e.w < b_v.w)):
-                b_v = e
-
-        if b_v:
-            # match - add edge to result
-            v.add(b_v.to(s[-1]).v)
-            s.append(b_v.to(s[-1]).v)
-            r.append(b_v)
-        else:
-            # no match - backtrack
-            s.pop()
-
-    return r
+    for i in range(n):
+        print(str(i) + " " + str(parent[i]))
