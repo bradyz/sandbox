@@ -1,27 +1,11 @@
 JavaScript Reference
 -------------------------------------------------------------------------------
 
-#####Author: B-rad
-
-Table of Contents:
--------------------------------------------------------------------------------
-
-1. Dictionaries
-
 Dictionaries
 -------------------------------------------------------------------------------
 
-**initialization** - hardcoding certain values
+**blah blah** - blah blah
 
-```python
-pairs = {"}": "{", ")": "("}
-```
-
-**counter** - subclass of dicts for tallying
-
-```python
-from collections import Counter
-cnt = Counter()
-for word in ['red', 'blue', 'red', 'green', 'blue', 'blue']:
-  cnt[word] += 1
+```javascript
+var a = {};
 ```

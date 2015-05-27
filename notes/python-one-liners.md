@@ -7,7 +7,7 @@ from collections import Counter
 sorted(Counter(["cat", "cat", "cat", "dog", "pig", "pig"]), key=lambda x: x[1])[-1]
 ```
 
-Std-in space delimited values to list of ints
+Stdin space delimited values to list of ints
 ```python
 list(map(int, input().split()))
 ```
