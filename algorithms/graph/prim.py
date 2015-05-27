@@ -27,7 +27,7 @@ def prim(g, p, n):
     mst = [False for _ in range(n)]
     key = [MAXINT for _ in range(n)]
     parent = [None for _ in range(n)]
-    r = []
+    res = []
 
     key[0] = 0                  # make sure the first vertex is picked
     parent[0] = -1              # first node is root of MST
@@ -47,9 +47,10 @@ def prim(g, p, n):
                 parent[v] = u
                 key[v] = m[u][v].w
 
+    # find the edges that coincide with the parent array
     for i in range(1, n):
         for e in g:
             if belongs_to(i, parent[i], e):
-                r.append(e)
+                res.append(e)
 
-    return r
+    return res
