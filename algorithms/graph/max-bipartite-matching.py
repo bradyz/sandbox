@@ -1,5 +1,5 @@
-# Maximum Bipartite Matching
-# http://www.geeksforgeeks.org/maximum-bipartite-matching/
+# Maximum Possible Pairings
+# similar to http://www.geeksforgeeks.org/maximum-bipartite-matching/
 
 from matching import Person, adjacency
 
