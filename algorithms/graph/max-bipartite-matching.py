@@ -10,6 +10,8 @@ from matching import Person, adjacency
 # m => result matchings
 # n => number of vertices
 def bpm(g, u, s, m, n):
+    s[u] = True
+
     for v in range(n):
 
         # if there exists a matching and it is not yet seen
@@ -18,9 +20,10 @@ def bpm(g, u, s, m, n):
 
             # if the match is not yet paired or
             # there is another matching for v's pair
-            if m[v] < 0 or bpm(g, m[v], s, m, n):
+            if m[v] == -1 or bpm(g, m[v], s, m, n):
                 m[v] = u
                 m[u] = v
+
                 return True
 
     return False
@@ -35,7 +38,7 @@ def maxBPM(graph, n):
     for cur in range(n):
         seen = [False for _ in range(n)]
 
-        if bpm(graph, cur, seen, match, n):
+        if match[cur] == -1 and bpm(graph, cur, seen, match, n):
             result += 1
 
     return match
@@ -52,9 +55,14 @@ def print_matches(t, m):
             s[m[i]] = True
             print(str(t[i]) + " can match with " + str(t[m[i]]))
 
+    for i in range(len(m)):
+        if not s[i]:
+            print(str(t[i]) + " has no matches")
 
 if __name__ == "__main__":
     total = [Person(*input().split()) for _ in range(int(input()))]
     pos = adjacency(total, len(total))
+
     matches = maxBPM(pos, len(total))
+
     print_matches(total, matches)

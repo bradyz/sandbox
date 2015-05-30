@@ -12,7 +12,7 @@ class Person:
         return self.info[i]
 
     def __str__(self):
-        return " ".join(list(map(str, self.info)))
+        return "\t".join(list(map(str, self.info)))
 
 
 def similar(a, b):
