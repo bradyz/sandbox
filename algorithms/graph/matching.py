@@ -11,6 +11,9 @@ class Person:
     def __getitem__(self, i):
         return self.info[i]
 
+    def __str__(self):
+        return " ".join(list(map(str, self.info)))
+
 
 def similar(a, b):
     return a[0] == b[0] or a[1] == b[1] or a[2] == b[2]
@@ -68,19 +71,26 @@ def greedy(c, g, n):
                 m_c = tmp
 
         if m_i != n:
-            # look for least match
-            p_i = -1
-            p_c = n
+            p_i = -1                # index of min matches
+            p_c = n                 # number of min matches
+
+            # look for the minimum count
             for i in [j for j in range(n) if g[m_i][j]]:
                 tmp = g[i].count(1)
                 if tmp < p_c and tmp > 0:
                     p_i = i
                     p_c = tmp
-            if p_c != n:
+
+            # found a match
+            if p_c < n:
                 r.append((m_i, p_i))
+
+                # matched - clear vertex from graph
                 for i in range(n):
                     g[p_i][i] = 0
                     g[m_i][i] = 0
+
+                # continue
                 stop = False
 
     return r
