@@ -3,14 +3,14 @@
 
 using namespace std;
 
+long long dp[2 << 10];
+
 int main() {
-    long long dp[2 << 10];
     int a;
     int j = 0;
     long long r = 0;
     string s;
 
-    memset(dp, 0, sizeof(dp));
     dp[0] = 1;
 
     cin >> a >> s;
