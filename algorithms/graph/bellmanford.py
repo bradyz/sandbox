@@ -8,10 +8,10 @@ def bellmanford(src, g, n):
     for _ in range(n):
         for u in range(n):
             for v in range(n):
-                if g[u][v] != INT_MAX:
-                    dist[v] = min(dist[v], dist[u] + g[u][v])
+                dist[v] = min(dist[v], dist[u] + g[u][v])
 
     print("Vertex\tDistance")
+
     for i in range(n):
         print(str(i)+"\t"+str(dist[i]))
 
