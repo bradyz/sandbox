@@ -1,11 +1,8 @@
-document.write('<script src="jquery.js"><\/script>');
-
-var waitjQuery = function () {
-  if(!jQuery) {
-    window.settimeout(waitJquery, 100);
+$.ajax({
+  url: 'serviceStatus.xml',
+  type: "GET",
+  dataType: "xml",
+  success: function (result) {
+    console.log(result);
   }
-}();
-
-$.getJSON('test.json', function (data) {
-  console.log(data);
 });
