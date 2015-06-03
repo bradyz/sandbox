@@ -26,3 +26,17 @@ speak();                                        // undefined
 speak1();                                       // greg
 speak2();                                       // undefined
 speak3();                                       // brady
+
+this.x = 0;
+
+var module = function () {
+  this.x = 100;
+  this.getx = function () {
+    return this.x;
+  }
+  return this;
+}();
+
+var getx1 = module.getx;
+console.log(getx1());
+console.log(module.getx());

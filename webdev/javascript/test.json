@@ -2,15 +2,27 @@
     "employees":[
         {
             "firstName": "John", 
-            "lastName":"Doe"
+            "lastName": "Doe"
         },
         {
-            "firstName":"Anna",
-            "lastName":"Smith"
+            "firstName": "Anna",
+            "lastName": "Smith"
         },
         {
-            "firstName":"Peter",
-            "lastName":"Jones"
+            "firstName": "Brady",
+            "lastName": "Zhou"
+        },
+        {
+            "firstName": "Cat",
+            "lastName": "Pig"
+        },
+        {
+            "firstName": "Albert",
+            "lastName": "Lee"
+        },
+        {
+            "firstName": "Peter",
+            "lastName": "Jones"
         }
     ]
 }
