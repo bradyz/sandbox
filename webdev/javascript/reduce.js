@@ -1,3 +1,5 @@
+'use strict';
+
 // add a new method called 'reduce'
 Array.prototype.reduce = function (f, value) {
   for(var i = 0; i < this.length; ++i) {
