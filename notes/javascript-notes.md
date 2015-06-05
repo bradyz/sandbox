@@ -1,10 +1,10 @@
 JavaScript Reference
 -------------------------------------------------------------------------------
 
-Dictionaries
+jQuery
 -------------------------------------------------------------------------------
 
-**blah blah** - blah blah
+**$.getJSON('url', function (data) {});** - makes a get request
 
 ```javascript
 var a = {};
