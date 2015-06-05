@@ -8,7 +8,6 @@ Function.prototype.curry = function() {
   // args = [].slice().call(arguments);
 
   return function() {
-    console.log(args.concat(Array.prototype.slice.call(arguments)));
     return fn.apply(this, args.concat(Array.prototype.slice.call(arguments)));
   };
 };
