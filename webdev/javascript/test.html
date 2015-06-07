@@ -7,13 +7,18 @@
         margin: 10px;
         background: blue;
         display: inline-block;
+        border: black 1px solid;
       }
     </style>
     <meta charset="UTF-8">
     <title>title</title>
   </head>
   <body>
-    <div class="box">
+    <div class="box">1
+      <div class="box">2
+        <div class = "box">3
+        </div>
+      </div>
     </div>
     <div class="box">
     </div>
@@ -21,9 +26,7 @@
     </div>
     <div class="box">
     </div>
-  <!-- <script src="events.js"></script> -->
-  <script src="scroller.js"></script>
-  <script src="jquery.js"></script>
-  <script src="json.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="capture.js"></script>
   </body>
 </html>
