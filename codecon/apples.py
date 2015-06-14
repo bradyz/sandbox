@@ -2,17 +2,19 @@ n, m, start, x, y, end = map(int, input().split())
 v = end - start
 r = []
 
-for i in range(m):
-    if (v - (m - i) * y) % x == 0:
-        r.append((v - (m-i) * y) // x + n)
+for i in range(m * y // x, -1, -1):
+    t = start - i * x
+    if (end - t) % y == 0 and ((end - t) // y) <= m:
+        r.append(n+i)
         break
 
-for i in range(n):
-    if (v - (n - i) * x) % y == 0:
-        r.append((v - (n-i) * x) // y + m)
+for i in range(n * x // y, -1, -1):
+    t = start - i * y
+    if (end - t) % x == 0 and ((end - t) // x) <= n:
+        r.append(m+i)
         break
 
-if not r:
+if len(r) < 2:
     print("Impossible")
 else:
     print(" ".join(map(str, r)))
