@@ -1,6 +1,7 @@
 n, m, start, x, y, end = map(int, input().split())
 v = end - start
 r = []
+print(n*x+m*y+start)
 
 for i in range(m * y // x, -1, -1):
     t = start - i * x
