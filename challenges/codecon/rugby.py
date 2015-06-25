@@ -1,5 +1,3 @@
-from pprint import PrettyPrinter
-pp = PrettyPrinter()
 n = int(input())
 c = [2, 3, 7]
 dp = [[set() for j in c] for i in range(n+1)]
@@ -13,11 +11,10 @@ for i in range(n+1):
         if i - c[j] >= 0 and j - 1 >= 0:
             for v in dp[i-c[j]][j-1]:
                 dp[i][j].add(v + tuple([c[j]]))
-        if j > 1:
+        if j > 0:
             for v in dp[i][j-1]:
                 dp[i][j].add(v)
 s = []
-print(dp[n][2])
 for v in dp[n][2]:
     t = [0 for _ in range(3)]
     t[0] = v.count(7)
