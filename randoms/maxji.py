@@ -13,4 +13,16 @@ def trivial(a):
                 m_i, m_j = i, j
     print(m_i, m_j)
 
+
+def dp(a):
+    n = len(a)
+    dp = [0 for _ in range(n)]
+    for j in range(n):
+        for i in range(j):
+            if a[j] > a[i]:
+                dp[j] = max(dp[j], dp[i]+j-i)
+    print(dp)
+
+print(c)
 trivial(c)
+dp(c)
