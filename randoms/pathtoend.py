@@ -15,4 +15,22 @@ def walk(a):
     else:
         print("NO")
 
+
+def dfsway(a):
+    def dfs(i, v):
+        if i >= len(a):
+            return True
+        elif v[i]:
+            return False
+        else:
+            v[i] = True
+            e = False
+            for j in range(a[i]+1):
+                e |= dfs(i+a[j], v)
+            return e
+
+    vis = [False for _ in a]
+    print(dfs(0, vis))
+
 walk(c)
+dfsway(c)
