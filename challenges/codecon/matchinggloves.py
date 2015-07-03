@@ -1,20 +1,26 @@
-from collections import Counter
 n = int(input())
-c = Counter()
+c = {}
 r = 0
 
 for _ in range(n):
     t = input()
-    if t != "".join(reversed(t)):
+    if t == "".join(reversed(t)):
+        continue
+    if t in c:
         c[t] += 1
-        r += 1
+    else:
+        c[t] = 1
+    r += 1
 
 for v in c:
-    c["".join(reversed(v))] -= c[v]
-    c[v] = 0
+    if "".join(reversed(v)) in c:
+        c["".join(reversed(v))] -= c[v]
+        c[v] = 0
+    else:
+        c[v] = -1
 
-for v in c.values():
-    if v != 0:
+for v in c:
+    if c[v] != 0:
         r = -1
         break
 if r == -1:
