@@ -6,6 +6,6 @@ r = sum(d)
 for i in range(3):
     if r < n:
         d[i] = min(d[i] + n-r, c[i][1])
-        r += c[i][0] - d[i]
+        r += d[i] - c[i][0]
 
 print(" ".join(map(str, d)))
