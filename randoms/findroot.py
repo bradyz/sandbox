@@ -16,4 +16,14 @@ def solve():
             t -= v
     print(t)
 
-solve()
+
+def solve1():
+    global c, n
+    t = 0
+    for u in c:
+        t ^= u
+        for v in c[u]:
+            t ^= v
+    print(t)
+
+solve1()
