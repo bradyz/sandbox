@@ -34,10 +34,18 @@ def solve(c):
     while i >= 0 and r[i] == "-":
         i -= 1
 
-    return r[:i+1]
+    return r
 
-print(solve(8))
-print(solve(10))
-print(solve(3))
-print(solve(2))
-print(solve(12))
+def check(n, c):
+    x = n
+    y = 0
+    for i in range(len(c)):
+        if c[i] == "R":
+            y += 3 ** i
+        elif c[i] == "L":
+            x += 3 ** i
+    print(n, c)
+    return x == y
+
+for i in range(1, 20):
+    print(check(i, solve(i)))
