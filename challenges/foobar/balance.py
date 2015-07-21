@@ -1,40 +1,44 @@
-def solve(c):
+def solve(n):
     t = 0
-    while 3**t < c:
+    v = 1
+    while v < n:
+        v *= 3
         t += 1
-    r = ["-" for _ in range(t+1)]
+    c = [0 for _ in range(t+1)]
 
-    def s(n):
-        if n == 0:
+    def s(r, k):
+        t = 3 ** k
+        if t < 1:
             return
 
-        t = 0
-        while 3**(t+1) <= abs(n):
-            t += 1
-
-        if 3 ** t <= abs(n) and 2 * 3 ** t > abs(n):
-            if n < 0:
-                r[t] = "L"
-                s(n + 3 ** t)
-            else:
-                r[t] = "R"
-                s(n - 3 ** t)
+        if t > r:
+            s(r, k-1)
+        elif 2*t > r:
+            c[k] += 1
+            s(r-t, k-1)
         else:
-            if n < 0:
-                r[t+1] = "L"
-                s(n + 3 ** (t+1))
-            else:
-                r[t+1] = "R"
-                s(n - 3 ** (t+1))
+            c[k] -= 1
+            c[k+1] += 1
+            s(r-2*t, k-1)
 
-    s(c)
+    s(n, t)
 
-    i = len(r)-1
+    for i in range(len(c)):
+        if c[i] == -1:
+            c[i] = "L"
+        elif c[i] == 0:
+            c[i] = "-"
+        elif c[i] == 1:
+            c[i] = "R"
+        elif c[i] == 2:
+            c[i] = "L"
+            c[i+1] += 1
 
-    while i >= 0 and r[i] == "-":
-        i -= 1
+    if c[-1] == "-":
+        c.pop()
 
-    return r
+    return c
+
 
 def check(n, c):
     x = n
