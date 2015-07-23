@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>User Manager</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+	<style>
+		.bold {
+			font-weight:bold;
+		}
+
+		.margin-top-20 {
+			margin-top:20px;
+		}
+
+		.small-container {
+			width:700px;
+			margin-left:auto;
+			margin-right:auto;
+		}
+
+		.txt-right {
+			text-align:right;
+		}
+	</style>
+</head>
+
+<body>
+
+<div class="small-container">
+	<h1>User Manager</h1>
+
+	<div>
+		<a href="#" class="btn btn-primary">Back</a>
+	</div>
+</div>
+
+<form method="POST" action="/edit/<%= user.id %>">
+<div class="small-container margin-top-20">
+	<div class="well">
+		<div class="bold">
+      First Name
+		</div>
+		<div class="margin-top-20">
+      <input name="firstname" type="text" class="form-control" value="<%= user.firstname %>"/>
+		</div>
+		<div class="bold margin-top-20">
+      Last Name
+		</div>
+		<div class="margin-top-20">
+      <input name="lastname" type="text" class="form-control" value="<%= user.lastname %>"/>
+		</div>
+		<div class="bold margin-top-20">
+      Role
+		</div>
+		<div class="margin-top-20">
+      <input name="role" type="text" class="form-control" value="<%= user.role %>"/>
+		</div>
+		<div class="bold margin-top-20">
+      Username
+		</div>
+		<div class="margin-top-20">
+      <input name="username" type="text" class="form-control" value="<%= user.username %>"/>
+		</div>
+		<div class="margin-top-20 txt-right">
+			<a href="#" class="btn btn-default">Cancel</a>
+			<button type="submit" class="btn btn-primary">Edit User</button>
+		</div>
+	</div>
+</div>
+</form>
+
+<!--jQuery-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

@@ -2,3 +2,5 @@
 *.swp
 !/.gitignore
 __pycache__/
+node_modules
+wordsEn.txt
