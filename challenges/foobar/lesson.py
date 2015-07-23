@@ -3,6 +3,7 @@ import sys
 
 def answer(c):
     def construct(i, d):
+        print(i, d)
         if not d or i >= len(d):
             return
         for j in range(len(d)):
@@ -38,6 +39,7 @@ def answer(c):
     v = {}
     r = []
     construct(0, c)
+    print(v)
     for a in v:
         l = []
         t = dfs(a, l)
