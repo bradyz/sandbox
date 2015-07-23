@@ -1,0 +1,40 @@
+body {
+	margin:0;
+}
+
+.container {
+	margin-top:10px;
+	max-width:800px;
+	border:#000 1px solid;
+	margin-left:auto;
+	margin-right:auto;
+	padding:20px;
+}
+
+.chat-container {
+	overflow-y:scroll;
+}
+
+.chat-item {
+	padding:10px;
+}
+
+.chat-item:nth-child(odd) {
+	background-color:#EBEBEB;
+}
+
+.margin-top-20 {
+	margin-top:20px;
+}
+
+.bold {
+	font-weight:bold;
+}
+
+#chat-input {
+	width:100%;
+	box-sizing:border-box;
+	border-radius:5px;
+	padding:10px;
+	border:#CCC 1px solid;
+}
