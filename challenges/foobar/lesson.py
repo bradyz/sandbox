@@ -2,8 +2,6 @@ import sys
 
 
 def answer(c):
-    v = {}
-
     def construct(i, d):
         if not d or i >= len(d):
             return
@@ -18,35 +16,34 @@ def answer(c):
         while j < len(d):
             k = j+1
             while k < len(d):
-                if i >= len(d[j]) or i+1 >= len(d[k]) or d[j][i] != d[k][i]:
+                if i >= len(d[j]) or i >= len(d[k]) or d[j][i] != d[k][i]:
                     break
-                if d[j][i] in v:
-                    v[d[j][i]].add(d[k][i+1])
-                else:
-                    v[d[j][i]] = set([d[k][i+1]])
                 k += 1
             construct(i+1, d[j:k])
-            j += 1
+            j = k
 
     def dfs(x, y):
         y.append(x)
         if x not in v:
             return y
-        for b in v[x]:
-            z = y[:]
-            e = dfs(b, z)
-            if len(e) > len(x):
-                x = e
-        return x
+        new_r = y[:]
+        for new_x in v[x]:
+            if x != new_x:
+                new_y = y[:]
+                e = dfs(new_x, new_y)
+                if len(e) > len(new_r):
+                    new_r = e
+        return new_r
 
-    construct(0, c)
-    print(v)
+    v = {}
     r = []
+    construct(0, c)
     for a in v:
         l = []
         t = dfs(a, l)
         if len(t) > len(r):
             r = t
+
     return "".join(r)
 
 
