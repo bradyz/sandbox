@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+  </head>
+  <body>
+    <div>{{ num }}</div>
+
+    <!-- should be a put but i cant figure out overrides -->
+    <div> sync change </div>
+    <form action="{{ url_for('api_change_number_sync') }}" method=post>
+      <input type="text" name="the_input">
+    </form>
+
+    <div> async change </div>
+    <form id="the_form" action="">
+      <input type="text" id="another_input">
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(e) {
+        $('#the_form').submit(function () {
+
+          $.ajax({
+            url: "{{ url_for('api_change_number_async') }}",
+            type: "POST",
+            data: {
+              'num': $('#another_input').val()
+            },
+            success: function (response) {
+              alert('new value is: ' + JSON.parse(response)['new_num']);
+            }
+          });
+
+          return false;
+        });
+      });
+    </script>
+  </body>
+</html>
