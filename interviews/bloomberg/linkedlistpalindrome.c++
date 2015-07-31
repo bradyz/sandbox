@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -27,6 +28,15 @@ Node* middle (Node* head) {
     return tmp;
 }
 
+void walk (Node* head) {
+    while (head) {
+        cout << head->value;
+        head = head->next;
+    }
+    cout << endl;
+}
+
+
 Node* reverse (Node* head) {
     Node* cur = head;
     Node* prev = NULL;
@@ -42,25 +52,31 @@ Node* reverse (Node* head) {
     return prev;
 }
 
-void walk (Node* head) {
-    while (head) {
-        cout << head->value << endl;
-        head = head->next;
-    }
-}
-
 bool isPalindrome (Node* head) {
     Node* mid = middle(head);
+    Node* tmp = reverse(middle(head));
     bool result = true;
 
-    while (mid->next) {
-        if(mid->value != head->value)
-            cout << mid->value << " " << head->value << endl;
+    while (head && tmp) {
+        if(tmp->value != head->value)
             return false;
-        mid = mid->next;
+        tmp = tmp->next;
         head = head->next;
     }
 
+    return true;
+}
+
+bool isPalindromeV2 (Node* head) {
+    vector<Node *> c;
+    while (head) {
+        c.push_back(head);
+        head = head->next;
+    }
+    for(int i = 0; i < c.size() / 2; ++i) {
+        if (c[i]->value != c[c.size()-i-1]->value) 
+            return false;
+    }
     return true;
 }
 
@@ -69,6 +85,7 @@ int main () {
     Node b;
     Node c;
     Node d;
+    Node e;
 
     a.value = 1;
     a.next = &b;
@@ -76,13 +93,17 @@ int main () {
     b.value = 2;
     b.next = &c;
 
-    c.value = 2;
+    c.value = 3;
     c.next = &d;
 
-    d.value = 1;
-    d.next = NULL;
+    d.value = 2;
+    d.next = &e;
 
-    cout << isPalindrome(&a);
+    e.value = 1;
+    e.next = NULL;
+
+    cout << isPalindromeV2(&a) << endl;
+    cout << isPalindrome(&a) << endl;
 
     return 0;
 }
