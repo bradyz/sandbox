@@ -44,7 +44,7 @@ void copyLinkedList(Node* oldHead) {
     
     head = oldHead;
 
-    for (int i=0; i < num; ++i) {
+    for (int i = 0; i < num; ++i) {
         c[i]->value = d[head].second; 
         head = head->next;
     }
