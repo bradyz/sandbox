@@ -36,11 +36,32 @@ def dfs(u, vis):
 
     return t
 
-w = dict()
 
-for node in d:
-    vis_i = set()
-    dfs(node, vis_i)
+def dfsV2(u):
+    s = [u]
+    vis = set()
+
+    while s:
+        t = s[-1]
+        vis.add(t)
+        m = False
+
+        for v in d[t]:
+            if v not in vis:
+                s.append(v)
+                m = True
+
+        if not m:
+            tmp = c[t-1]
+            for v in d[t]:
+                if v in w:
+                    tmp += w[v]
+            w[t] = tmp
+            s.pop()
+
+
+w = dict()
+dfsV2(list(d.keys())[0])
 
 root = max(w.values())
 r = sys.maxsize
