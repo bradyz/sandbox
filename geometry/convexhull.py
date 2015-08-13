@@ -47,11 +47,6 @@ def jarvis(arr):
     return res
 
 
-# Graham Scan Algorithm O(n log n)
-def graham(arr):
-    return 0
-
-
 def minkowski(a, b):
     res = []
     for i in a:

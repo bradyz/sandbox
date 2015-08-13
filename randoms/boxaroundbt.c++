@@ -30,6 +30,7 @@ void leftrightmax (Node* root, int cur, int& low, int& high) {
         return;
     low = min(low, cur);
     high = max(high, cur);
+    // cout << *root << " " << low << " " << high << endl;
     leftrightmax(root->_left, cur-1, low, high);
     leftrightmax(root->_right, cur+1, low, high);
 }
@@ -44,15 +45,15 @@ unsigned int area (Node* root) {
     return (depth(root)-1) * width(root);
 }
 
-//   --------a
-//   |      /|
-//   |     b |
-//   |    /  |
-//   |   c   |  each edge is length 1
-//   |  /    |
-//   | d     |
-//   |/      |
-//   e--------
+//   ----a--
+//   |  / \|
+//   | f   b
+//   |    /|
+//   |   c |  each edge is length 1
+//   |  /  |
+//   | d   |
+//   |/    |
+//   e------
 
 int main () {
     Node a(1);
@@ -60,8 +61,10 @@ int main () {
     Node c(3);
     Node d(4);
     Node e(5);
+    Node f(6);
 
-    a._left = &b;
+    a._right = &b;
+    a._left = &f;
     b._left = &c;
     c._left = &d;
     d._left = &e;
