@@ -1,6 +1,12 @@
 .*
-*.swp
 !/.gitignore
 __pycache__/
-node_modules
+
 wordsEn.txt
+
+node_modules
+build
+
+*.out
+*.swp
+*.pyc
