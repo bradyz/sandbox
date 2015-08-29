@@ -12,6 +12,14 @@ def powerset(s):
 
     print("\n".join(map(str, r)))
 
+
+def powersetV2(s):
+    combinations = ["0000"] + ["0"*(len(s)-len(bin(i))+2) + bin(i).lstrip("0b")
+                               for i in range(1, 2 ** len(s))]
+
+    print("\n".join(map(lambda x: str([s[i] for i, j in enumerate(x)
+                                       if int(j)]), combinations)))
+
 if __name__ == "__main__":
     the_set = [1, 2, 3, 4]
-    powerset(the_set)
+    powersetV2(the_set)
