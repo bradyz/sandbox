@@ -1,7 +1,7 @@
 # Given an integer N, print how many values X, 1 <= X <= N, such that
 # (X - 1) ! % X == X - 1.
 
-# TODO: write the proof that only primes satisfy this condition
+# Proof: https://primes.utm.edu/notes/proofs/Wilsons.html
 
 from math import factorial
 
