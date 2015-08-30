@@ -37,10 +37,9 @@ def bsttodoublylinked(r):
     for cur in inorder(r):
         if not prev:
             start = cur
-            cur.left = prev
         else:
-            cur.left = prev
             prev.right = cur
+        cur.left = prev
         prev = cur
 
     return start
@@ -48,5 +47,12 @@ def bsttodoublylinked(r):
 if __name__ == "__main__":
     bst = Node(4, Node(2, Node(1), Node(3)), Node(6, Node(5), Node(7)))
     print(" ".join(map(str, inorder(bst))))
+
+    a = bsttodoublylinked(bst)
+    linkedlisttraversal(a)
+
+    bst = Node(3, None, Node(4, None, Node(5)))
+    print(" ".join(map(str, inorder(bst))))
+
     a = bsttodoublylinked(bst)
     linkedlisttraversal(a)
