@@ -8,6 +8,7 @@ class Node:
         return str(self.val)
 
 
+# O(N) time O(N) space
 def lca(r, a, b):
     def path(n, c):
         if not c:
@@ -26,15 +27,16 @@ def lca(r, a, b):
     return list(x for x, y in zip(path(a, r), path(b, r)) if x == y)[-1]
 
 
+# O(N) time O(1) space (not counting stack space)
 def lcaV2(r, a, b):
     if not r:
         return None
     elif r.val == a or r.val == b:
-        return r.val
+        return r
     left = lcaV2(r.left, a, b)
     right = lcaV2(r.right, a, b)
     if left and right:
-        return r.val
+        return r
     elif left:
         return left
     elif right:
