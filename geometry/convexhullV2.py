@@ -1,7 +1,3 @@
-import matplotlib.pyplot as plt
-import numpy as np
-
-
 def det(a, b, c):
     return (b[0]-a[0])*(c[1]-a[1])-(c[0]-a[0])*(b[1]-a[1])
 
@@ -42,24 +38,3 @@ def convex_hull(points):
 
     # Return the lower and upper hull
     return lu_hull(points) + list(reversed(lu_hull(points, False)))
-
-if __name__ == "__main__":
-    # 100 random 2d arrays
-    t = np.random.rand(20, 2) * 50
-
-    # Convex hull using Graham Scan
-    t_h = convex_hull(t)
-
-    # plot the random points with cyan dots
-    plt.plot([i[0] for i in t], [i[1] for i in t], 'co')
-
-    # plot the solution points with blue dashed lines
-    plt.plot([v[0] for v in t_h], [v[1] for v in t_h], 'b--')
-
-    # plot starting point, leftmost point with red dot
-    plt.plot(t_h[0][0], t_h[0][1], 'ro')
-
-    plt.ylim([-1, 51])
-    plt.xlim([-1, 51])
-
-    plt.show()
