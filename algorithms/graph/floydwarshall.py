@@ -5,12 +5,18 @@ from sys import maxsize as INF
 # O(V^3) time, O(V^2) space, O(1) lines to implement
 def floydwarshall(n, g):
     w = deepcopy(g)
+    p = [[[] for _ in range(n)] for _ in range(n)]
 
     # dp away
-    for i in range(n):
-        for j in range(n):
-            for k in range(n):
-                w[i][k] = min(w[i][k], w[i][j]+w[j][k])
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                if w[i][k]+w[k][j] < w[i][j]:
+                    w[i][j] = w[i][k]+w[k][j]
+                    p[i][j] = p[i][k]+[k]
+
+    # print("\n".join(map(str, p)))
+    # print("\n".join(map(str, w)))
 
     return w
 
@@ -28,7 +34,3 @@ if __name__ == "__main__":
         graph[u][v] = w
 
     min_dist_graph = floydwarshall(num_nodes, graph)
-
-    # from pprint import PrettyPrinter
-    # pp = PrettyPrinter()
-    # pp.pprint(min_dist_graph)
