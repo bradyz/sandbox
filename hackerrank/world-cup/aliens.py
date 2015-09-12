@@ -16,7 +16,7 @@ def bfs(x, y, d1, d2, d3, d4):
             if x < 0 or y < 0 or x >= n or y >= m or g[x][y] == ".":
                 break
             elif v[x][y]:
-                l = 0
+                l += 1
                 break
 
             z.append((x, y))
@@ -71,8 +71,6 @@ def solve():
             w[i][j] = max(w[i][j], bfs(i, j, 1, 0, 1, 1))
             w[i][j] = max(w[i][j], bfs(i, j, 1, 0, 1, -1))
 
-            if i == 3 and j == 0:
-                print(bfs(i, j, -1, 0, -1, 1))
             w[i][j] = max(w[i][j], bfs(i, j, -1, 0, -1, 1))
             w[i][j] = max(w[i][j], bfs(i, j, -1, 0, -1, -1))
 
@@ -82,14 +80,12 @@ def solve():
             w[i][j] = max(w[i][j], bfs(i, j, 0, -1, -1, -1))
             w[i][j] = max(w[i][j], bfs(i, j, 0, -1, 1, -1))
 
-            print(i, j, w[i][j])
-
-    print("\n".join(map(str, w)))
-
     for i in range(n):
         for j in range(m):
             if w[i][j] > 0:
                 t = min(t, w[i][j])
+
+    # print("\n".join(map(str, w)))
 
     if t == MAXINT:
         if f:
