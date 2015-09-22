@@ -3,8 +3,11 @@ import matplotlib.pyplot as plt
 from convexhullV2 import convex_hull
 
 if __name__ == "__main__":
+    fig = plt.figure()
+    fig.suptitle("Graham Scan Demo", fontsize=14, fontweight='bold')
+
     # 100 random 2d arrays
-    t = np.random.rand(20, 2) * 50
+    t = np.random.rand(10, 2) * 50
 
     # Convex hull using Graham Scan
     t_h = convex_hull(t)

@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 from convexhull import jarvis
 
 if __name__ == "__main__":
+    fig = plt.figure()
+    fig.suptitle("Jarvis March Demo", fontsize=14, fontweight='bold')
+
     # 100 random 2d arrays
     t = np.random.rand(20, 2) * 50
 
