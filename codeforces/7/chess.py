@@ -6,16 +6,18 @@ def powerset(d, c=[]):
 
 
 def solve():
+    m = 999
     s = set((i, j) for i in range(n) for j in range(n) if g[i][j] == "B")
-    m = n
     r = list(powerset(range(n)))
     c = r
 
     for r_i in r:
         for c_i in c:
+            if len(r_i) + len(c_i) >= m:
+                continue
             x = set((j, i) for i in range(n) for j in r_i)
             y = set((i, j) for i in range(n) for j in c_i)
-            if not (s - x - y):
+            if s == x | y:
                 m = min(m, len(r_i) + len(c_i))
 
     print(m)
