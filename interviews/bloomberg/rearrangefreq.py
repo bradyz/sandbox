@@ -21,11 +21,12 @@ def rearrange(a_str):
             freq[count[c]].append(c)
         else:
             freq[count[c]] = [c]
+    print(freq)
 
     result = ""
 
     for f in reversed(sorted(freq.keys())):
-        for c in freq[f]:
+        for c in sorted(freq[f]):
             result += f * c
 
     return result
