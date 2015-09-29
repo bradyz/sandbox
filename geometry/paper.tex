@@ -36,44 +36,7 @@
 \renewcommand\headrulewidth{0.4pt}                                      %
 \renewcommand\footrulewidth{0.4pt}                                      %
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Some tools
-\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
-    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
-\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
-    \nobreak\extramarks{#1}{}\nobreak}%
-
-\newcommand{\homeworkProblemName}{}%
-\newcounter{homeworkProblemCounter}%
-\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
-{\stepcounter{homeworkProblemCounter}%
-    \renewcommand{\homeworkProblemName}{#1}%
-    \section*{\homeworkProblemName}%
-    \enterProblemHeader{\homeworkProblemName}}%
-{\exitProblemHeader{\homeworkProblemName}}%
-
-\newcommand{\homeworkSectionName}{}%
-\newlength{\homeworkSectionLabelLength}{}%
-\newenvironment{homeworkSection}[1]%
-{% We put this space here to make sure we're not connected to the above.
-    
-    \renewcommand{\homeworkSectionName}{#1}%
-    \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
-    \addtolength{\homeworkSectionLabelLength}{0.25in}%
-    \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
-    \subsection*{\homeworkSectionName}%
-    \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
-{\enterProblemHeader{\homeworkProblemName}%
-    
-    % We put the blank space above in order to make sure this margin
-    % change doesn't happen too soon.
-    \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
-
-\newcommand{\Answer}{\ \\\textbf{Answer:} }
-\newcommand{\Acknowledgement}[1]{\ \\{\bf Acknowledgement:} #1}
-
 \title{\textmd{\bf \Class\\}}
-
 \author{\small \normalfont{Advisor: Chandrajit Bajaj}\\
 \small \normalfont{\StudentName}}
 
@@ -82,6 +45,14 @@
 \maketitle \thispagestyle{empty}
 
 \subsection{Turn Orientation}
-A key recurring theme in computation is the problem of floating point error. A common tool in the geometry toolbox is the idea of \textbf{turn orientation}, that is, whether a set of three points makes a clockwise (right), or counter-clockwise (left) turn. 
+
+\quad\qquad A key recurring theme in computation is the problem of floating point error. A common tool in the geometry toolbox is the idea of \textbf{turn orientation}, that is, whether a set of three points makes a clockwise (right), or counter-clockwise (left) turn. In a naive implementation of determining orientation of a turn, the angle of the line formed is calculated using some form of division and arcos. This can lead to loss of precision due to floating point numbers.
+
+\quad A better way to deal with line orientation is to take the determinant of the three points and if the determinant is larger than some $\epsilon$, the points make a clockwise turn. If the determinant falls within $-\epsilon$ to $\epsilon$, we say the points are colinear, and if the determinant is smaller than $\epsilon$, the points make a counter-clockwise turn. This implementation is faster in the sense it does not use division, and more robust. \newline 
+\\
+\centerline{\includegraphics[scale=0.7]{turn_orientation.png}}
+
+\subsection{Convex Hull}
+
 
 \end{document}
