@@ -6,7 +6,8 @@ class Node:
 
 
 def is_mirror(root):
-    # print(" ".join(map(str, left_dfs(root.left))))
+    print(" ".join(map(str, left_dfs(root.left))))
+    print(" ".join(map(str, right_dfs(root.right))))
 
     print(not any(x != y for x, y in zip(right_dfs(root.right),
                                          left_dfs(root.left))))
@@ -25,12 +26,12 @@ def right_dfs(root):
 
 def left_dfs(root):
     if not root:
-        yield 0
+        yield None
     else:
         yield root.val
-        for val in right_dfs(root.left):
+        for val in left_dfs(root.left):
             yield val
-        for val in right_dfs(root.right):
+        for val in left_dfs(root.right):
             yield val
 
 if __name__ == "__main__":
