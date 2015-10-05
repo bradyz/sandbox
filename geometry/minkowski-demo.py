@@ -14,8 +14,8 @@ if __name__ == "__main__":
     n = len(t)
 
     # minkowski test axis
-    plt.ylim([-10, 10])
-    plt.xlim([-10, 10])
+    plt.ylim([-5, 5])
+    plt.xlim([-5, 5])
 
     # plot all of the points with cyan dot
     plt.plot([t[i][0] for i in range(n)], [t[i][1] for i in range(n)], 'r-')
