@@ -2,6 +2,24 @@ from queue import Queue
 from sys import maxsize as MAXINT
 
 
+def hit(x1, y1, i, j, x2, y2):
+    if x1 == x2:
+        if j == 1 and y1 <= y2:
+            return True
+        elif j == -1 and y1 >= y2:
+            return True
+    elif y1 == y2:
+        if i == 1 and x1 <= x2:
+            return True
+        elif i == -1 and x1 >= x2:
+            return True
+    return False
+
+
+def dist(x1, y1, x2, y2):
+    return abs(x1 - x2) + abs(y1 - y2)
+
+
 def solve():
     v = set()
     q = Queue()
@@ -15,55 +33,35 @@ def solve():
 
         if (x, y, i, j) in v:
             continue
-
         v.add((x, y, i, j))
 
-        if x == f_x:
-            f = True
+        if hit(x, y, i, j, f_x, f_y):
+            f = False
             for t_x, t_y in a:
-                if (j == 1 and y < t_y and t_y < f_y) or \
-                        (j == -1 and y > t_y and t_y > f_y):
-                    f = False
-            if f and ((y <= f_y and j == 1) or (y >= f_y and j == -1)):
-                return k
-        elif y == f_y:
-            f = True
-            for t_x, t_y in a:
-                if (i == 1 and x < t_x and t_x < f_x) or \
-                        (i == -1 and x > t_x and t_x > f_x):
-                    f = False
-            if f and ((x <= f_x and i == 1) or (x >= f_x and i == -1)):
+                if hit(x, y, i, j, t_x, t_y) and \
+                        dist(x, y, t_x, t_y) < dist(x, y, f_x, f_y):
+                    f = True
+            if not f:
                 return k
 
         min_x = MAXINT
         min_y = MAXINT
-        f = False
 
         for t_x, t_y in a:
-            if x == t_x:
-                if y <= t_y and j == 1:
-                    if not f or abs((x-t_x)+(y-t_y)) < abs((x-min_x)+(y-min_y)):
-                        min_x = t_x
-                        min_y = t_y-1
-                        f = True
-                elif y >= t_y and j == -1:
-                    if not f or abs((x-t_x)+(y-t_y)) < abs((x-min_x)+(y-min_y)):
-                        min_x = t_x
-                        min_y = t_y+1
-                        f = True
-            elif y == t_y:
-                if x <= t_x and i == 1:
-                    if not f or abs((x-t_x)+(y-t_y)) < abs((x-min_x)+(y-min_y)):
-                        min_x = t_x-1
-                        min_y = t_y
-                        f = True
-                elif x >= t_x and i == -1:
-                    if not f or abs((x-t_x)+(y-t_y)) < abs((x-min_x)+(y-min_y)):
-                        min_x = t_x+1
-                        min_y = t_y
-                        f = True
+            if hit(x, y, i, j, t_x, t_y) and \
+                    (dist(x, y, t_x, t_y) < dist(x, y, min_x, min_y) + 1):
+                min_x = t_x
+                min_y = t_y
+                if i == 1:
+                    min_x = t_x - 1
+                elif i == -1:
+                    min_x = t_x + 1
+                elif j == 1:
+                    min_y = t_y - 1
+                else:
+                    min_y = t_y + 1
 
-        if f:
+        if min_x != MAXINT and min_y != MAXINT:
             for o, p in d:
                 q.put((min_x, min_y, o, p, k+1))
 
