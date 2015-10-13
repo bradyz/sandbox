@@ -3,11 +3,11 @@ def det(a, b, c):
 
 
 def colinear(points):
-    return det(*sorted(points, key=lambda x: x[0])) == 0
+    return det(*points) == 0
 
 
 def cw_turn(points):
-    return det(*sorted(points, key=lambda x: x[0])) < 0
+    return det(*points) < 0
 
 
 def ccw_turn(points):

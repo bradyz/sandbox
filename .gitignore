@@ -13,3 +13,4 @@ build
 *.aux
 *.gz
 *.log
+*.dvi
