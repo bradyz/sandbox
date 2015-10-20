@@ -10,8 +10,6 @@ def knapsack(w, v, c):
                 if w[i-1] <= j:
                     dp[i][j] = dp[i-1][j-w[i-1]] + v[i-1]
                 dp[i][j] = max(dp[i-1][j-1], dp[i-1][j], dp[i][j-1], dp[i][j])
-                pp.pprint(dp)
-            print()
 
     pp.pprint(dp)
 

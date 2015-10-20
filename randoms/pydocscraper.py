@@ -33,7 +33,7 @@ def write_html(sections, filename):
     with open(out_name, "w+") as out_file:
         out_file.write("<html>\n")
         out_file.write("\t<head>\n")
-        out_file.write("\t\t<title>"+str(out_name)+"</title>\n")
+        out_file.write("\t\t<title>"+str(filename)+"</title>\n")
         out_file.write("\t</head>\n")
         out_file.write("\t<body>\n")
         for head, text in sections:
@@ -41,7 +41,7 @@ def write_html(sections, filename):
             out_file.write("\t\t\t<h2>")
             out_file.write(head)
             out_file.write("</h2>\n")
-            out_file.write("\t\t\t"+text)
+            out_file.write("\t\t\t"+text.replace("=", "").replace("-", ""))
             out_file.write("\n\t\t</div>\n")
         out_file.write("\t</body>\n")
         out_file.write("</html>")
