@@ -14,12 +14,12 @@ vector<int> findSolution (int v, int n) {
     int j = n;
 
     while (v > 0 && j > 0) {
-        if (dp[v][j] == dp[v][j-1])
-            j -= 1;
-        else {
+        if (dp[v][j] == dp[v-coins[j-1]][j]+1) {
             result.push_back(coins[j-1]);
             v -= coins[j-1];
         }
+        else
+            j -= 1;
     }
 
     return result;
