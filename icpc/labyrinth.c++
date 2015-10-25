@@ -22,7 +22,7 @@ int dist[31][31];
 vector<Point> neighbors[31][31];
 
 // returns true if negative cycle
-bool bellmondford () {
+bool bellmanford () {
     dist[0][0] = 0;
     // longest path through the grid is number of valid vertices - 1
     for (int i = 0; i < W * H - G - 1; ++i) {
@@ -92,8 +92,8 @@ int main () {
                 }
             }
         }
-        // bellmond ford returns true if negative cycle
-        if (bellmondford())
+        // bellman ford returns true if negative cycle
+        if (bellmanford())
             cout << "Never" << endl;
         else if (dist[W-1][H-1] >= INF)
             cout << "Impossible" << endl;
