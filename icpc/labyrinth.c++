@@ -1,88 +1,102 @@
 #include <iostream>
 #include <vector>
-#include <unordered_map>
 
-#define INTMAX 2147483646
+#define INF 1 << 30
 
 using namespace std;
 
 struct Point {
-    int x, y, weight;
-    Point (int a=-1, int b=-1, int c=-1) : x(a), y(b), weight(c) {}
+    int x, y, w;
+    Point (int a, int b, int c) : x(a), y(b), w(c) {}
 };
 
-int W, H;
+const int DX[] = {-1, 1, 0, 0};
+const int DY[] = {0, 0, -1, 1};
+
+int W, H; 
 int G;
 int E;
 
 bool graves[31][31];
-Point portals[31][31];
 int dist[31][31];
+vector<Point> neighbors[31][31];
 
-int dx[] = {-1, 1, 0, 0};
-int dy[] = {0, 0, -1, 1};
-
-vector<Point> neighbors (int x, int y) {
-    vector<Point> result;
-    for (int i = 0; i < sizeof(dx)/sizeof(int); ++i) {
-        int xP = x+dx[i];
-        int yP = y+dy[i];
-        if (xP < 0 || xP >= W || yP < 0 || yP >= H || graves[xP][yP])
-            continue;
-        if (portals[xP][yP].x != -1) {
-            Point tmp = portals[xP][yP];
-            result.push_back(Point(tmp.x, tmp.y, tmp.weight+1));
-        }
-        else {
-            result.push_back(Point(xP, yP, 1));
+// returns true if negative cycle
+bool bellmondford () {
+    dist[0][0] = 0;
+    // longest path through the grid is number of valid vertices - 1
+    for (int i = 0; i < W * H - G - 1; ++i) {
+        for (int x = 0; x < W; ++x) {
+            for (int y = 0; y < H; ++y) {
+                if (dist[x][y] >= INF) continue;
+                // relax the edge
+                for (auto v: neighbors[x][y])
+                    dist[v.x][v.y] = min(dist[v.x][v.y], dist[x][y] + v.w);
+            }
         }
     }
-    return result;
+    // negative cycle detection
+    bool cycle = false;
+    for (int x = 0; x < W; ++x) {
+        for (int y = 0; y < H; ++y) {
+            if (dist[x][y] >= INF) continue;
+            for (auto v: neighbors[x][y]) {
+                // if any distance decreased, we have a negative cycle
+                if (dist[v.x][v.y] > dist[x][y] + v.w)
+                    return true;
+            }
+        }
+    }
+    return false;
 }
 
 int main () {
-    int x, y;
-    int x1, y1, x2, y2, t;
-    while (true) {
-        cin >>  W >> H;
-        if (W == 0 && H == 0)
-            break;
-        cin >> G;
-        for (int i = 0; i < W; ++i) {
-            for (int j = 0; j < H; ++j) {
+    while (cin >> W >> H && W && H) {
+        // clear the grid
+        for (int i = 0; i <= W; ++i) {
+            for (int j = 0; j <= H; ++j) {
                 graves[i][j] = false;
-                portals[i][j] = Point();
-                dist[i][j] = INTMAX;
+                dist[i][j] = INF;
+                neighbors[i][j].clear();
             }
         }
+        // marking graves
+        cin >> G;
         for (int i = 0; i < G; ++i) {
+            int x, y;
             cin >> x >> y;    
             graves[x][y] = true;
         }
+        // adding edge for each portal
         cin >> E;
         for (int i = 0; i < E; ++i) {
+            int x1, y1, x2, y2, t;
             cin >> x1 >> y1 >> x2 >> y2 >> t;
-            portals[x1][y1] = Point(x2, y2, t);
+            neighbors[x1][y1].push_back(Point(x2, y2, t));
         }
-        dist[0][0] = 0;
-        bool cycle = false;
-        for (int i = 0; i < W * H; ++i) {
-            for (int x = 0; x < W; ++x) {
-                for (int y = 0; y < H; ++y) {
-                    for (auto it: neighbors(x, y)) {
-                        if (dist[it.x][it.y] > dist[x][y] + it.weight) {
-                            if (i == W * H - 1)
-                                cycle = true;
-                            dist[it.x][it.y] = dist[x][y] + it.weight;
-                        }                        
-                    }
+        // finding neighbors
+        for (int x = 0; x < W; ++x) {
+            for (int y = 0; y < H; ++y) {
+                // dont relax goal node
+                if (x == W-1 && y == H-1) continue;
+                // haunted holes only have one neighbor
+                if (neighbors[x][y].size() > 0) continue;
+                for (int i = 0; i < 4; ++i) {
+                    // neighbor node
+                    int xP = x+DX[i];
+                    int yP = y+DY[i];
+                    // continue if not in bounds or there is a grave
+                    if (xP < 0 || xP >= W || yP < 0 || yP >= H || graves[xP][yP])
+                        continue;
+                    neighbors[x][y].push_back(Point(xP, yP, 1));
                 }
             }
         }
-        if (cycle)
-            cout << "NEVER" << endl;
-        else if (dist[W-1][H-1] == INTMAX)
-            cout << "IMPOSSIBLE" << endl;
+        // bellmond ford returns true if negative cycle
+        if (bellmondford())
+            cout << "Never" << endl;
+        else if (dist[W-1][H-1] >= INF)
+            cout << "Impossible" << endl;
         else
             cout << dist[W-1][H-1] << endl;
     }
