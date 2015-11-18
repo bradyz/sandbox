@@ -21,7 +21,7 @@ int memo (int n, int m, int k) {
             best = min(best, m * m + memo(np, m, kp) + memo(n-np, m, k-kp));
     for (int mp = 1; mp < m; ++mp)
         for (int kp = 0; kp <= k; ++kp)
-            best = min(best, n * n + memo(n, mp, kp) + memo(n, n-mp, k-kp));
+            best = min(best, n * n + memo(n, mp, kp) + memo(n, m-mp, k-kp));
     dp[n][m][k] = best;
     return best;
 }
