@@ -42,14 +42,13 @@
 * **Morphophonology** - grouping of speech.
 * **Prosodic** - intonatinal phrases and metrical grid.
 * **Syntactic Analysis** - tree parser. 
-* **Semantic Analysis** - predicate logic, gives the meaning of the sentence.
-* **Discourse Analysis** - the little star and the big star, two diffierent objects,
-  "the" lets you knows there is something new.
-* **Pragmatic Analysis** - the little star and the big star,
-  what type of stars? celestial, celebrities, deals with context.
+* **Semantic Analysis** - predicate logic, word meaning to give the meaning of the sentence.
+* **Pragmatic Analysis** - the little star and the big star, what type of stars? 
+  celestial, celebrities, deals with context, sentences in different context.
+* **Discourse Analysis** - the little star and the big star, two different objects,
+  "the" lets you knows there is something new, combine sentences in context.
+* **World Analysis** - world knowledge, common sense knowledge, implicit assumptions.
 * **NLP Issues** - very ambiguous, all about solving ambiguity.
-* **Tightly Coupled Processing** -
-* **Loosly Coupled Processing** -
 * **Phonological Issues** - things sound the same.
 * **Syntactic Issues** - I shot an elephant in my pajamas.
 * **Parsing** - can be regarded as a search problem, top down/bottom up, how to form
@@ -75,14 +74,11 @@
 * **Sincerity of Request** - Can you open the door?
 * **Reasonable of Request** - Why do you want it open?
 * **Discourse Relation Theory** - Enumerates steps a sentence can have.
-* **Narration** - events happen one after another.
-* **Elaboration** - 
-* **Continuation**
-* **Explanation** - 
-* **Background** -
-* **Result** -
-* **Evidence** -
-* **Contrast** -
+* **Narration** - events happen one after another, keep track of whats happening.
+* **Elaboration** - sentences one after another describe each other.
+* **Continuation** - last two events are related, and current event describes first one, the current
+  event continues the second one.
+* **Explanation** - the event in B caused event in A.
 * **Commentary** - John and Mary are getting married. That is exciting news.
 * **Reverse Relation** - Stylistic reasons, Max was sick. He took aspirin.
 
@@ -196,74 +192,163 @@
 * **Body/Environment** - environment gives body stimuli, gets actions from body.
 * **Sensors** - touch, vision, infared, chemical.
 * **Actuators** - wheels, arms, weapons.
-* **Simulation/Embedded** - train in simulation.
-* **Optimization vs Learning** - energy usage and exploration.
+* **Simulation/Embedded** - train in simulation, we can train without breaking robot.
+* **Optimization vs Learning** - optimize for energy usage or exploration to learn more, learning
+  should occur offline.
 * **Layered Control** - delivery robot represented in layers of actions.
+* **Low Level Layered Control** - change angles of arms.
+* **Mid Level Layered Control** - see where to go without colliding, full body control.
+* **High Level Layered Control** - planner, have a high level idea of what its actions are.
+* **Modeling the World** - see where you are in the world, see what you can do, error accumulates
+  and should be corrected.
+* **Active Perception** - predict what happens, find error, correct error.
 
 ## 11-10 Subsymbolic AI
+* **Cognitive Modeling Goals** - take over routine and dangerous tasks.
+* **Example Areas** - natural language, memory, perception, problem solving, computational model.
+* **Computational Model** - write cote to represent model to test theories, predictions.
 * **Subsymbolic Processing** - NN breaks apart symbols.
-* **Symbolic Cognitive Models** - knowledge structures to represent knowledge.
-* **Boris/Cynrus/Soar** - symbolic cognitive models are powerful when specific,
-  don't learn, not robust.
-* **Distributed Neural Network Models** - no reason, just reaction - similar to
-  humans, correlations with past experiences.
-* **Symbolic Representation** - are discrete, disjoint, grammatical, compositional, reason
-* **Subsymbolic Representation** - messier, data items are different patterns of activity,
-  reaction.
+* **Symbolic Cognitive Models** - knowledge structures to represent knowledge, requires a lot of
+  human input (frames, semantic networks), big in the 1980s.
+* **Boris/Cyrus/Soar** - symbolic cognitive models are powerful when specific, but don't learn,
+  not robust, learns similar how humans learn.
+* **Soar** - chunking, making macros, making expert systems that are cognitive, make same
+  inferences as humans make, makes inferences that are cognitively valid.
+* **Distributed Neural Network Models** - no reason, just reaction - similar to humans, 
+  correlations with past experiences, no explicit rules, biologically inspired.
+* **Symbolic Representation** - are discrete, disjoint, grammatical, compositional, reason.
+* **Subsymbolic Representation** - messier, data items are different patterns of activity, reaction,
+  patterns of activation.
 * **Continuous** - fuzzy information.
 * **Descriptive** - similar items are similarly represented.
 * **Holographic** - any part contains information of the whole.
 * **Conscious Rule Application** - symbol systems, approximate answer.
-* **Intuitive Processing** - no rules, correlation with past answers with future questions.
+* **Intuitive Processing** - no rules, correlation with past answers with future questions,
+  for intuition cognition, subsymbolic systems are better.
 * **Symbolic Behavior** - conscious rule is just subsymbolic in disguise.
-* **SPEC** - sequential parser network, agent-act-patient structure, RAAM+stack+segementer.
+* **SPEC** - sequential parser network, agent-act-patient structure, RAAM+stack+segmenter.
+* **External Memory Network** - sub symbolic memory, copies input to output, stack represented
+  in the hidden layer, breaks when you put too many things in.
 * **RAAM** recursive auto-associative memory, encodes a stack.
-* **Dynamic Inference** - bring together difference contexts, use segmenter.
-* **Segmenter Network** - removes stuff already read, uses transition words.
-* **SPEC Error** - with noise, SPEC has difficulty remembering earlier words.
-* **Segantic Effects** - train data with semantic restrictions (only cats get chased).
+* **Dynamic Inference** - bring together difference contexts, use segmenter, difficult for network.
+* **Segmenter Network** - global view of parsing process, removes stuff already read, 
+  uses transition words, in the middle of the system.
+* **Parsing** - 3 subtasks, case-role interpretation (hows words work together), memory (save objects),
+  controller (uses memory in right way)
+* **Training** - from 2 types of sentences, can generalize to 49 types. Optimizations include
+  tail recursion. Performes like a human, limited by memory.
+* **SPEC Error** - with noise, SPEC has difficulty remembering earlier words, makes plausible guesses.
+* **Performance Errors** - add noise to stack to elicit errors in memory.
+* **Semantic Effects** - train data with semantic restrictions (only cats get chased), allows it
+  to be easier to remember, prefers words earlier in sentence.
 * **Challenges** - approximate rule like reasoning, deep embeddings.
+* **Subsymbolic Models** - encode soft constraints, can approximate intuition (easy), can approximate
+  rule-like reasoning (hard).
 
 # 11-10  Model of Schizophrenia
 * **Delusions** - self is inserted into impersonal stories.
 * **Topic Switching** - a sentence has loosely connected topics.
-* **DISCERN** - neural network-based model of human story processing.
-* **Script** - story chunk (i went to restaurant, ...).
-* **Story Parser** - translates a string of sentences into the slot filler representation 
-  of a script.
+* **DISCERN** - neural network-based model of human story processing, remembers and paraphrases.
+* **Script** - story chunk (i went to restaurant, ...), sequence of events.
+* **Slot Filler** - pulled over I cop arrest(ed) DUI.
+* **Emotion Code** - how positive or negative a line in a script is.
+* **Sentence Parser** - translates string of word representations, goes to story parser.
+* **Story Parser** - translates a string of sentences into the slot filler representation of a script.
+* **Memory Encoder** - adds a memory cue to each script.
 * **Story Generator** - retrieves one script at a time from episodic memory, turns into sentences.
+* **Output Filter** - included in story generator, prunes overly distorted sentences.
 * **Memory Cue** - is a transition to one script to another.
 * **Personal Stories** - go to wedding, eat dinner.
 * **Gangster Stories** - bomb city hall, movie scenes.
 * **Self Character** - schizophrenics put self into gangster stories.
-* **Semantic Memory Lesions** - loose associations.
-* **Hyper-Priming** - disorganized speech is caused b  activation in semantic maps that spreads.
+* **Semantic Memory Lesions** - loose associations, associations with random things, activation that
+  spreads too fast, too far.
+* **Hyper-Priming Hypothesis** - disorganized speech is caused by activation in semantic maps that spreads.
+* **Semantic Blurring Hypothesis** - mixing neighboring word representations, lexicon.
 * **Semantic Noise** - distort lexicon output with noise.
 * **Semantic Overactivation** - increase the output activations of the lexicon.
 * **Working Memory Disconnection** - connections cut between context layer connections.
 * **Working Memory Noise** - distort context layer activation with noise.
 * **Working Model Gain Change** - changing hidden layer sigmoid slope.
-* **Excessive Arousal State** - increase hidden layer bias.
-* **Hyperlearning** - accelerated memory consolidation, overly intense training, caused schizophrenia.
+* **Working Model Excessive Arousal State** - increase hidden-layer bias.
+* **Hyperlearning** - accelerated memory consolidation, overly intense training, caused schizophrenia,
+  interesting because this symptom was discovered from the model.
+* **Salience** - cannot distinguish what is important - everything looks important, develops psychosis.
 * **Experiment I** - tell short stories, judge on recall, derailments, agency shift, lexical errors.
-* **Experiment II** - psychotics, grammar is still okay, DISCERN has good hyperlearning schizophrenia.
-* **Derailments** - hyperlearning in memory encoder causes rapid context switches.
+* **Important Outcome Variables** - recall performance, agency shifts, lexical errors, derailments.
+* **Experiment I Results** - hyperlearning was able to match schizophrenic language the best.
+* **Experiment II** - psychotics, a lot of delusions and derailments, but grammar is still okay, 
+  DISCERN has good hyperlearning schizophrenia.
+* **Distorted Language** - when WM noise is added, a lot of weird words come out, words dont make sense,
+  schizophrenics dont actually say these things.
+* **Delusion** - DISCERN adds "I" into a lot of gangster stories.
+* **Derailments** - 90% of delrailments are to stories with same emotion, in hyperlearning,
+  hyperlearning in memory encoder causes rapid context switches.
+* **Medication Effects** - future work, to similate transition between two states to help recovery,
+  antipsychotic medication reduces symptoms by slowing memory consolidation, test by looking for hyperlearning.
 
 # 11-17 Evolving Neural Networks
-* **Neural Nets** - powerful where no good theory of domain exists.
+* **Neural Nets** - powerful where no good theory of domain exists, statistical domains.
 * **Reinforcement Learning** - difficult with large/continuous/hidden states.
 * **Function Approximator** - generalized estimator for large states.
-* **Neuroevolution** - direct nonlinear mapping from sensors to actions, has bias node, search space too big.
-* **Advantages** - NE 3 orders of magnitude faster than RL for pole balancing.
+* **Neuroevolution** - direct nonlinear mapping from sensors to actions, has bias node, search space too big,
+  can be recurrent, takes in past actions into account, hidden states are disambiguated through memory.
+* **Advantages** - NE 3 orders of magnitude faster than RL for pole balancing, only method to solve two poles,
+  powerful method for sequential decision tasks, optimize existing, discover novel solutions.
+* **Advantages in Supervised Tasks** - good when network topology is important.
+* **Input Variables** - state observed through sensors.
+* **Output Variables** - actions determed by hidden layer.
 * **Conventional Neuroevolution** - concat weight nodes into chromosome.
+* **Chromosome** - strings of connection weights.
 * **Genotype** - one kind of neural network, a score gets assigned to this.
-* **Genetic Algorithm** - cross fit genotypes, add mutations, diversity is good.
-* **Problems with CNE** - local optimals get focused on, convergent stagnates progress, too many weight nodes.
-* **NEAT** - neural evolution of augmenting topologies, mutations add nodes and connections.
-* **Complexify** - add mutations to NN, makes search  more manageable, incremental construction.
-* **Lamarckian Evolution** - traits acquired can be passed to children, possible in NN, difficuilt to implement
-  as diversity is reduced, progress stagnates.
-* **Baldwin Effect** - learning selects promising invididuals.
+* **Genetic Algorithm** - cross fit genotypes, add mutations, diversity is good, parallel search for optimal,
+  taking piece of network and cross with another network.
+* **Problems with CNE** - local optimals get focused on, convergenging populations stagnates progress,
+  too many weight nodes (parameter) to be optimized simultaneously.
+* **NEAT** - neural evolution of augmenting topologies, mutations add nodes and connections, elaborates
+  on earlier behaviors, start with simple networks, no hidden nodes.
+* **Complexify** - add mutations to networks, recurrent nodes, makes search more manageable, 
+  by using incremental construction.
+* **Lamarckian Evolution** - traits acquired can be passed to children, possible in NN, difficult to implement
+  as diversity is reduced from backprop to do the same thing, progress stagnates.
+* **Baldwin Effect** - learning selects promising invididuals, learning makes it more likely to
+  find optimal.
 * **Evolving Novelty** - picbreeder, humans are fitness functions, choose images to be evolved.
 * **Fitness-Based Evolution** - rigid, gradual process, may find local max.
-* **Novelty-Based Evolution** - new, innovative, often finds different but best solution.
+* **Novelty-Based Evolution** - new, innovative, often finds different but best solution, reward evolution
+  for producing new, novel things.
+* **Applications to Control** - pole-balancing benchmark, good surrogate for other tasks, like driving,
+  controlling a finless rocket.
+* **Simulation Environment** - general rocket simulator, models interactions between airframe, propulsion,
+  aerodynamics, and atmosphere.
+* **Control Policy** - shows how rocket is controlled along the journey.
+* **Applications to Robotics** - controlling robot arm, walking, mobile robots.
+* **Symmetry Evolution Approach for Multilegged Walking** - neural networks in each leg talk to each other.
+* **Applications to Artificial Life** - try to learn how complex behaviors are learned in animals society.
+* **Body-Brain Coevolution** - evolved virtual creatures that evolve together, they have "natural" behavior.
+* **Pandemonium** - two opposite actions, highest trigger wins.
+* **Evolving Flight or Fight** - evolves attack or retreat, then combines the both.
+* **Stengths** - effective in continous, non-markov domains, sequential decision tasks. If you can simulate the
+  problem, can find a solution, easy to adapt.
+
+# 11-17 AI in Video Games
+* **Real World Problems** - real world is complex, open ended, messy. Scale up is impractical, even dangerous.
+* **Video Game Strengths** - virtual worlds are sophisticated but still controlled, formal, measurable, safe.
+* **Video Game Successes** - Deep Blue, Chinook, but are largely brute force.
+* **GOFAI** - based on search, A\* pathfinding as finite state machines, does not work well in video games
+  because board games don't have multiple agents, embbeded, continous, noisy, large-dimensional, real time.
+* **Computational Intelligence** - inspired by biology, is neural nets, evolution, reinforcement learning,
+  powerful in pattern recognition, control. Good when its hard to form rules but have lots of data.
+* **Neural Network Agents** - need memory to track past encounters.
+* **Othello Strategies** - evolved against a alpha-beta program and won.
+* **Neuroevolution Strength** - discovered novel strategies, works by tinkering.
+* **Challenge of Evolving Multimodal Behavior** - many different tasks, how can we solve them in a single network?
+* **Evolving Multimodal Behavior** - evolve separate neural networks, let the network decide when to use.
+* **Evolution Discovered Task Division** - the network decides what task to do, how to do the task.
+* **Challenge of Humanlike Behavior** - Botprize competition, decide who is human and who is computer.
+* **Humanlike Behavior** - have to limit it with human like limitations, cannot undestand traps though.
+* **NERO** - machine learning games, goal to show games are viable, real time, open-ended, requires discovery.
+* **Neuroevolution Strength** - strong method for adaptation in games, adapts in real time, applications 
+  are huge, entertainment, training simulators, robotics, resource optimizations intelligent assistants.
+* **Neuroevolution Weakness** - requires many evaluations, best when parallel evaluations possible,
+  best when combined with human guidance (examples or rules).
