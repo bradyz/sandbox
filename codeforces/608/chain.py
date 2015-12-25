@@ -1,3 +1,5 @@
+from bisect import bisect_left as bl
+
 n = int(input())
 a = [list(map(int, input().split())) for _ in range(n)]
 a.sort(key=lambda x: x[0])
