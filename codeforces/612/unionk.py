@@ -6,6 +6,7 @@ for _ in range(n):
     a, b = map(int, input().split())
     segment.append([a, 1])
     segment.append([b, -1])
+
 segment.sort(key=lambda x: (x[0], -x[1]))
 result = list()
 left = None
