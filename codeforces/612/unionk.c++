@@ -1,4 +1,4 @@
-#include <iostream>
+#include <cstdio>
 #include <vector>
 #include <algorithm>
 #include <utility>
@@ -19,12 +19,11 @@ bool eventSort (ii lhs, ii rhs) {
 }
 
 int main () {
-    ios::sync_with_stdio(false);
-    cin >> N >> K;
+    scanf("%d %d", &N, &K);
     vii events;
     for (int i = 0; i < N; ++i) {
         int a, b;
-        cin >> a >> b;
+        scanf("%d %d", &a, &b);
         events.push_back(ii(a, 1));
         events.push_back(ii(b, -1));
     }
@@ -40,12 +39,12 @@ int main () {
             start = event.first;
         }
         else if (flag && cur == K-1) {
-            result.push_back(ii(start, event.first));
             flag = false;
+            result.push_back(ii(start, event.first));
         }
     }
-    cout << result.size() << endl;
+    printf("%d\n", result.size());
     for (ii event: result)
-        cout << event.first << " " << event.second << endl;
+        printf("%d %d\n", event.first, event.second);
     return 0;
 }
