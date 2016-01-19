@@ -7,22 +7,34 @@ if __name__ == "__main__":
 
         washer = PriorityQueue()
         dryer = PriorityQueue()
+        basket = list()
 
-        last = -1
-
+        # starting times for laundry
         for time in wash:
             washer.put((time, time))
 
+        # take out L pieces of laundry from washer
         for i in range(1, L+1):
             time, cost = washer.get()
             washer.put((time + cost, cost))
 
-            if i >= L - M:
-                dryer.put((time + D))
+            # have open dryers left, else put in basket
+            if i <= M:
+                dryer.put(time + D)
+            else:
+                basket.append(time)
 
+        b_i = 0
+
+        # take out L pieces of laundry from dryer
         for i in range(1, L+1):
             time = dryer.get()
-            dryer.put((time + D))
 
+            # final piece of laundry
             if i == L:
                 print("Case #" + str(t+1) + ": " + str(time))
+
+            # if there are clothes in the basket
+            if b_i < L - M:
+                dryer.put(max(basket[b_i], time) + D)
+                b_i += 1
