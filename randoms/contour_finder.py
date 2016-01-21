@@ -10,6 +10,7 @@ from PIL import Image
 
 TOTAL = 5
 COUNT = 0
+PLOT = False
 
 # directional vectors for graph traversal
 DIR = [(-1, 0), (1, 0), (0, 1), (0, -1)]
@@ -18,17 +19,24 @@ DEBUG = False
 
 # USAGE: change the directories to the folder containing the png files
 #        make sure the out directory already exists
-OUT_DIRECTORY = "/Users/brady/code/research/VolRoverN/data/VolRoverN-sample/traces/another_test"
-IMG_DIRECTORY = "/Users/brady/Downloads/RhoANA_red_dendrite_2k_left"
-
-OUT_DIRECTORY = "/Users/brady/code/research/VolRoverN/data/VolRoverN-sample/traces/test"
+# IMG_DIRECTORY = "/root/research/RhoANA_red_dendrite_5k_cube"
+# IMG_DIRECTORY = "/root/research/RhoANA_red_dendrite_2k_left"
+# IMG_DIRECTORY = "/root/research/GALA_red_dendrite_2k_left"
 IMG_DIRECTORY = "/Users/brady/code/research/VolRoverN/data/VolRoverN-sample/ocp"
 
 # change this to limit number of contours
 CONTOUR_LIMIT = 1000000
 
+SERIES_NAME = IMG_DIRECTORY.split("/")[-1]
+OUT_DIRECTORY = "/root/research/series/"
+OUT_DIRECTORY = "/Users/brady/code/research/VolRoverN/data/VolRoverN-sample/traces/"
+OUT_DIRECTORY += SERIES_NAME
+
+SCALE = 4 / 2048
+
 # change this if you want a minimum size
-MIN_SIZE = 1000
+MIN_SIZE = -1
+
 
 def det(a, b, c):
     return (b[0]-a[0])*(c[1]-a[1])-(c[0]-a[0])*(b[1]-a[1])
@@ -46,7 +54,7 @@ def ccw_turn(a, b, c):
     return not cw_turn(a, b, c) and not colinear(a, b, c)
 
 # returns the connected components of a graph
-def components_of(all_points):
+def components_of(all_points, pix):
     def bfs(x, y):
         que = Queue()
         que.put((x, y))
@@ -56,6 +64,9 @@ def components_of(all_points):
 
         while not que.empty():
             cx, cy = que.get()
+
+            if pix[cx, cy] == (0, 0, 0):
+                return list()
 
             for dx, dy in DIR2:
                 xp = cx + dx
@@ -138,8 +149,8 @@ def find_connected_components(image, ROW, COL, to_write):
                 continue
             elif visited[i][j]:
                 continue
-            if color != (0, 0, 21):
-                continue
+            # if color != (0, 0, 21):
+            #     continue
 
             visited[i][j] = True
 
@@ -152,7 +163,7 @@ def find_connected_components(image, ROW, COL, to_write):
                     continue
 
                 # one bfs can have several contours
-                for contour in components_of(all_points):
+                for contour in components_of(all_points, pix):
                     # order the points to be written
                     ordered_contour = orderedV2(contour)
 
@@ -184,12 +195,12 @@ def write_xml(index, val, color_to_name, used_names, ROW, COL):
         return name
 
     # name of trace file
-    out = open(os.path.join(OUT_DIRECTORY, "test."+index), "w")
+    out = open(os.path.join(OUT_DIRECTORY, SERIES_NAME+"."+index), "w")
 
     # necessary metadata stuff
     out.write('<?xml version="1.0"?>\n')
     out.write("<!DOCTYPE Section SYSTEM 'section.dtd'>\n")
-    out.write('<Section alignLocked="true" index="' + str(index) + '" thickness="0.05">\n')
+    out.write('<Section alignLocked="true" index="' + str(index) + '" thickness="1">\n')
 
     # iterate through each color
     for color in val:
@@ -213,6 +224,7 @@ def write_xml(index, val, color_to_name, used_names, ROW, COL):
             for i, coord in enumerate(contour):
                 x, y = coord
                 rx, ry = x, COL - y
+                rx, ry = rx * SCALE, ry * SCALE
 
                 if i == 0:
                     out.write('\t\t\tpoints="' + str(rx) + " " + str(ry) + ",\n")
@@ -319,7 +331,7 @@ def orderedV2(contour):
         for c in contour:
             print(" ".join(map(str, c)))
 
-    # ordered by CCW
+    # ordered by CW
     if result:
         top_index = -1
 
@@ -332,23 +344,33 @@ def orderedV2(contour):
         right_neighbor = result[(top_index + 1) % len(result)]
         left_neighbor = result[(top_index - 1) % len(result)]
 
-        if cw_turn(top_point, right_neighbor, left_neighbor):
+        if ccw_turn(top_point, right_neighbor, left_neighbor):
             result = result[top_index::-1] + result[:top_index:-1]
         else:
             result = result[top_index:] + result[:top_index]
 
         global COUNT
         COUNT += 1
-        ax1 = plt.subplot(5, 3, COUNT)
-        ax1.plot([p[0] for p in result], [p[1] for p in result], "g,")
-        ax1.plot(result[0][0], result[0][1], "bo")
-        h = len(result) // 2
-        ax1.plot([p[0] for p in result[:h]], [p[1] for p in result[:h]], "r-")
+        if PLOT:
+            ax1 = plt.subplot(5, 3, COUNT)
+            ax1.plot([p[0] for p in result], [p[1] for p in result], "g,")
+            ax1.plot(result[0][0], result[0][1], "bo")
+            h = len(result) // 2
+            ax1.plot([p[0] for p in result[:h]], [p[1] for p in result[:h]], "r-")
 
     return result
 
 
 def generate_contours():
+    print("GENERATING CONTOURS FOR " + str(SERIES_NAME))
+    # make outdir if not already created
+    try:
+        print("CHECKING IF " + OUT_DIRECTORY + " EXISTS")
+        os.stat(OUT_DIRECTORY)
+    except:
+        print("OUT_DIRECTORY is not valid - creating \"" + OUT_DIRECTORY + "\" now")
+        os.makedirs(OUT_DIRECTORY)
+
     # metadata
     xdim = 0
     ydim = 0
@@ -360,7 +382,7 @@ def generate_contours():
     to_write = set()
 
     # goes through each png
-    for filename in os.listdir(IMG_DIRECTORY):
+    for filename in sorted(os.listdir(IMG_DIRECTORY)):
         if filename[-4:] != ".png":
             continue
 
@@ -379,22 +401,27 @@ def generate_contours():
         print("PROCESSING: " + filename)
         xdim, ydim = process_image(fullname, index, color_to_name, used_names, to_write)
 
-    plt.show()
+    if PLOT:
+        plt.show()
+
+    print("WRITING VRS")
 
     # write vrs config file
-    vrs = open(os.path.join(OUT_DIRECTORY, "test.vrs"), "w")
+    vrs = open(os.path.join(OUT_DIRECTORY, SERIES_NAME+".vrs"), "w")
     vrs.write("VRS 1.0\n")
     vrs.write("BB_XMIN 0\n")
-    vrs.write("BB_XMAX " + str(xdim) + "\n")
+    vrs.write("BB_XMAX " + str(xdim * SCALE) + "\n")
     vrs.write("BB_YMIN 0\n")
-    vrs.write("BB_YMAX " + str(ydim) + "\n")
+    vrs.write("BB_YMAX " + str(ydim * SCALE) + "\n")
     vrs.write("BB_ZMIN " + str(min_index) + "\n")
     vrs.write("BB_ZMAX " + str(max_index) + "\n")
-    vrs.write("ZSPACING 0.05")
+    vrs.write("ZSPACING 1")
     vrs.close()
 
+    print("WRITING SER")
+
     # write ser config file
-    ser = open(os.path.join(OUT_DIRECTORY, "test.ser"), "w")
+    ser = open(os.path.join(OUT_DIRECTORY, SERIES_NAME+".ser"), "w")
     ser.write('<?xml version="1.0"?>\n')
     ser.write('<!DOCTYPE Series SYSTEM "series.dtd">\n')
     ser.write('<Series\n')
@@ -403,6 +430,8 @@ def generate_contours():
     ser.write('\t>\n')
     ser.write('</Series>')
     ser.close()
+
+    print("COMPLETED SUCCESSFULLY")
 
 
 if __name__ == "__main__":
