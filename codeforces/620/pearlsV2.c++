@@ -1,25 +1,25 @@
 #include <cstdio>
 #include <vector>
-#include <unordered_map>
+#include <map>
 
 using namespace std;
 
 int N;
 vector<int> result;
-unordered_map<int, int> last;
+map<int, int> idx;
 
 int main () {
+    int last = 0;
     result.push_back(0);
     scanf("%d", &N);
     for (int i = 1; i <= N; ++i) {
         int tmp;
         scanf("%d", &tmp);
-        if (last.find(tmp) != last.end()) {
+        if (idx[tmp] > last) {
             result.push_back(i);
-            last.clear();
+            last = i;
         }
-        else
-            last[tmp] = i;
+        idx[tmp] = i;
     }
     if (result.size() == 1) {
         printf("-1\n");
