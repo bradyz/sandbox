@@ -1,12 +1,11 @@
-n = 1000
-a = [1 for _ in range(n)]
-a[0], a[1], a[2] = 1, 1, 1
-for i in range(2, n):
-    if a[i] == 1:
-        j = 2
-        while i*j < n:
-            a[i*j] = 0
-            j += 1
-
-b = [i for i, val in enumerate(a) if val == 1]
-print(b)
+MAX_N = 1000
+prime = [True for _ in range(MAX_N)]
+prime[0] = prime[1] = False
+for i in range(2, MAX_N):
+    if not prime[i]:
+        continue
+    for j in range(i + i, MAX_N, i):
+        prime[j] = False
+for x in range(MAX_N):
+    if prime[x]:
+        print(x)
