@@ -24,7 +24,6 @@ def f3(x):
 
 
 def g3(x):
-    print(x)
     return (x + 1) ** (1 / 3)
 
 
@@ -38,16 +37,25 @@ def g4(x):
 
 def fixedpoint(func, po, eps, iterations=100):
     pi = po
-    for i in range(1, iterations+1):
+
+    for i in range(0, iterations+1):
         debug = "iteration: " + str(i)
-        debug += " pi " + str(pi) + " g(pi) " + str(func(pi))
+        debug += "\tpi: " + str(format(pi, ".10f"))
+        debug += "\tg(pi): " + str(format(func(pi), ".10f"))
+        debug += "\teps: " + str(format(abs(func(po) - po), ".10f"))
         print(debug)
 
         pi = func(po)
+
         if abs(pi - po) < eps:
             break
+
         po = pi
-    print("pi: " + str(pi) + " g(pi): " + str(func(pi)))
+
+    result = "Final Result\npi: " + str(format(pi, ".10f"))
+    result += "\tg(pi): " + str(format(func(pi), ".10f"))
+    print(result)
+
     return pi
 
 
@@ -69,6 +77,25 @@ if __name__ == "__main__":
     # foo(g2, 1, 2)
     # foo(g3, 1, 2)
     # foo(g4, 4, 5)
-    a = fixedpoint(g1, 3.6, 0, 4)
-    b = (g1(a) - 0.5) ** 2 + 10 * np.cos(a)
-    print(b)
+    print("Problem 1")
+    p1 = fixedpoint(g1, 3.6, 0, 4)
+    p1_verify = (g1(p1) - 0.5) ** 2 + 10 * np.cos(p1)
+    print("f(x): " + str(p1_verify))
+    print()
+
+    print("Problem 2")
+    p2 = fixedpoint(g2, 1, 1e-2)
+    p2_verify = g2(p2) ** 4 - 3 * p2 ** 2 - 3
+    print("f(x): " + str(p2_verify))
+    print()
+
+    print("Problem 3")
+    p3 = fixedpoint(g3, 1, 1e-2)
+    p3_verify = g3(p3) ** 3 - p3 - 1
+    print("f(x): " + str(p3_verify))
+    print()
+
+    print("Problem 4")
+    p4 = fixedpoint(g4, 4.5, 1e-5)
+    p4_verify = np.tan(g4(p4) - np.pi) - p4
+    print("f(x): " + str(p4_verify))
