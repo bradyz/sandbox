@@ -1,18 +1,17 @@
 n, r, c = map(int, input().split())
-g = [[0 for _ in range(c)] for _ in range(r)]
-ret = n
-for i in range(r):
-    for j in range(c):
-        if ret == 0:
-            continue
-        elif i > 0 and g[i-1][j] != 0 and (g[i-1][j] % 2) == (ret % 2):
-            continue
-        elif j > 0 and g[i][j-1] != 0 and (g[i][j-1] % 2) == (ret % 2):
-            continue
-        g[i][j] = ret
-        ret -= 1
-if ret == 0:
+if n > r * c:
+    print(-1)
+else:
+    g = [[0 for _ in range(c)] for _ in range(r)]
+    ret = 1
+    for i in range(r):
+        for j in range(c):
+            if ret > n:
+                continue
+            g[i][j] = ret
+            ret += 1
+    for i in range(1, r):
+        if (g[i][0] % 2) == (g[i-1][0] % 2):
+            g[i] = list(reversed(g[i]))
     for l in g:
         print(" ".join(map(str, l)))
-else:
-    print(-1)
