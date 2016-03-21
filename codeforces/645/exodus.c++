@@ -1,10 +1,10 @@
 #include <iostream>
-#include <string>
+#include <vector>
 
 using namespace std;
 
 int n, k;
-string r;
+char r[100005];
 int s[100005];
 
 int main () {
@@ -14,14 +14,29 @@ int main () {
         if (r[i] == '0')
             s[x++] = i;
     }
-    int win = int(1e9);
+    vector<int> b;
+    int d = int(1e9);
+    b.push_back(0);
+    for (int i = 0; i <= k; ++i) {
+        if (max(s[i] - s[0], s[k] - s[i]) <= d) {
+            if (max(s[i] - s[0], s[k] - s[i]) < d)
+                b.clear();
+            b.push_back(i);
+            d = max(s[i] - s[0], s[k] - s[i]);
+        }
+    }
+    // cout << d << endl;
+    // for (int p: b)
+    //     cout << s[p] << " ";
+    // cout << endl;
     int ret = int(1e9);
     for (int i = k; i < x; ++i) {
-        if (s[i] - s[i-k] > win)
-            continue;
-        win = s[i] - s[i-k];
-        for (int j = i-k; j < i; ++j)
-            ret = min(ret, max(s[j] - s[i-k], s[i] - s[j]));
+        for (int j = 0; j < b.size(); ++j) {
+            int p = b[j];
+            // cout << s[i-k] << " " << s[p] << " " << s[i] << endl;
+            ret = min(ret, max(s[p] - s[i-k], s[i] - s[p]));
+            ++b[j];
+        }
     }    
     cout << ret << endl;
     return 0;
