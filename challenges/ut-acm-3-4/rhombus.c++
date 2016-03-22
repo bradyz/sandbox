@@ -18,12 +18,15 @@ int main () {
         memset(dp, false, sizeof dp);
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
+                dp[i][j][0] = (g[i][j] == '1');
+
                 if (i == 0 || j == 0 || i == n-1 || j == m-1)
                     continue;
                 else if (g[i][j] != '1' ||
                          g[i-1][j] != '1' || g[i+1][j] != '1' ||
                          g[i][j-1] != '1' || g[i][j+1] != '1')
                     continue;
+
                 dp[i][j][1] = true;
             }
         }
@@ -41,7 +44,7 @@ int main () {
             }
         }
         int ret = 0;
-        for (int k = 50; k >= 1 && ret == 0; --k) {
+        for (int k = 50; k >= 0 && ret == 0; --k) {
             for (int i = 0; i < n && ret == 0; ++i) {
                 for (int j = 0; j < m && ret == 0; ++j) {
                     if (dp[i][j][k])
@@ -52,7 +55,7 @@ int main () {
         cout << ret << endl;
         // for (int i = 0; i < n; ++i) {
         //     for (int j = 0; j < m; ++j)
-        //         cout << dp[i][j][2] << " ";
+        //         cout << dp[i][j][1] << " ";
         //     cout << endl;
         // }
     }
