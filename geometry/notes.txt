@@ -1,0 +1,31 @@
+inverse transpose of model times the frag normal
+
+ambient term - way to fake global illumination
+
+subdivision
+- increases number of vertices
+- weighted averaging of neighbors
+- interpolation over neighbors
+  *-----*
+   \   / \
+    \ /   \
+     *-----*
+
+mesh improvement
+- mario botsch
+- subdivision followed by simplication
+
+mesh simplification
+- decreases number of vertices
+- average, neighbor, error quadric
+- edge collapse, edge 
+
+decimation operators
+- vertex removal needs to be followed by 
+  new triangulation
+
+hierarchical data structure
+- binary space partition
+- bounding volume hierarchy
+- kd-trees
+- octrees, quadtrees (dependent on dimensions)
