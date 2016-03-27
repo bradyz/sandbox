@@ -9,7 +9,6 @@ import numpy as np
 eye = np.array([0, 0, 0])
 look = np.array([0, 0, 1])
 up = np.array([0, 1, 0])
-test = list()
 
 
 class Ray:
@@ -109,7 +108,6 @@ def ray_triangle_intersect(ray, triangle):
     time = ray_plane_intersect(ray, Plane(p, n))
     if not time:
         return None
-    # test.append(Plane(p, n))
     intersect = o + v * time
     if triangle.contains_point(intersect):
         return time
