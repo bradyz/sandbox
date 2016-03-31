@@ -20,6 +20,12 @@ mesh simplification
 - average, neighbor, error quadric
 - edge collapse, edge 
 
+mesh consistency
+- face normal direction
+- manifold (water tight)
+- self intersection
+- t junctions
+
 decimation operators
 - vertex removal needs to be followed by 
   new triangulation
@@ -29,3 +35,24 @@ hierarchical data structure
 - bounding volume hierarchy
 - kd-trees
 - octrees, quadtrees (dependent on dimensions)
+
+computered aided design
+
+Interpolating and Approximating Implicit Surfaces from Polygon Soup (Chen Shen)
+polygon soup - no constraints on structure (manifold, self intersections)
+moving least squares -
+partition of unity -
+
+Biharmonic Coordinates (Ofir Weber)
+barycentric coordinates - 
+identity reproduction - linear precision
+partition of unity - constant precision
+
+Topology-Constrained Surface Reconstruction From Cross-sections (Tau Ju)
+bell number - double exponential growth
+dynamic programming over slices, genus, components
+
+Vouga
+- look at window of 3 slices
+- physically based scoring function
+- dynamic programming
