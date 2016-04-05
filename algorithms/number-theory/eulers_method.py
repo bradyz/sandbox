@@ -34,6 +34,7 @@ if __name__ == "__main__":
     tw = [(t, w) for t, w in euler(fp, 1, 2, int(1 / 0.1), 2)]
     plt.plot([x[0] for x in tw], [x[1] for x in tw], "r--")
 
+    plt.savefig("euler_method_large.png")
     plt.show()
 
     plt.xlim(1, 2)
@@ -44,4 +45,5 @@ if __name__ == "__main__":
     tw = [(t, w) for t, w in euler(fp, 1, 2, int(1 / 0.001), 2)]
     plt.plot([x[0] for x in tw], [x[1] for x in tw], "r--")
 
+    plt.savefig("euler_method_small.png")
     plt.show()
