@@ -15,3 +15,4 @@ build
 *.gz
 *.log
 *.dvi
+*.class
