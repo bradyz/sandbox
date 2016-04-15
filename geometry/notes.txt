@@ -56,3 +56,13 @@ Vouga
 - look at window of 3 slices
 - physically based scoring function
 - dynamic programming
+
+Reaction-Diffusion Patterns (fish spots)
+- Gray Scott model
+- Chemical reaction and concentration
+- Two particals diffuse through grid, different speeds
+- r = -(1/a) (d[A])/dt
+- arrhenius equation rate equation
+- ficks law describes flow rate through a cross sections
+- calculate gradients by divided differences
+- antisotropic - can change diffuse rates in dimension
