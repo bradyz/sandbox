@@ -59,6 +59,8 @@ if __name__ == "__main__":
     plt.plot(domain, func1(domain), "b-")
 
     tw = [(t, w) for t, w in yt]
-    plt.plot([x[0] for x in tw], [x[1] for x in tw], "ro--")
+    plt.plot([x[0] for x in tw], [x[1] for x in tw], "r+--")
+
+    plt.savefig("runge_kutta_fehlberg.png")
 
     plt.show()
