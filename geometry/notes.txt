@@ -66,3 +66,43 @@ Reaction-Diffusion Patterns (fish spots)
 - ficks law describes flow rate through a cross sections
 - calculate gradients by divided differences
 - antisotropic - can change diffuse rates in dimension
+
+Particle Effects
+- Move particles according to neighboring and environment
+- Remove particles that exceed lifetime
+- Potential fields - avoid collisions
+- Natural attractor force
+
+Flocking Rules
+- Separation (repel neighbors) - perception volume
+- Allignment (steer toward average velocity)
+- Cohesion (steer towards average position)
+- Avoidace (away from obstacles)
+
+Stable Masonry Structure 
+- Infinitely strong under compression
+- no tensile strength, does not resist pulling
+- sufficient friction prevents sliding
+- Finite Element Analysis - each block is stiff but still elastic
+- Equilibrium Analysis - everything perfectly rigid
+
+Finite Element Analysis
+- Energy function - original position and final position function
+- relax energy function subject to contact constraints
+- structure is stable if connected
+- material failure is unimportant
+- structure failure caused by bad geometry 
+
+Block Networks
+- Balance of force, and torque (doesnt spin)
+- Safe Theorem - spine of structure, if spine remains in structure then is stable
+- true forces do not need to be known
+- more tension vibrates less
+- thrust line
+
+Discrete Equilibrium (static)
+- summation of forces on vertices = 0
+- iterative algorithm, find best weights, move in direction
+- scalar stress potential, airy stress surface
+- if airy surface is phi convex, curvatures coupled, same base mesh
+- unique pq remeshing - technique
