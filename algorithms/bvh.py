@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 
 
 EPS = 10
-N = 10
+N = 8
 B = 1000
 
 
@@ -59,20 +59,20 @@ class Triangle:
 
 class Box:
     def __init__(self, minx=1e9, miny=1e9, maxx=-1e9, maxy=-1e9):
-        self.minx = minx
-        self.miny = miny
-        self.maxx = maxx
-        self.maxy = maxy
+        self.minx = minx - EPS
+        self.miny = miny - EPS
+        self.maxx = maxx + EPS
+        self.maxy = maxy + EPS
         self.empty = (minx == 1e9)
 
     def merge(self, box):
         if box.empty:
             return
         self.empty = False
-        self.minx = min(self.minx, box.minx) - EPS
-        self.miny = min(self.miny, box.miny) - EPS
-        self.maxx = max(self.maxx, box.maxx) + EPS
-        self.maxy = max(self.maxy, box.maxy) + EPS
+        self.minx = min(self.minx, box.minx)
+        self.miny = min(self.miny, box.miny)
+        self.maxx = max(self.maxx, box.maxx)
+        self.maxy = max(self.maxy, box.maxy)
 
     def draw(self, color="b-"):
         plt.plot([self.minx, self.minx], [self.miny, self.maxy], color)
@@ -155,4 +155,5 @@ if __name__ == "__main__":
 
     bvh.draw()
 
+    plt.savefig("bvh.png")
     plt.show()
