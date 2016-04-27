@@ -20,8 +20,8 @@ else:
     test_in = sys.argv[2]
     test_lang = sys.argv[3]
 
-    source_text = "\n".join(line for line in open(test_code))
-    test_in_str = "\n".join(line for line in open(test_in))
+    source_text = "".join(line for line in open(test_code))
+    test_in_str = "".join(line for line in open(test_in))
     language = LANG[test_lang]
 
     data = {"source": source_text,
