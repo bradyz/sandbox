@@ -33,15 +33,15 @@ end
 
 def main()
   graph = []
-  nodes = []
+  nodes = {}
 
   STDIN.each_with_index do |line, idx|
     line_split = line.split()
     begin
       line_split.map! { |x| Integer(x) }
       tmp = Node.new
-      tmp.n, tmp.x, tmp.y = line_split
-      nodes.push(tmp)
+      _, tmp.x, tmp.y = line_split
+      nodes[tmp.n] = tmp
     rescue
     end
   end

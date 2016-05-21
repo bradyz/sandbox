@@ -1,5 +1,5 @@
 import numpy as np
-import cv2
+import cv
 
 cap1 = cv2.VideoCapture(1)
 cap1.set(3, 1000)

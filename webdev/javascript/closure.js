@@ -13,3 +13,13 @@ var b = quo('free');
 
 console.log(a.getStatus());       // busy
 console.log(b.getStatus());       // free 
+
+var y = 1;
+
+function foo(x) {
+  return x + y;
+}
+
+y = 2;
+
+console.log(foo(1));
