@@ -5,9 +5,9 @@ def gcd(a, b):
 
 
 n, a, b, p, q = map(int, input().split())
-r = (n // a) * p + (n // b) * q
 lcm = (a * b) // gcd(a, b)
-print(lcm)
-r -= (n // lcm) * min(p, q)
-r += (n // lcm) * max(p, q)
+if p < q:
+    r = (n // a) * p + (n // b) * q - (n // lcm) * p
+else:
+    r = (n // a) * p + (n // b) * q - (n // lcm) * q
 print(r)
