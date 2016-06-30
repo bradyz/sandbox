@@ -12,7 +12,7 @@ b = list(map(int, input().split()))
 
 r = -1
 lo = 0
-hi = 2001
+hi = int(2e9) + 1
 
 while lo < hi:
     mi = (lo + hi) // 2
