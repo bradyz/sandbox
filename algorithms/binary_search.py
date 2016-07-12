@@ -2,11 +2,11 @@ def binary_search_left(a, can):
     lo = 0
     hi = len(a)
     while lo < hi:
-        mid = (lo + hi) // 2
-        if can(a[mid]):
-            lo = mid+1
+        mi = (lo + hi) // 2
+        if can(a[mi]):
+            lo = mi + 1
         else:
-            hi = mid
+            hi = mi
     return lo
 
 
