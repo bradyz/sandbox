@@ -4,10 +4,14 @@ Robotics Research Group, Department of Engineering Science
 University of Oxford, United Kingdom
 http://www.robots.ox.ac.uk/~vgg/publications/papers/sivic03.pdf
 
-ABSTRACT
+================================================================================
+NOTES
+================================================================================
+
+0. ABSTRACT:
 region descriptors - viewpoint invariant
 
-1. INTRODUCTION
+1. INTRODUCTION:
 recognition - matching, disambiguation
 matching - based on nearest neighbour of descriptor vectors
 *disambiguation - local spatial coherence
@@ -25,7 +29,7 @@ section 4 - weighting and indexing
 section 5 - evaluation of set of frames
 section 6 - stop list and ranking, evaluation
 
-2. VIEWPOINT INVARIANT DESCRIPTION
+2. VIEWPOINT INVARIANT DESCRIPTION:
 viewpoint covariant regions - elliptical shape + watershed image segmentation
 first region - ellipse (centre, scale, shape), Shape Adapted (SA)
 *ellipse scale - local extremum of a Laplacian
@@ -44,7 +48,7 @@ reduce noise - information is aggregated, at least 3 frames
 descriptor estimate - average of descriptors throughout track
 estimate benefits - more robust against noise
 
-3. BUILDING A VISUAL VOCABULARY
+3. BUILDING A VISUAL VOCABULARY:
 objective - vector quantize descriptors into clusters (words)
 vocabulary - constructed from sub part of movie
 vector quantization - K-means clustering
@@ -55,7 +59,7 @@ distance function - Mahalanobis, axis based on data
 SIFT - emphasizes orientation, rather than position of intensity within region
 SA vs MS - clustered separately due to different vocabulary
 
-4. VISUAL INDEXING USING TEXT RETRIEVAL METHODS
+4. VISUAL INDEXING USING TEXT RETRIEVAL METHODS:
 vector representation - frequencies, but weighting is usually applied for indexing
 weight - (term frequency - inverse document frequency = tf - idf)
 vocabulary - of k words
@@ -69,4 +73,108 @@ word frequency - n_id / n_d, upweights words occuring often in an environment
 inverse document frequency - log(N / n_i), downweights frequent words
 ranking - normalized scalar product (cosine)
 
-5. EXPERIMENTAL EVALUATION OF SCENE MATCHING USING VISUAL WORDS
+5. EXPERIMENTAL EVALUATION OF SCENE MATCHING USING VISUAL WORDS:
+objective - match scene locations
+retrieval test - frame is a query, correct retrieval is all other frames with scene
+*performance - average normalized rank of relevant images
+rank - (1 / (N * N_rel)) * (sum_i-1_(N_rel) R_i - (N_rel) * (N_rel + 1) / 2)
+score - rank is zero if all relevant images correct, [0, 1], 0.5 is random
+N_rel - number of relevant images for a query
+N - size of image set
+R_i - rank of ith image
+SA/MS - combination clearly gives better performance
+problems - few features being detected
+weight comparison - tf-idf weight outperforms binary weight and frequency weight
+results - no loss between vector quantization vs direct nearest neighbor
+system parameters - cluster centres, tracking length, rejected descriptors
+
+6. OBJECT RETRIEVAL:
+assumptions - one keyframe per second
+stop list - top %5, bottom 10%, boundaries determined empirically
+spacial consistency - objects that occur together ranked higher
+search area - 15 nearest, region votes for frame, matches with no support rejected, votes ~ rank
+other measures - based on affine mappings, computationally heavy
+classical file - words stored in document they appear in
+inverted file - word -> list of positions in all documents, sparsity = speed
+performance - no false negatives (no missed frames), good precision (high ranked have object)
+
+7. SUMMARY AND CONCLUSIONS:
+advantages - immediate run-time object retrieval, invariant to viewpoint changes
+low rankings - caused by lack of visual descriptors
+improvements - upgrade visual vocabulary, vocabulary based on scene types
+latent semantic indexing - to improve finding content
+automatic clustering - for principal objects
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+Video Google uses inspiration and techniques from text retrieval, to allow for
+fast and accurate object/scene queries in movies. Movie frames are encoded as 
+vectors of descriptors, which give information about what objects are present.
+The vector representation of frames allows for retrieval and ranking to be done 
+geometrically and yield high precision in their tests on real movies.
+
+1. MAIN CONTRIBUTION:
+The major contribution in the paper to the field of computer vision is showing
+that techniques from other another field (text retrieval) prove to be effective
+for certain vision problems. The majority of the paper consisted of implementing
+visual recognition analogies of various text retrieval concepts, such as
+vector quantization, notions of an implicit vocabulary, tf-idf weights, ranking.
+
+2. STRENGTHS/WEAKNESSES:
+The strengths of the paper are based around the reduction of the image classification
+problem into a geometry problem through their vector quantization of images.
+Another strength of the technique is that runtime object retrieval is immediate
+due to the encoding in the inverted file structure. The usage of two types of
+descriptor regions also allows for viewpoint invariance to impressive degrees,
+as illustrated in Figure 7.
+The weaknesses of the techniques described in the paper seem to be implicit
+in the choice of visual descriptors and that matches that received incorrect
+or low scoring rankings was caused by a lack of features in the frames.
+Another potential weakness is that only one keyframe is used per second. This
+is obviously biased and almost seems to be set arbitrarily.
+
+3. INSPIRING TOPICS:
+The idea of turning an image into "visual words" that belong to two different
+"visual vocabularies" was an inspiring concept. The two vocabularies, or region
+types, SA/MS is a novel way to address the need to differentiate between categories
+of descriptors. The use of different match filtering techniques like stop words, 
+and spatial consistency, was also really impressive as each technique could be
+layered on one another and led for much more precise results, as shown in Figure 6.
+
+4. EXPERIMENTAL RESULTS:
+The experiments which demonstrated the techniques from the paper were robust
+to show the use cases of Video Google. The techniques in the paper were developed
+for queries of this particular form, searching videos, so it is appropriate that 
+the authors ran experiments on two different movies. The results are impressive
+as the precision and recall are very high, and ranking is accurate (the first
+inaccurate frames are ranked low).
+
+5. EXTENSIONS:
+The difference between Figure 6 Row 2 and Figure 6 Row 3 shows just how much of
+a accuracy benefit the use of stop words has on the accuracy and robustness to
+noise. In Section 6.1, they say that the thresholds of stop words was determined
+empirically, so that varying the upper and lower bounds of stop word thresholds
+could be a cheap way of yielding closer matches. The "tf-idf" weighting has many
+variants and naturally, another cheap accuracy boost would be to use different
+weighting schemes for the vector quantization.
+
+6. ADDITIONAL COMMENTS:
+Addressing the fact that only one frame is used per second, this is essentially
+a sampling problem and we can borrow techniques from computer graphics and first
+sample at a pretty high rate, one frame per second, and if the change in the 
+frames is greater than some epsilon, we can sample more frames. This is to ensure
+that important descriptors are captured.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. What about the vector quantization and usage of SA/MS regions makes this technique
+have viewpoint invariance?
+
+1. What other text retrieval techniques can we apply to the field of visual
+recognition? Even more broad - what concepts from other fields could computer vision
+gather inspiration from?
