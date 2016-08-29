@@ -1,0 +1,72 @@
+Video Google: A Text Retrieval Approach to Object Matching in Videos
+Josef Sivic and Andrew Zisserman
+Robotics Research Group, Department of Engineering Science
+University of Oxford, United Kingdom
+http://www.robots.ox.ac.uk/~vgg/publications/papers/sivic03.pdf
+
+ABSTRACT
+region descriptors - viewpoint invariant
+
+1. INTRODUCTION
+recognition - matching, disambiguation
+matching - based on nearest neighbour of descriptor vectors
+*disambiguation - local spatial coherence
+*global relationships - epipolar geometry
+benefits - matches are pre-computed, implicit
+text retrieval review 1 - documents parsed into words
+text retrieval review 2 - map (walking, walked, walk) -> walk
+text retrieval review 3 - stop list rejects common words
+document - giant vector of words and occurrence
+inverted file - map (word) -> list of (document, position)
+text retrieval - compute vector, return document with closest vector (by angle)
+section 2 - visual descriptors
+section 3 - vector quantization
+section 4 - weighting and indexing
+section 5 - evaluation of set of frames
+section 6 - stop list and ranking, evaluation
+
+2. VIEWPOINT INVARIANT DESCRIPTION
+viewpoint covariant regions - elliptical shape + watershed image segmentation
+first region - ellipse (centre, scale, shape), Shape Adapted (SA)
+*ellipse scale - local extremum of a Laplacian
+*ellipse shape - maximize intensity gradient isotropy
+watershed image segmentation - calculate local minimum from gradient
+second region - stationary as threshold varies, Maximally Stable (MS)
+SA regions - tend to corners
+MS regions - tend to high contrast blobs
+*elliptical affine invariant region - represented as 128-d vector using SIFT (Lowe)
+color information - not used in this work
+*steerable filters -
+*orthogonal filters -
+results vs SIFT alone - superior, invariance towards affine
+reduce noise - information is aggregated, at least 3 frames
+*region tracking - simple constant velocity dynamical model and correlation
+descriptor estimate - average of descriptors throughout track
+estimate benefits - more robust against noise
+
+3. BUILDING A VISUAL VOCABULARY
+objective - vector quantize descriptors into clusters (words)
+vocabulary - constructed from sub part of movie
+vector quantization - K-means clustering
+alternative methods - K-medoids, histogram binning
+rejected regions - 10% of tracks with largest diagonal covariance matrix
+mean vector descriptor - x bar
+distance function - Mahalanobis, axis based on data
+SIFT - emphasizes orientation, rather than position of intensity within region
+SA vs MS - clustered separately due to different vocabulary
+
+4. VISUAL INDEXING USING TEXT RETRIEVAL METHODS
+vector representation - frequencies, but weighting is usually applied for indexing
+weight - (term frequency - inverse document frequency = tf - idf)
+vocabulary - of k words
+document - k-vector, Vd = (t1, t2, ..., tk)^T
+weighted word frequency - ti = (n_id / n_d) * log(N / n_i)
+n_id - number of occurrences of word i in document d
+n_d - number of words in document d
+n_i - number of occurrences of word i in whole database
+N - number of documents in whole database
+word frequency - n_id / n_d, upweights words occuring often in an environment
+inverse document frequency - log(N / n_i), downweights frequent words
+ranking - normalized scalar product (cosine)
+
+5. EXPERIMENTAL EVALUATION OF SCENE MATCHING USING VISUAL WORDS
