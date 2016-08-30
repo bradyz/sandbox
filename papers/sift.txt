@@ -1,0 +1,64 @@
+Object Recognition from Local Scale-Invariant Features
+David G. Lowe
+Computer Science Department
+University of British Columbia
+http://people.cs.ubc.ca/~lowe/papers/iccv99.pdf
+
+================================================================================
+NOTES
+================================================================================
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+SIFT is a method for feature generation that creates keys (local feature vectors)
+that are invariant to translation, scaling, rotation. The method's invariances
+is based on sampling through a scale space, which provides scalability at low
+computational cost. This technique gathers its inspiration from biological
+and neuroscience processes and is robust to local geometric distortion.
+
+1. MAIN CONTRIBUTION:
+Feature generation is essential for the object recognition in computer vision
+and SIFT provides an computationally efficient and accurate generation for
+scale varying images.
+
+2. STRENGTHS/WEAKNESSES:
+The major strength of SIFT is speed, and the feature vectors invariance to small
+local distortions and that object recognition is still accurate with occlusions,
+as shown in Figure 5.
+A weakness of SIFT is that key match must agree very closely with the model's
+orientation, scale, and size, and if a model is not associated with a large 
+amount of keys, matching the model will be more sensitive to things like 
+image distortions and object occlusions.
+
+3. INSPIRING TOPICS:
+The robustness to occlusion was impressive as occlusion typically causes
+significant increases in error in object matching. The fact that only 3 keys
+are needed for robust recognition was also unexpected, especially since 
+models typically generate a large amount of feature keys.
+
+4. EXPERIMENTAL RESULTS:
+The experiments used to test SIFT consist of changes in the illumination of 
+the environment and various direct image transformations like rotation, scaling, 
+stretching and lighting. The experiments were appropriate, but additional 
+experiments like applying image transformations to only parts of the image
+would be beneficial in gauging performance.
+
+5. EXTENSIONS:
+In the generation of the scale space, a new smoothed image is created using
+a bilinear interpolation of neighboring pixels. We can easily swap the bilinear
+interpolation with any variation of 2d interpolation and create a different
+scale space and improve stability of image keys.
+
+6. ADDITIONAL COMMENTS:
+SIFT is used for feature generation in the paper Video Google (Sivic 03) and 
+is combined with affine covariant regions to give description vectors that are
+invariant to affine transformations.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. 
