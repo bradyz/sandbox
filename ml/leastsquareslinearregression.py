@@ -3,11 +3,11 @@
 Generates random points and then tries to solve for the line that minimizes
 the sum of the squares of the error.
 
-Want to solve the optimization problem -
+Want to solve the optimization problem (quadratic minimization) -
 
 min over b: sum((<x, b> - y) ** 2)
 
-TODO: add multiple dimensions.
+TODO: add figures for multiple dimensions (3).
 """
 
 import random
@@ -42,17 +42,18 @@ class LinearRegressor():
     def __init__(self):
         self._x = None
         self._y = None
+        self.beta_hat = None
 
     def Train(self, x, y):
         """Adds new points to the points seen and trains the model.
 
         Args:
-            x: (np.ndarray) (n, m) shape, n samples, m dimensions.
-            y: (np.ndarray) (n,) shape, sample output.
+            x: (np.matrix) (n, m) shape, n samples, m dimensions.
+            y: (np.matrix) (n, 1) shape, sample output.
         """
-        if not self._x or self._y:
+        if not self._x or not self._y:
             self._x = x
-            self._y = x
+            self._y = y
         else:
             np.append(self._x, x)
             np.append(self._y, y)
@@ -60,51 +61,53 @@ class LinearRegressor():
     def Predict(self, x):
         """Outputs an estimation of the given points.
 
-        Solves for coefficients with beta = (((x^T)*x)^-1)*(x^T)*y.
+        Solves for coefficients with beta_hat = (((x^T)*x)^-1)*(x^T)*y.
 
         Args:
-            x: (np.ndarray) (n, m) shape, n samples, m dimensions.
+            x: (np.matrix) (n, m) shape, n samples, m dimensions.
 
         Returns:
-            (np.ndarray) (n,) shape, the predicted outputs.
+            (np.matrix) (n, 1) shape, the predicted outputs.
         """
-        result = self._x.T
-        print(1, result)
-        result = np.dot(result, self._x)
-        print(2, result)
-        result = np.linalg.inv(result)
-        print(3, result)
-        result = np.dot(result, self._x.T)
-        print(4, result)
-        result = np.dot(result, self._y)
-        print(5, result)
+        n = len(self._x)
+        X = np.concatenate(
+                [np.matrix([[1] for _ in range(n)]), self._x[:,0]], axis=1)
+        y = self._y
+        self.beta_hat = np.linalg.inv(X.T * X) * X.T * y
+        return x * self.beta_hat[1:, :] + self.beta_hat[0, 0]
 
 
 if __name__ == "__main__":
-    # Set up hyperparameter stuff.
+    # Set up params.
     n = 10
-    actual_slope = 1.57
+    actual_slope = random.randint(-10, 10)
     actual_intercept = 0.0
     xmin = 0.0
-    xmax = 10.0
+    xmax = 100.0
     ymin = actual_intercept + xmin * actual_slope
     ymax = actual_intercept + xmax * actual_slope
 
     # Generate random points.
-    points = list(gen(n, actual_slope, actual_intercept, xmin, xmax))
-    x = np.array([a[:-1] for a in points])
-    y = np.array([a[1] for a in points])
+    points = list(gen(n, actual_slope, actual_intercept, xmin, xmax, beta=1.0))
+    x = np.matrix([list(a[:-1]) for a in points])
+    y = np.matrix([[a[1]] for a in points])
 
+    # Do the actual regression.
     linear_regressor = LinearRegressor()
     linear_regressor.Train(x, y)
-    linear_regressor.Predict(x)
 
-    print(x)
-    print(y)
-    print(x.shape)
-    print(y.shape)
+    # More params for plotting.
+    predicted_y = linear_regressor.Predict(x)
+    predicted_intercept = linear_regressor.beta_hat[0, 0]
+    predicted_slope = linear_regressor.beta_hat[1, 0]
+    predicted_ymin = predicted_intercept + predicted_slope * xmin
+    predicted_ymax = predicted_intercept + predicted_slope * xmax
 
     # Plot points vs real line vs regression.
+    fig = plt.figure()
+    fig.suptitle('Least Squares Linear Regression')
     plt.plot(x, y, "ro")
-    plt.plot([xmin, xmax], [ymin, ymax])
+    plt.plot(x, predicted_y, "bo")
+    plt.plot([xmin, xmax], [ymin, ymax], "r--")
+    plt.plot([xmin, xmax], [predicted_ymin, predicted_ymax], "b-")
     plt.show()
