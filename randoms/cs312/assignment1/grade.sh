@@ -1,4 +1,8 @@
-for FILE in $(ls *Song*.java)
+#!/bin/sh
+
+# Usage: sh grade.sh $DIR_WITH_SUBMISSIONS
+
+for FILE in $(ls $1/*Song*.java)
 do
     USER=$(echo $FILE | sed -e 's/_.*\.java//')
     mkdir tmp
