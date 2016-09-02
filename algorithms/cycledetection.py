@@ -1,9 +1,14 @@
-def search(u, g, vis, done):
+def search(u, g, vis, done, cycle):
     vis.add(u)
     for v in g.get(u, []):
-        if v not in vis and search(v, g, vis, done):
-            return True
+        in_cycle = False
+        if v not in vis and search(v, g, vis, done, cycle):
+            in_cycle = True
         elif v not in done:
+            in_cycle = True
+        if in_cycle:
+            done.add(u)
+            cycle.add(v)
             return True
     done.add(u)
     return False
@@ -12,12 +17,14 @@ def search(u, g, vis, done):
 def has_cycle(g):
     vis = set()
     done = set()
+    cycles = list()
+    cycle = set()
     for u in g:
         if u in vis:
             continue
-        if search(u, g, vis, done):
-            return True
-    return False
+        cycles.append(set())
+        search(u, g, vis, done, cycles[-1])
+    return cycles
 
 
 if __name__ == "__main__":
