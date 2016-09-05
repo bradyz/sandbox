@@ -75,3 +75,68 @@ efficiency - improve by training auto-encoder to compress into short binary code
 results - large, deep CNN does well on strictly supervised learning
 performance - degrades if a single layer is removed
 improvements - larger and deeper on video where time gives more information
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+Large, deep CNNs under stricly supervised learning show to be extremely effective
+in image recognition problems. The CNN used consisted of 8 layers, 5 convolutional,
+and 3 fully connected layers that combine various techniques to prevent overfitting.
+The technique is also implemented on the GPU provides speedup, which is essential
+to make the training time tractible.
+
+1. MAIN CONTRIBUTION:
+The main contribution provided by the paper is to prove that deep CNNs can
+outperform state of the art techniques (SIFT + Fisher Vectors) and that the CNNs
+withstand the test of the current scale (millions of images), and show to be 
+flexible enough and have to prevent overfitting, which is critical when the 
+dataset is small compared to the number of categories.
+
+2. STRENGTHS/WEAKNESSES:
+The strengths of the technique discussed centers around their impressive results 
+given that they strictly use supervised learning. Another strength was the 
+use fact that there were not many hyperparameters and manual tuning involved
+in their implementation. This shows their techniques effectively learning.
+The weaknesses would have to be the complexity and time required for training
+a deep CNN. The order is on a magnitude of days, even on a GPU implementation. 
+The fact that they claim their method is throttled by GPU capabilities means
+if the number of images or categories were to go up, their technique might
+not survive the increase in scale.
+
+3. INSPIRING TOPICS:
+The paper has several impressive methods of combating overfitting, which is the 
+key to having an effective CNN. Without the overfitting techniques, the CNN would
+have less layers, leading to worse results overall. Another interesting point
+was the "dropout" method used in regularization. The 50% probability of a hidden
+neuron's output being 0 combined with a fully connected network intuitively 
+makes sense that the CNN would learn more robust connections.
+
+4. EXPERIMENTAL RESULTS:
+The ILSVRC-2010 test set error rates are very impressive and outperform state
+of the art techniques with error rates of top-1 37.5% and top-5 17.0%. 
+The datasets and experiments used to gauge the methods are very appriopriate as
+ILSVRC is essentially the standard for object recognition.
+
+5. EXTENSIONS:
+Dropout is an effective regularization technique but increases training time by
+a factor of 2. Dropout affects all hidden neurons though and a smart selection
+of which neurons to "dropout", such as the top 25% weigthed neurons, could provide
+a significant speedup.
+
+6. ADDITIONAL COMMENTS:
+What was really surprising was the disparity between ILSVRC-2010 results and the 
+error rates obtained in the 2009 ImageNet data set, where their method had error
+rates of top-1 64.7% and top-5 40.9%. This is probably due to the increased 
+number of categories (1k to 10k) and images (1m to 9m).
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. How would using more than 2 GPUs affect results? They said the two-GPU net 
+takes slightly less time, but provided better significantly better results.
+
+1. What caused the disparity between the results obtained in the ILSVRC-2010 
+data set and the 2009 ImageNet data set?
