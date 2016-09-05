@@ -60,5 +60,7 @@ invariant to affine transformations.
 ================================================================================
 DISCUSSION POINTS
 ================================================================================
-
-0. 
+ 
+0. Which feature types can be used to improve recognition performance?
+ 
+1. How can the complexity be improved to gain real-time speeds?

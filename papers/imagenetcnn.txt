@@ -1,0 +1,77 @@
+ImageNet Classification with Deep Convolutional Neural Networks
+A. Krizhevsky, I. Sutskever, and G. Hinton, University of Toronto
+http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf
+
+================================================================================
+NOTES
+================================================================================
+
+0. ABSTRACT:
+neural network - 60m params, 650k neurons, 5 convolutional, 3 fully connected
+performance - 37.5% top 1, 17.0% top 5 error rates
+max-pooling layers -
+softmax - 1000-way
+GPU implementation - speedup
+dropout - regularization technique (reduce overfitting)
+
+1. INTRODUCTION:
+LabelMe - 100k+ of fully-segmented images
+ImageNet - 15m high-res images with 22k categories
+complexity - need to learn a lot from very little
+CNNs - less connections/parameters than feedforward NN, theoretical best is worse
+section 3 - improve performance, decrease training time
+section 4 - address overfitting
+limitations - GPU memory, training time
+
+2. THE DATASET:
+ILSVRC - 1k images for each 1k categories
+error rates - top 1, top 5
+image processing - downsample to 256 x 256, crop rectangular
+preprocessing - subtract mean from each pixel
+
+3. THE ARCHITECTURE:
+saturating nonlinearity - much slower
+nonsaturating nonlinearity - f(x) = max(0, x)
+neuron output - f(x) = tanh(x), f(x) = (1 + e^-x)^-1
+ReLU - rectified linear unit, much faster than tanh, no input normalization
+GPU - memory limits size of network trained, split half of kernels on each gpu
+kernel - neuron
+columnar CNN - Ciresan et al. 
+local response normalization - lateral inhibition, competition for activity
+local contrast normalization - Jarrett et al.
+pooling layer - summarize outputs of neighboring groups in same kernel map
+pooling analogy - grid of pooling units s pixels apart, summarize z x z
+typical pooling - s = z
+overlapping pooling - s < z, make it more difficult to overfit
+optimization problem - maximizes multinomial logistic regression (log-probability)
+
+4. REDUCING OVERFITTING:
+data augmentation - use label-preserving transformations, 224 x 224 patches
+technique 1 - image translations, horizontal reflections, increases 2048x
+overfitting - makes networks smaller
+PCA - principal component analysis, 
+technique 2 - alter intensities of RGB channels
+implementation - add multiples of PCA, magnitudes ~(eigenvalues x normal random)
+dropout - set output to zero of hidden neuron with probability 0.5
+reasoning - do not contribute towards forward pass, not considered in backprop
+learning rate - takes about twice as much time to learn
+
+5. DETAILS OF LEARNING:
+training - stochastic gradient descent
+initialization - some biases to 1 to accelerate ReLU in early stages
+learning rate - divide by 10 when validation error stops improving
+
+6. RESULTS:
+competitor - average two classifiers, Fisher Vectors (FV), two dense features
+performance - does really well
+convolution kernels learned - frequency, orientation-selective, color blobs
+GPU 1 kernels - color agnostic
+GPU 2 kernels - color specific
+last layer vector - close vectors mean similar image
+similarity comparison - euclidean distance between two 4096-d vectors, slow 
+efficiency - improve by training auto-encoder to compress into short binary code
+
+7. DISCUSSION:
+results - large, deep CNN does well on strictly supervised learning
+performance - degrades if a single layer is removed
+improvements - larger and deeper on video where time gives more information

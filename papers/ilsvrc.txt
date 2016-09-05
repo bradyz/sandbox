@@ -1,0 +1,62 @@
+ImageNet Large Scale Visual Recognition Challenge
+Russakovsky et al.
+http://arxiv.org/pdf/1409.0575v3.pdf
+
+================================================================================
+NOTES
+================================================================================
+
+0. ABSTRACT:
+object classification - hundreds of categories, millions of images
+timeline - 2010 to present
+
+1. INTRODUCTION:
+components - public dataset, annual competition
+public dataset - training and test images, manually labeled
+ICCV - international conference on computer vision
+image-level annotation - binary labeling, has apples, doesnt have oranges
+object-level annotation - bounding box and label
+goals - tell how hard it is to create dataset, discuss category recognition
+Caltech 101 - early dataset, 101 categories
+Caltech 256 - more categories, higher image scale and more background variation
+TinyImages - 80 million low res images, not labeled
+scene category datasets - 15 Scenes, Places
+synonym set - sysnet, describes multiple words or phrases
+PASCAL VOC - closest thing to ImageNet, standardized training
+COCO - new dataset, contains segmentation annotations, up and coming
+large-scale annotation - ILSVRC uses Amazon Mechanical Turk
+layout - overview, data collection, evaluation criteria, methods developed
+
+2. CHALLENGE TASKS:
+image classification - produce list of objects
+single-object localization - image classification with boxes of one instance
+object detection - image classification with boxes of every instance
+scaling dataset - object detection hard since there can be lots of trees
+recall - number of target instances detected
+precision - number of false detections
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+
+1. MAIN CONTRIBUTION:
+
+2. STRENGTHS/WEAKNESSES:
+
+3. INSPIRING TOPICS:
+
+4. EXPERIMENTAL RESULTS:
+
+5. EXTENSIONS:
+
+6. ADDITIONAL COMMENTS:
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. 
+
+1. 
