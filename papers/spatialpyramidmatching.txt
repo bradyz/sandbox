@@ -65,7 +65,7 @@ advantage - combined resolutions are robust to individual level failures
 feature set comparison - weak are not as good as strong, but fair with pyramid
 increasing vocabulary size - not as effective as geometric cues from pyramid
 Caltech-101 - 31-800 images per, 300 x 300 res, diverse, but not very cluttered
-confusions - similar textures, animal camoflauge
+confusions - similar textures, animal camouflage
 good performance - classification, object recognition with little clutter, in poses
 Graz dataset - high intra-class variation, range of scale and poses
 two-class detection - object vs background
@@ -76,3 +76,68 @@ performance - little gain from L = 0 to 2, geometric variability, no global feat
 image categorization - based on modification of pyramid match kernel
 performance - does very well with global features, okay in high variability
 extensions - combine spatial pyramid with invariant features
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+This paper addresses the scene categorization problem by using a variant of the
+spatial pyramid kernel. Various features are detected and aggregated over 
+different resolutions and a vocabulary is constructed through typical clustering
+techniques. The different resolutions provide a clever way to weight and score
+features based on locality.
+
+1. MAIN CONTRIBUTION:
+Previous methods used for the scene categorization problem were based on 
+bag-of-features, which loses all spatial information. The spatial pyramid matching
+technique provides a computationally effective way to approximate geometric matching.
+This divide and conquer scheme, combined with a visual vocabulary outperforms
+state of the art techniques for scene categorization.
+
+2. STRENGTHS/WEAKNESSES:
+The technique discussed in the paper performs well in 
+Spatial pyramid matching does not perform that well on the Graz dataset, and this
+was attributed to the large intra-class variation and the large range of scale 
+and poses.
+
+3. INSPIRING TOPICS:
+Results from trials showed that accuracy drops from using L = 2 to L = 3, since
+the bins were too finely subdivided and lost context, but what was impressive was 
+the fact that the pyramid matching's weighting scheme provided a robustness against
+this performance degradation and overall performance was more or less the same.
+
+4. EXPERIMENTAL RESULTS:
+The datasets used for benchmarking are diverse and fairly appropriate. The 
+Caltech-101 dataset results are a bit questionable since the number of images
+per category ranged from 31-800 and they use 30 images for training. This could
+lead to misleading results since for one category, they actually used a single
+image for testing. Given the circumstances, however, they addressed the problem of
+having small dataset appropriately and repeated the experiments ten times 
+with random samples.
+
+5. EXTENSIONS:
+Can we change the way the sampling window is selected to have better results? 
+A possible implementation would be to stochastically sample from the image until
+every pixel has been covered, then choose the minimum covering set of spatial bins. 
+This obviously would have more spatial bins leading to more computation, 
+but could provide a good idea on how the objects in the scene are distributed.
+
+6. ADDITIONAL COMMENTS:
+The weighting scheme used for point matching is exponential due to the subdivision
+method. When L was increased from 2 to 3 in one trial, accuracy decreased, as the
+region was too finely subdivided, however, this could prove beneficial in regions
+with a lot of clutter. Can we subdivide or weight areas with more clutter to 
+better the results?
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. The spatial pyramid kernel did not perform as well on certain images from
+the Graz dataset, specifically on images with very similar textures. 
+How can RGB channels provide performance gains in these situations?
+
+1. The technique demonstrated in the paper performed much better when the objects
+were centered, as in the Caltech-101 dataset. Can we change the way that weighting
+and sampling is done based on the attributes of the scene (sparseness)? 
