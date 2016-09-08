@@ -1,4 +1,4 @@
-from math import sqrt
+from math import sqrt, exp, pi, erf
 
 
 def mean(c):
@@ -14,6 +14,10 @@ def stddev(c):
     return sqrt(variance(c) / float(len(c) - 1))
 
 
+def phi(z):
+    return .5 * (1 + erf(z / sqrt(2)))
+
+
 if __name__ == "__main__":
     a = [3, 5, 6, 7, 9]
     b = [2, 4, 6, 8, 10]
@@ -24,3 +28,6 @@ if __name__ == "__main__":
     b = [10, 11, 15, 19, 20]
     print(mean(a), mean(b))
     print(stddev(a), stddev(b))
+
+    # P(|x| <= 0.5)
+    print(phi(0.5) - phi(-0.5))

@@ -1,3 +1,4 @@
+import math
 import numpy as np
 
 
@@ -54,8 +55,8 @@ A5 = np.matrix([
 A6 = np.matrix([
     [1, 0, 0, 0],
     [0, 1, 0, 0],
-    [0, 0, 1, 0],
-    [0, 0, 1, 0]
+    [0, 0, 1, 1],
+    [0, 0, 0, 0]
 ])
 
 # A * A7 deletes column 1.
@@ -100,3 +101,62 @@ print("Left aggregated.")
 print(X)
 print("Right aggregated.")
 print(Y)
+
+# Proof on inverses.
+A = np.matrix([
+    [1, 2, 3],
+    [0, 4, 5],
+    [0, 0, 6]
+])
+
+A = np.matrix([
+    [1, 2],
+    [0, 3],
+])
+
+print(A)
+print(np.linalg.det(A))
+print(np.linalg.inv(A))
+
+# Proof on range space.
+A = np.matrix([
+    [1],
+    [2],
+    [3],
+    [4],
+])
+
+B = np.matrix([
+    [5],
+    [3],
+    [4],
+    [-1],
+])
+
+M = A * B.T
+
+print(M)
+print(np.linalg.matrix_rank(M))
+
+M = (B * A.T)
+
+print(M)
+print(np.linalg.matrix_rank(M))
+
+q = np.matrix([
+    [2],
+    [math.sqrt(7)],
+    [5],
+])
+
+I = np.identity(3)
+n = np.linalg.norm(q) ** 2
+print("================")
+print(I - q * q.T)
+print((I - q * q.T) * (I + (1 / (1 - n)) * q * q.T))
+print(np.linalg.inv(I - q * q.T))
+print("================")
+print(q * q.T)
+
+print(n * q * q.T)
+print(q * q.T * q * q.T)

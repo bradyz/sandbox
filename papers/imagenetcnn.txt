@@ -9,7 +9,7 @@ NOTES
 0. ABSTRACT:
 neural network - 60m params, 650k neurons, 5 convolutional, 3 fully connected
 performance - 37.5% top 1, 17.0% top 5 error rates
-max-pooling layers -
+max-pooling layers - downsample by taking max of kernel window
 softmax - 1000-way
 GPU implementation - speedup
 dropout - regularization technique (reduce overfitting)
