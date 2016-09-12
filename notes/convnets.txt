@@ -1,0 +1,28 @@
+ILSVRC - errors almost halving every year since 2012
+earlier methods - (60s - 90s), hand defined feature -> hand defined classifier
+traditional methods - (90s - 2012), hand defined feature -> learned classifier
+new methods - jointly learned features + classifier
+layer - y = f(Wx) matrix vector
+neurons - x * W * f(.) * y
+f(.) - predefined, like tanh, ReLu
+feedfoward - allows for layer composability
+learnable parameters - W, the weights
+hyperparameters - parameters that define the network, number layers
+first layer - f1(x)
+second layer - f2(W12*f1(x))
+forward pass - shove a new x vector through
+gradient descent - minimize error function, W_t+1 = W_t - n * gradient
+chain rule - backprop to save computation
+backward pass - takes in gradients, feeds backwards
+stochastic gradient descent - SGD, take sample of dataset
+SGD variants - vanilla, momentum, Nesterov momentum, Adagrad, RMSProp, Adadelta
+fully connected - matrix vector, when f(.) is identity
+layer - any differential operation can be a layer
+feature activation map -
+convolutional layers - learn convolutional filters, filter size, stride
+ReLu - rectified linear unit, max(0, x)
+max-pooling - non-linear down-sampling, translation invariance, no weights
+LeNet - neural net for handwriting
+standard scheme - conv-ReLU-pool
+transfer learning - take weights and backprop, SVD to tweak the weights 
+application - object detection, pose regression, image segmentation
