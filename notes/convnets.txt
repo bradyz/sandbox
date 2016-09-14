@@ -26,3 +26,7 @@ LeNet - neural net for handwriting
 standard scheme - conv-ReLU-pool
 transfer learning - take weights and backprop, SVD to tweak the weights 
 application - object detection, pose regression, image segmentation
+learning rate - weights
+learning rate (2nd time) - applies to biases, should be higher than weights
+accuracy - not differentiable
+soft max loss - differentiable version of accuracy

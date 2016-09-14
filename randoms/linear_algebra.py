@@ -2,6 +2,15 @@ import math
 import numpy as np
 
 
+def forms_basis(*args):
+    try: 
+        np.linalg.inv(np.matrix(args).T)
+        return True
+    except:
+        pass
+    return False
+
+
 # Original.
 B = np.matrix([
     [1, 2, 3, 4],
