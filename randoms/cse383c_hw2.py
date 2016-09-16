@@ -64,9 +64,9 @@ C = np.matrix([
 
 # Deletes one column.
 D = np.matrix([
+    [0, 0],
     [1, 0],
     [0, 1],
-    [0, 0],
 ])
 
 # (3 x 4) (4 x 3) (3 x 2)
@@ -78,3 +78,4 @@ print(np.linalg.norm(C * A * D, np.inf), np.linalg.norm(A, np.inf))
 print(A)
 print(C * A)
 print(C * A * D)
+print(A * D)
