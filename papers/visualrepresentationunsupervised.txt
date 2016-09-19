@@ -1,0 +1,135 @@
+Unsupervised Visual Representation Learning by Context Prediction
+Carl Doersch, Abhinav Gupta, Alexei A. Efros
+CMU, UCB 2016
+http://arxiv.org/pdf/1505.05192v3.pdf
+
+================================================================================
+NOTES
+================================================================================
+
+0. ABSTRACT:
+Supervising signal - use spatial context
+Method - pass two patches ConvNet to predict positions
+Feature representation - learns visual similarity
+Learnings - learned ConvNet can be used in R-CNN framework to boost results
+Summary - learning positions requires understanding
+Summary (cont.) - use various NN to solve problem, gut the top regressor
+
+1. INTRODUCTION:
+Unsupervised part - no labels, need to cut up image, self-supervised
+Context - power source of automatic supervisory signal
+Task - sample random pairs of matches 
+Hypothesis - doing well requires understanding of scenes and objects
+Object detection - resulting visual representation works well on PASCAL VOC 07
+Surprise - representation is general across images, even though trained on one
+
+2. RELATED WORK:
+Techniques - wake-sleep, contrastive divergence, deep Boltzmann machine, Bayesian methods
+Embedding - feature vectors 
+Spare autoencoders - use reconstruction as pretext task, sparsity penaltiy
+Struggles - low level phenomena (stochastic textures)
+Pretext task - context prediction
+Skip-gram - model to generate useful word representation
+Model - neural net to guess preceding and succeeding words given a word
+Consensus voting - nearest neighbors vote for a prediction
+Previous work - formulates statistical test to determine data explanation
+Strategy - switch from prediction to discrimination task
+Pretext task - discriminate true text from random text
+Relation - classify between multiple configurations sample from same image
+Why - harder since lighting and color statistics are similar
+Unsupervised techniques - hand-crafted features and forms of clustering
+Other approaches - define similarity metrics and more clustering
+Videos - temporal coherence
+
+3. LEARNING VISUAL CONTEXT PREDICTION:
+ConvNet - learn complex image representations with minimal human design
+Structure - feed two image patches, return probability of each patch
+Goal - feature vector for individual, similar patches are close in embedding space
+Architecture - pair of AlexNet-style
+fc6-level embedding function - 
+Joint reasoning - only two layers receive input from both patches
+Semantic reasoning - focus on the individual patches
+Training examples - sample first uniformly, second randomly from eight neighbors
+Trivial solutions - find continuation along boundary, add gap, jitter
+Chromatic aberration - rgb shifts caused by lens
+CA preprocessing - shift green-magenta to gray, drop 2 color channels, Gaussian
+Caffe - used for ConvNet, train on 1.3 million images in ImageNet 2012
+SGD - no good, network degenerates and fc6, fc7 weights collapse
+Batch normalization - final implementation, without scale, shift, high momentum
+
+4. EXPERIMENTS:
+Domains - pre-training for limited data, discover image classes
+fc6 features - used to represent patches
+CA - trained a network to predict absolute xy to demonstrate learning CA
+Object detection - unsupervised pre training doesn't do much
+R-CNN - used as inspiration 
+Batch normalization - without this leads to badly scaled weights
+Visual data mining - discovering objects without labels
+Disadvantage - rediscover image with different viewpoint, cannot find object mask
+Purity - fraction of images in cluster containing same category
+Fast-cnn - used to save training time, discarcd fc layers
+MAP - mean average precision
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+The algorithm in the paper attempts to formulate a method for self supervised
+learning of visual representation by reducing the problem to guessing relative
+positions between patches of an image. The intuition behind this is that learning
+to guess relative positions requires the ability to recognize an object. The trained 
+ConvNets can then be used for other tasks like object detection and discovery.
+
+1. MAIN CONTRIBUTION:
+The novel idea introduced in the paper was the idea of an implicit objective
+function. With a goal encoded in an image, this is a new way to scale the 
+magnitude of examples in the training set from millions to an indefinite size.
+
+2. STRENGTHS/WEAKNESSES:
+The main strength of the paper is that now there is an implicit way to solve 
+problems in object detection and discovery. This can make it so that future
+vision competitions can remove labels from object bounding boxes, and score 
+based on object binning by id.
+The ConvNet designed in the paper showed fairly promising scores on the VOC-2007
+training set, but it performs significantly lower than VGG trained on ImageNet.
+The training time (on the order of weeks) is not a beneficial trait to have,
+especially since the idea of context matching leads to generating huge amounts
+of training data.
+
+3. INSPIRING TOPICS:
+I thought it was really interesting how the problem of object classification was
+reduced, or rather solved along the way by coming up with another task to solve,
+where the task had a very simple and implicit scoring function. The fact that 
+this scoring scheme gives essentially infinite training samples is definitely
+something to explore further.
+
+4. EXPERIMENTAL RESULTS:
+The data set the experiments were run on are the standard for visual recognition
+tasks and was appropriate for the paper. It was really helpful that the authors
+included such a variety of how their algorithm fared when initialized or pretrained
+with other datasets. The diversity of results shows just how much initialization
+factors into how the model performs.
+
+5. EXTENSIONS:
+The technique described in the paper can essentially put an image back together.
+Given an image's full patches, a method of verification could be creating a new
+image from the predicted positions, then cutting the image into patches again,
+and predicting the patches positions. We can repeat this several times and
+we can verify that the model is working well if the operation was idempotent.
+
+6. ADDITIONAL COMMENTS:
+The fact that the model has starting learning chromatic aberration was kind
+of unsettling. This problem seems like it could have completely halted progress
+in this topic if they had not caught the very subtle source of the issue. This 
+seems to be a recurring theme in deep learning models.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. The notion of patch guessing is a novel way to formulate an objective function
+implicit to an image. What are some other ways relationships are encoded in images?
+
+1. What other "trivial" solutions are there? How can we change the way patches
+are created to increase the learning ability?
