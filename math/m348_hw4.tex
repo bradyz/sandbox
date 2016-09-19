@@ -1,0 +1,824 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry} 
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.05}
+
+\title{\textbf{M348:\@ Assignment 4}}
+\author{Brady Zhou}
+\date{\today}
+
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep{\bfseries #1}\hskip \labelsep{\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep{\bfseries #1}\hskip \labelsep{\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep{\bfseries #1}\hskip \labelsep{\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercise}{2.1.2} $T: \mathbb{R}^3 \to \mathbb{R}^2$ defined by $T(a_1, a_2, a_3) = (a_1 - a_2, 2a_3)$.
+
+    \begin{proof} Show $T$ is a linear transformation, $T(cx + y) = cT(x) + T(y)$ for $\forall x, y \in V, \forall c \in \mathbb{F}$. \\
+
+        \noindent Let $x = (a_1, a_2, a_3), y = (b_1, b_2, b_3), c \in \mathbb{F}$.
+
+        \begin{align*}
+            T (ca_1 + b_1, ca_2 + b_2, ca_3 + b_3) 
+            & = (ca_1 + b_1 - ca_2 - b_2, 2(ca_3 + b_3)) \\
+            & = (ca_1 - ca_2, 2ca_3) + (b_1 - b_2, b_3) \\
+            & = c(a_1 - a_2, 2a_3) + (b_1 - b_2, b_3) \\
+            & = c T(a_1, a_2, a_3) + T(b_1, b_2, b_3) \\
+        \end{align*}
+
+        \noindent We can see $T$ is a linear transformation.
+
+    \end{proof}
+
+    \begin{proof} $Dim(Null(T)) = 1$. \\
+
+        \noindent We need to find the $Null(T)$, the set $\{(a_1, a_2, a_3)\ |\ T(a_1, a_2, a_3) = (0, 0)\}$. \\
+        $T(a_1, a_2, a_3) = (0, 0) \iff (a_1 - a_2, 2a_3) = (0, 0)$. \\
+        This can only be true if $a_1 = a_2$ and $a_3 = 0$. \\
+        We can see the set $\{(1, 1, 0)\}$ forms a basis for $Null(T)$, and $Dim(Null(T)) = 1$.
+
+    \end{proof}
+
+    \begin{proof} $Dim(Range(T)) = 2$. \\
+
+        \noindent We need to find the $Range(T)$. \\
+        \noindent
+        \begin{align*}
+        Range(T) 
+            &= \{T(a_1, a_2, a_3)\ \forall a_1, a_2, a_3 \in \mathbb{R}\}. \\
+            &= \{(a_1-a_2, a_3)\ \forall a_1, a_2, a_3 \in \mathbb{R}\}. \\
+        \end{align*}
+        We can see $\forall x \in \mathbb{R}, \exists a_1, a_2 \in \mathbb{R}$ such that $x = a_1 - a_2$. \\
+        Similarly, $\forall y \in \mathbb{R}, \exists a_3 \in \mathbb{R}$ such that $y = 2a_3$. \\
+        We can see the set $\{(1, 0), (0, 1)\}$ forms a basis for $Range(T)$, and $Dim(Range(T)) = 2$.
+
+    \end{proof}
+
+    \begin{proof} The rank nullity theorem is satisfied. \\
+
+        \begin{align*}
+            Dim(Null(T)) + Dim(Range(T))
+            &= 1 + 2 \\
+            &= Dim(Range(V))
+        \end{align*}
+        
+        \noindent We can see the rank nullity theorem is is satisfied.
+
+    \end{proof}
+
+    \begin{proof} T is not one-to-one. \\
+
+        \noindent Since $Dim(Null(T)) = 1 \neq 0$, T is not one-to-one.
+
+    \end{proof}
+
+    \begin{proof} T is onto. \\
+
+        \noindent Since $Dim(Range(T)) = 2 = Dim(Range(W))$, T is onto.
+
+    \end{proof}
+
+\end{exercise}
+
+\begin{exercise}{2.1.3} $T: \mathbb{R}^2 \to \mathbb{R}^3$ defined by $T(a_1, a_2) = (a_1 + a_2, 0, 2a_1 - a_2)$.
+
+    \begin{proof} Show $T$ is a linear transformation, $T(cx + y) = cT(x) + T(y)$ for $\forall x, y \in V, \forall c \in \mathbb{F}$. \\
+
+        \noindent Let $x = (a_1, a_2), y = (b_1, b_2), c \in \mathbb{F}$.
+
+        \begin{align*}
+            T (ca_1 + b_1, ca_2 + b_2) 
+            & = (ca_1 + b_1 + ca_2 + b_2, 0, 2(ca_1 + b_1) - (ca_2 + b_2)) \\
+            & = (ca_1 + ca_2, 0, 2ca_1 - ca_2) + (b_1 + b_2, 0, 2b_1 - b_2) \\
+            & = c(a_1 + a_2, 0, 2a_1 - a_2) + (b_1 + b_2, 0, 2b_1 - b_2) \\
+            & = c T(a_1, a_2) + T(b_1, b_2) \\
+        \end{align*}
+
+        \noindent We can see $T$ is a linear transformation.
+
+    \end{proof}
+
+    \begin{proof} $Dim(Null(T)) = 0$. \\
+
+        \noindent We need to find the $Null(T)$, the set $\{(a_1, a_2)\ |\ T(a_1, a_2) = (0, 0, 0)\}$. \\
+        $T(a_1, a_2) = (0, 0, 0) \iff (a_1 + a_2, 0, 2a_1 - a_2) = (0, 0, 0)$. \\
+        This can only be true if $a_1 = -a_2$ and $a_1 = -1/2 a_2$. \\
+        This is true for $a_1 = 0 = a_2$. \\
+        We can see the set $\{(0, 0)\}$ forms a basis for $Null(T)$, and $Dim(Null(T)) = 0$.
+
+    \end{proof}
+
+    \begin{proof} $Dim(Range(T)) = 2$. \\
+
+        \noindent We need to find the $Range(T)$. \\
+        \noindent
+        \begin{align*}
+        Range(T) 
+            &= span(\{T(\beta_i)\ \forall \beta_i \in \{(1, 0), (0, 1)\}\}). \\
+            &= span(\{(1, 0, 2), (1, 0, -1)\}). \\
+        \end{align*}
+        The two vectors are linearly independent, and we can form a basis for W. \\
+        We can see the set $\{(1, 0, 2), (1, 0, -1)\}$ forms a basis for $Range(T)$, and $Dim(Range(T)) = 2$.
+
+    \end{proof}
+
+    \begin{proof} The rank nullity theorem is satisfied. \\
+
+        \begin{align*}
+            Dim(Null(T)) + Dim(Range(T))
+            &= 0 + 2 \\
+            &= Dim(Range(V))
+        \end{align*}
+        
+        \noindent We can see the rank nullity theorem is is satisfied.
+
+    \end{proof}
+
+    \begin{proof} T is one-to-one. \\
+
+        \noindent Since $Dim(Null(T)) = 0$, T is one-to-one.
+
+    \end{proof}
+
+    \begin{proof} T is not onto. \\
+
+        \noindent Since $Dim(Range(T)) = 2 \neq Dim(Range(W))$, T is not onto.
+
+    \end{proof}
+
+\end{exercise}
+
+\begin{exercise}{2.1.4} $T: M_{2\times3}(F) \to M_{2\times2}(F)$ defined by \\
+
+    \begin{center}
+        T\big($\begin{bmatrix}
+            a_{11} & a_{12} & a_{13} \\
+            a_{21} & a_{22} & a_{23} \\
+        \end{bmatrix}$\big) = 
+        $\begin{bmatrix}
+            2a_{11} - a_{12} & a_{13} + 2a_{12} \\
+            0 & 0 \\
+        \end{bmatrix}$
+    \end{center}
+
+    \begin{proof} Show $T$ is a linear transformation, $T(cx + y) = cT(x) + T(y)$ for $\forall x, y \in V, \forall c \in \mathbb{F}$. \\
+
+        \noindent Let 
+        $x = \begin{bmatrix}
+            a_{11} & a_{12} & a_{13} \\
+            a_{21} & a_{22} & a_{23} \\
+        \end{bmatrix}$, 
+        $y = \begin{bmatrix}
+            b_{11} & b_{12} & b_{13} \\
+            b_{21} & b_{22} & b_{23} \\
+        \end{bmatrix}$, 
+        $c \in \mathbb{F}$.
+
+        \begin{align*}
+            T (cx + y) 
+            & = T\big(
+                c\begin{bmatrix}
+                    a_{11} & a_{12} & a_{13} \\
+                    a_{21} & a_{22} & a_{23} \\
+                \end{bmatrix} + 
+                \begin{bmatrix}
+                    b_{11} & b_{12} & b_{13} \\
+                    b_{21} & b_{22} & b_{23} \\
+                \end{bmatrix}\big) \\
+            & = T\big(
+                \begin{bmatrix}
+                    ca_{11} & ca_{12} & ca_{13} \\
+                    ca_{21} & ca_{22} & ca_{23} \\
+                \end{bmatrix} + 
+                \begin{bmatrix}
+                    b_{11} & b_{12} & b_{13} \\
+                    b_{21} & b_{22} & b_{23} \\
+                \end{bmatrix}\big) \\
+            & = T\big(
+                \begin{bmatrix}
+                    ca_{11} + b_{11} & ca_{12} + b_{12} & ca_{13} + b_{13} \\
+                    ca_{21} + b_{21} & ca_{22} + b_{22} & ca_{23} + b_{23} \\
+                \end{bmatrix}\big) \\
+            & = \begin{bmatrix}
+                    2(ca_{11} + b_{11}) - (ca_{12} + b_{12}) & (ca_{13} + b_{13}) + 2(ca_{12} + b_{12}) \\
+                    0 & 0 \\
+                \end{bmatrix} \\
+            & = \begin{bmatrix}
+                    2ca_{11} - ca_{12} + 2b_{11} - b_{12} & ca_{13} 2ca_{12} + b_{13} + 2b_{12} \\
+                    0 & 0 \\
+                \end{bmatrix} \\
+            & = \begin{bmatrix}
+                    2ca_{11} - ca_{12} & ca_{13} 2ca_{12} \\
+                    0 & 0 \\
+                \end{bmatrix} +
+                \begin{bmatrix}
+                    2b_{11} - b_{12} & b_{13} + 2b_{12} \\
+                    0 & 0 \\
+                \end{bmatrix} \\
+            & = c\begin{bmatrix}
+                    ca_{11} - a_{12} & a_{13} 2a_{12} \\
+                    0 & 0 \\
+                \end{bmatrix} +
+                \begin{bmatrix}
+                    2b_{11} - b_{12} & b_{13} + 2b_{12} \\
+                    0 & 0 \\
+                \end{bmatrix} \\
+            & = cT\big(\begin{bmatrix}
+                    a_{11} & a_{12} & a_{13} \\
+                    a_{21} & a_{22} & a_{23} \\
+                \end{bmatrix}\big) + 
+                T\big(\begin{bmatrix}
+                    b_{11} & b_{12} & b_{13} \\
+                    b_{21} & b_{22} & b_{23} \\
+                \end{bmatrix}\big) \\
+        \end{align*}
+
+        \noindent We can see $T$ is a linear transformation.
+
+    \end{proof}
+
+    \begin{proof} $Dim(Null(T)) = 4$. \\
+
+        \noindent We need to find the $Null(T)$, the set $\{
+            \begin{bmatrix}
+                a_{11} & a_{12} & a_{13} \\
+                a_{21} & a_{22} & a_{23} \\
+            \end{bmatrix}\ |\ T\big(\begin{bmatrix}
+                a_{11} & a_{12} & a_{13} \\
+                a_{21} & a_{22} & a_{23} \\
+            \end{bmatrix}\big) = \begin{bmatrix}
+                0 & 0 \\
+                0 & 0 \\
+            \end{bmatrix}\}$. \\
+        \begin{align*}
+            T\big(\begin{bmatrix}
+                    a_{11} & a_{12} & a_{13} \\
+                    a_{21} & a_{22} & a_{23} \\
+            \end{bmatrix}\big)
+            & = \begin{bmatrix}
+                    2a_{11} - a_{12} & a_{13} + 2a_{12} \\
+                    0 & 0 \\
+                \end{bmatrix} \\
+            & = \begin{bmatrix}
+                    0 & 0 \\
+                    0 & 0 \\
+                \end{bmatrix}\ \\
+        \end{align*}
+        This can only be true if $2a_{11} = a_{12} = -1/2a_{13}$. \\
+        We can see the set 
+        $\{\begin{bmatrix}
+            1 & 2 & -4 \\
+            0 & 0 & 0\\
+        \end{bmatrix}, 
+        \begin{bmatrix}
+            0 & 0 & 0\\
+            1 & 0 & 0\\
+        \end{bmatrix},
+        \begin{bmatrix}
+            0 & 0 & 0\\
+            0 & 1 & 0\\
+        \end{bmatrix},
+        \begin{bmatrix}
+            0 & 0 & 0\\
+            0 & 0 & 1\\
+        \end{bmatrix}\}$
+        forms a basis for $Null(T)$, and $Dim(Null(T)) = 4$.
+
+    \end{proof}
+
+    \begin{proof} $Dim(Range(T)) = 4$. \\
+
+        \noindent We need to find the $Range(T)$, we can do this by applying $T$ to the basis of $M_{2\times3}(F)$. \\
+        Consider $Span(\{T(\beta_i)\ |\ \beta_i \in 
+            \{
+            \begin{bmatrix}
+                1 & 0 & 0 \\
+                0 & 0 & 0 \\
+            \end{bmatrix},
+            \begin{bmatrix}
+                0 & 1 & 0 \\
+                0 & 0 & 0 \\
+            \end{bmatrix},
+            \begin{bmatrix}
+                0 & 0 & 1 \\
+                0 & 0 & 0 \\
+            \end{bmatrix},
+            \begin{bmatrix}
+                0 & 0 & 0 \\
+                1 & 0 & 0 \\
+            \end{bmatrix},
+            \begin{bmatrix}
+                0 & 0 & 0 \\
+                0 & 1 & 0 \\
+            \end{bmatrix},
+            \begin{bmatrix}
+                0 & 0 & 0 \\
+                0 & 0 & 1 \\
+            \end{bmatrix}
+        \}
+        \})$
+        \begin{align*} 
+            Span(\{T(\beta)\})
+            &= Span(\{
+                    T\big(\begin{bmatrix}
+                        1 & 0 & 0 \\
+                        0 & 0 & 0 \\
+                    \end{bmatrix}\big),
+                    T\big(\begin{bmatrix}
+                        0 & 1 & 0 \\
+                        0 & 0 & 0 \\
+                    \end{bmatrix}\big),
+                    T\big(\begin{bmatrix}
+                        0 & 0 & 1 \\
+                        0 & 0 & 0 \\
+                    \end{bmatrix}\big),
+                    T\big(\begin{bmatrix}
+                        0 & 0 & 0 \\
+                        1 & 0 & 0 \\
+                    \end{bmatrix}\big), \\
+            &       \hspace{10ex} T\big(\begin{bmatrix}
+                        0 & 0 & 0 \\
+                        0 & 1 & 0 \\
+                    \end{bmatrix}\big),
+                    T\big(\begin{bmatrix}
+                        0 & 0 & 0 \\
+                        0 & 0 & 1 \\
+                    \end{bmatrix}\big)
+                \}) \\
+            &= Span(\{
+                    \begin{bmatrix}
+                        2 & 0 \\
+                        0 & 0 \\
+                    \end{bmatrix},
+                    \begin{bmatrix}
+                        -1 & 2 \\
+                        0 & 0 \\
+                    \end{bmatrix},
+                    \begin{bmatrix}
+                        0 & 1 \\
+                        0 & 0 \\
+                    \end{bmatrix},
+                    \begin{bmatrix}
+                        0 & 0 \\
+                        0 & 0 \\
+                    \end{bmatrix},
+                    \begin{bmatrix}
+                        0 & 0 \\
+                        0 & 0 \\
+                    \end{bmatrix},
+                    \begin{bmatrix}
+                        0 & 0 \\
+                        0 & 0 \\
+                    \end{bmatrix}
+                \}) \\
+            &= Span(\{
+                    \begin{bmatrix}
+                        2 & 0 \\
+                        0 & 0 \\
+                    \end{bmatrix},
+                    \begin{bmatrix}
+                        0 & 1 \\
+                        0 & 0 \\
+                    \end{bmatrix},
+                \})
+        \end{align*}
+
+        \noindent We can see these two matrices span $Range(T)$ and are linearly independent, so the set
+        $\{\begin{bmatrix}
+                2 & 0 \\
+                0 & 0 \\
+            \end{bmatrix},
+            \begin{bmatrix}
+                0 & 1 \\
+                0 & 0 \\
+            \end{bmatrix},\}$
+        forms a basis for $Range(T)$, and $Dim(Range(T)) = 2$.
+
+    \end{proof}
+
+    \begin{proof} The rank nullity theorem is satisfied. \\
+
+        \begin{align*}
+            Dim(Null(T)) + Dim(Range(T))
+            &= 4 + 2 \\
+            &= Dim(Range(V))
+        \end{align*}
+        
+        \noindent We can see the rank nullity theorem is is satisfied.
+
+    \end{proof}
+
+    \begin{proof} T is not one-to-one. \\
+
+        \noindent Since $Dim(Null(T)) = 4 \neq = 0$, T is not one-to-one.
+
+    \end{proof}
+
+    \begin{proof} T is not onto. \\
+
+        \noindent Since $Dim(Range(T)) = 2 \neq Dim(Range(W))$, T is not onto.
+
+    \end{proof}
+
+\end{exercise}
+
+\begin{exercise}{2.1.5} $T: P_2(R) \to P_3(R)$ defined by $T(f(x)) = xf(x) + f'(x)$.
+
+    \begin{proof} Show $T$ is a linear transformation, $T(cx + y) = cT(x) + T(y)$ for $\forall x, y \in V, \forall c \in \mathbb{F}$. \\
+
+        \noindent Let $f, g \in P_2(R), c \in \mathbb{F}$.
+
+        \begin{align*}
+            T(cf(x) + g(x)) 
+            & = T((cf + g)(x)) \\
+            & = x(cf + g)(x) + (cf' + g')(x) \\
+            & = xcf(x) + xg(x) + cf'(x) + g'(x) \\
+            & = c(xf(x) + f'(x)) + (xg(x) + g'(x)) \\
+            & = cT(f(x)) + T(g(x))
+        \end{align*}
+
+        \noindent We can see $T$ is a linear transformation.
+
+    \end{proof}
+
+    \begin{proof} $Dim(Null(T)) = 0$.
+
+        \noindent We need to find $Null(T)$, the set of polynomials $\{f\ |\ f \in P_2(R);\ T(f(x)) = 0\}$ \\
+
+        \noindent Consider $T(f(x)) = xf(x) + f'(x)$. \\
+        $xf(x) + f'(x) = 0$ \\
+        $\iff xf(x) = -f'(x)$ \\
+        $\iff f(x) = \frac{-cf'(x)}{x}$. \\
+        If $f \in P_2(R)$ f is either a degree 0, 1, or 2 polynomial. We'll call it n. \\
+        $\implies f'$ is of degree n-1. \\
+        $\implies \frac{-cf'(x)}{x}$ is of degree n-2. \\
+        So this equation is only satisfied when $f$ is the zero function. \\
+        We can see that set of polynomials $\{0\}$ forms a basis for $Null(T)$, so $Dim(Null(T)) = 0$.
+
+    \end{proof}
+
+    \begin{proof} $Dim(Range(T)) = 3$.
+
+        \noindent We need to find $Range(T)$, the set of polynomials spanned by T. \\
+
+        \noindent We can do this by applying T to the basis of $P_2(F)$.
+
+        \begin{align*}
+            Range(T) 
+            & = Span(\{T(f(x))\ |\ f(x) \in \{1, x, x^2\}\}) \\
+            & = Span(\{x, x^2 + 1, x^3 + 2x\})
+        \end{align*}
+        
+        \noindent These three polynomials are linearly independent, and form a basis for $P_3(F)$.
+        We can see $Dim(Range(t)) = Dim(\{x, x^2 + 1, x^3 + 2x\}) = 3$.
+
+    \end{proof}
+
+    \begin{proof} The rank nullity theorem is satisfied. \\
+
+        \begin{align*}
+            Dim(Null(T)) + Dim(Range(T))
+            & = 0 + 3 \\
+            & = Dim(Range(V))
+        \end{align*}
+        
+        \noindent We can see the rank nullity theorem is is satisfied.
+
+    \end{proof}
+
+    \begin{proof} T is one-to-one. \\
+
+        \noindent Since $Dim(Null(T)) = 0$, T is one-to-one.
+
+    \end{proof}
+
+    \begin{proof} T is not onto. \\
+
+        \noindent Since $Dim(Range(T)) = 3 \neq Dim(Range(W))$, T is not onto.
+
+    \end{proof}
+
+\end{exercise}
+
+\begin{exercise}{2.1.7} Prove the following properties about linear transformations.
+
+    \begin{proof} If T is linear, then $T(0) = 0$. \\
+
+        \noindent Take any $x \in V$.
+
+        \begin{align*}
+            T(x) 
+            & = T(x + 0)\ \text{By additive zero in F.} \\
+            & = T(x) + T(0)\ \text{By definition linear transformation.} \\
+        \end{align*}
+        
+        \noindent By equality, we see $T(0)$ must equal 0.
+
+    \end{proof}
+
+    \begin{proof} T is linear if and only if $T(cx + y) = cT(x) + T(y)$ for all $x, y \in V,\ c \in F$. \\
+
+        \noindent Proof of ($\implies$).
+
+        \begin{align*}
+            T(cx + y) 
+            & = T(cx) + T(y)\ \text{Definition linear transformation.} \\
+            & = cT(x) + T(y)\ \text{Definition linear transformation.} \\
+        \end{align*}
+
+        \noindent Proof of ($\impliedby$). \\
+
+        \noindent Take $c = 1$.
+
+        \begin{align*}
+            T(1x + y) 
+            & = T(x + y). \\
+            & = T(x) + T(y). \\
+        \end{align*}
+        
+        \noindent This gives us the additive property of linear transformations. \\
+
+        \noindent Take $x \in V, y = 0, c \in F$.
+
+        \begin{align*}
+            T(cx + 0) 
+            & = T(cx). \\
+            & = cT(x). \\
+        \end{align*}
+
+        \noindent This gives us property of scalar multiplication of linear transformations. \\
+
+        \noindent By proof of ($\impliedby$) and ($\implies$), we are done.
+
+    \end{proof}
+
+    \begin{proof} If T is linear, then $T(x - y) = T(x) - T(y)$. \\
+
+        \noindent Take any $x \in V, c = -1, y \in V$.
+
+        \begin{align*}
+            T(x - y) 
+            & = T(x + cy)\ \text{By choice of c.} \\
+            & = T(x) + T(cy)\ \text{By addition over linear transformations.} \\
+            & = T(x) + cT(y)\ \text{By scalar multiplication over linear transformations.} \\
+            & = T(x) - T(y)\ \text{By choice of c.} \\
+        \end{align*}
+        
+        \noindent We see that $T(x - y) = T(x) - T(y)$.
+
+    \end{proof}
+
+    \begin{proof} T is linear if and only if, for $x_1, x_2, \dots, x_n \in V$ and $a_1, a_2, \dots, a_n \in F$, we have $T(\sum_{i=1}^{n} a_i x_i) = \sum_{i=1}^{n} a_i T(x_i)$. \\
+
+        \noindent Proof of ($\implies$).
+
+        \noindent Let n = 2.
+
+        \begin{align*}
+            T(\sum_{i=1}^{2} a_i x_i)
+            & = T(a_1 x_1 + a_2 x_2) \\
+            & = T(a_1 x_1) + T(a_2 x_2)\ \text{Definition linear transformation}.\\
+            & = a_1T(x_1) + a_2T(x_2)\ \text{Scalar multiplication over linear transformations}.\\
+            & = \sum_{i=1}^{2} a_i T(x_i)
+        \end{align*}
+        
+        \noindent Assume for induction, that for some n = k, we have $T(\sum_{i=1}^{k} a_i x_i) = \sum_{i=1}^{k} a_i T(x_i)$. \\
+
+        \noindent Let n = k+1.
+
+        \begin{align*}
+            T(\sum_{i=1}^{k+1} a_i x_i)
+            & = T(\sum_{i=1}^{k} a_i x_i + a_{k+1} x_{k+1}) \\
+            & = T(\sum_{i=1}^{k} a_i x_i) + T(a_{k+1} x_{k+1})\ \text{By addition over linear transformations.} \\
+            & = \sum_{i=1}^{k} a_i T(x_i) + T(a_{k+1} x_{k+1})\ \text{By induction hypothesis.} \\
+            & = \sum_{i=1}^{k} a_i T(x_i) + a_{k+1} T(x_{k+1})\ \text{By scalar multiplication over linear transformations.} \\
+            & = \sum_{i=1}^{k+1} a_i T(x_i)
+        \end{align*}
+
+        \noindent Proof of ($\impliedby$). \\
+
+        \noindent Let n = 2, $a_1 = a_2 = 1,\ x_1,\ x_1 \in V$. \\
+        We see that 
+        
+        \begin{align*}
+            T(\sum_{i=1}^{2} a_i x_i)
+            & = T(a_1 x_1 + a_2 x_2) \\
+            & = T(x_1 + x_2)\ \text{By choice of $a_1, a_2$} \\
+            & = T(x_1) + T(x_2)
+        \end{align*}
+
+        \noindent We see that we have addition over linear transformations. \\
+
+        \noindent Let n = 1, $a_1 \in F,\ x_1, \in V$. \\
+        We see that 
+        
+        \begin{align*}
+            T(\sum_{i=1}^{i=1} a_i x_i)
+            & = T(a_1 x_1) \\
+            & = a_1T(x_1) \\
+        \end{align*}
+
+        \noindent We see that we have scalar multiplication over linear transformations. \\
+
+        \noindent By proof of ($\impliedby$) and ($\implies$), we are done.
+
+    \end{proof}
+
+\end{exercise}
+
+\begin{exercise}{2.1.10} Suppose that $T: R^2 \rightarrow R^2$, $T(1, 0) = (1, 4)$, $T(1, 1) = (2, 5)$.
+
+    \begin{proof} $T(2, 3) = T(5, 11)$ \\
+
+        \noindent Consider $T(0, 1) = T(1, 1) - T(1, 0)$.
+
+        \begin{align*}
+            T(0, 1)
+            & = T(1, 1) - T(1, 0) \\
+            & = (2, 5) - (1, 4) \\
+            & = (1, 1)
+        \end{align*}
+
+        \noindent Now we can represent $T(2, 3) = 2T(1, 0) + 3T(0, 1)$.
+
+        \begin{align*}
+            T(2, 3)
+            & = 2T(1, 0) + 3T(0, 1) \\
+            & = 2(1, 4) + 3(1, 1) \\
+            & = (5, 11)
+        \end{align*}
+
+    \end{proof}
+
+    \begin{proof} T is one-to-one. \\
+
+        \noindent We have to find $Dim(Null(T))$. \\
+        We have found $T(1, 0),\ T(0, 1)$. \\ 
+        By inspection, they are linearly independent and form a basis for $Range(T)$. \\
+        We can see that $Dim(Range(T)) = 2$. \\ 
+        By the rank nullity theorem, we know $Dim(Null(T)) + Dim(Range(T)) = 2$.  \\
+        $\implies Dim(Null(T)) = 0$, which means $T$ is one-to-one.
+
+    \end{proof}
+
+\end{exercise}
+
+\begin{exercise}{2.1.13} Let $T: V \rightarrow W$ be linear, $\{w_1, w_2, \dots, w_k\}$ be a linearly independent subset of $R(T)$. \\
+    Show that if $S = \{v_1, v_2, \dots, v_n\}$ is chosen so that $T(v_i) = w_i$ for $i = 1,2,\dots,k$, then $S$ is linearly independent.
+
+    \begin{proof} $S$ is linearly independent. \\
+
+        \noindent Assume the contrary, that $S$ is linearly dependent. \\
+        That is, $\exists a_i \in F,\ \sum_{i=1}^{k} |a_i| \neq 0$ such that $\sum_{i=1}^{k} a_i v_i = 0$ ($\star$). \\
+        Consider $\sum_{i=1}^{k} a_i w_i$.
+
+        \begin{align*}
+            \sum_{i=1}^{k} a_i w_i
+            & = \sum_{i=1}^{k} a_i T(v_i) \\
+            & = T\big(\sum_{i=1}^{k} a_i v_i\big)\ \text{By definition linear transform.} \\
+            & = T(0)\ \text{By ($\star$).} \\
+            & = 0\ \text{By zero property of linear transformation. Contradiction} \\
+        \end{align*}
+        
+        We can see that S is linearly independent.
+
+    \end{proof}
+
+\end{exercise}
+
+\begin{exercise}{2.1.14a} Let $T: V \rightarrow W$ be linear. 
+    Show that $T$ is one-to-one if and only if $T$ carries linearly independent subsets of $V$ onto linearly independent subsets of $W$.
+
+    \begin{proof} $T$ one-to-one $\implies T$ preserves linearly independent subsets. \\
+
+        \noindent $T$ one-to-one $\implies Dim(Null(T)) = 0$. \\
+        $Dim(Null(T)) = 0 \implies \forall a_i \in F$ such that $\sum_{i=1}^{k} |a_i| \neq 0$, we have $\sum_{i=1}^{k} a_i v_i \neq 0$. \\
+        Since $\sum_{i=1}^{j} a_i w_i = \sum_{i=1}^{k} a_i T(v_i) = T(\sum_{i=1}^{k} a_i v_i)$. \\
+        We know $\sum_{i=1}^{k} a_i v_i \neq 0$, so $T(\sum_{i=1}^{k} a_i v_i) \neq 0$. \\
+        We can see $T$ preserves linearly independent subsets.
+        
+    \end{proof}
+
+    \begin{proof} $T$ preserves linearly independent subsets $\implies T$ one-to-one. \\
+
+        \noindent Let $\beta = \{v_1, v_2, \dots, v_n\}$ be a basis for $V$, by definition basis, $\beta$ is linearly independent. \\
+        If $T$ preserves linearly independent subsets, then $T(\beta)$ is linearly independent. \\
+        Show that if $T(\sum_{i=1}^{n} a_i \beta_i) = T(\sum_{i=1}^{n} b_i \beta_i)$ for $a_i, b_i \in F$, then $a_i = b_i$. \\
+        Consider $T(\sum_{i=1}^{n} a_i \beta_i) = T(\sum_{i=1}^{n} b_i \beta_i)$ \\
+        $\implies T(\sum_{i=1}^{n} a_i \beta_i) - T(\sum_{i=1}^{n} b_i \beta_i) = 0$ \\
+        $\implies T(\sum_{i=1}^{n} a_i \beta_i \sum_{i=1}^{n} b_i \beta_i) = 0$ By addition over linear transformation. \\
+        $\implies T(\sum_{i=1}^{n} (a_i - b_i) \beta_i) = 0$ By addition over $F$. \\
+        Since $T(\sum_{i=1}^{n} (a_i - b_i) \beta_i) = 0 \iff \sum_{i=1}^{n} (a_i - b_i) \beta_i = 0$, \\
+        and $\sum_{i=1}^{n} (a_i - b_i) \beta_i = 0 \iff (a_i - b_i) = 0$, since $\{\beta_i\}$ forms a basis for $V$, \\
+        we have $a_i = b_i$, and we see can $T$ is one-to-one.
+
+    \end{proof}
+
+    \begin{proof} $T$ one-to-one $\iff T$ preserves linearly independent subsets. \\
+
+        \noindent By proof of ($\implies$) and ($\impliedby$), we are done.
+
+    \end{proof}
+
+\end{exercise}
+
+\begin{exercise}{2.1.14b} Let $T: V \rightarrow W$ be linear. 
+    Suppose that $T$ is one-to-one and $S$ is a subset of $V$.
+    Prove that $S = \{v_1, v_2, \dots, v_n\}$ is linearly independent if and only if $T(S)$ is linearly independent.
+
+    \begin{proof} $S$ linearly independent $\implies T(S)$ linearly independent. \\
+
+        \noindent Assume for contradiction that $T(S)$ linearly dependent. \\
+        $S$ linearly independent means $\sum_{i=1}^{n} a_i v_i = 0 \iff a_i = 0$. \\
+        $\implies \forall v \in V, v = \sum_{i=1}^{k} a_i v_i = 0 \iff a_i = 0$. \\ 
+        Consider $T(S)$. By assumption, $\sum_{i=1}^{k} a_i T(v_i) = 0$ and $\sum_{i=1}^{k} |a_i| > 0$. \\
+        $\implies \exists a_i$ such that $T(\sum_{i=1}^{k} a_i v_i) = 0$, contradiction. \\
+        We can see $S$ linearly independent $\implies T(S)$ linearly independent.
+
+    \end{proof}
+
+    \begin{proof} $T(S)$ linearly independent $\implies S$ linearly independent. \\
+
+        \noindent $T(S)$ linearly independent $\implies \sum_{i=1}^{k} a_i T(v_i) = 0 \iff \sum_{i=1}^{k} |a_i| = 0$. \\
+        $\implies T(\sum_{i=1}^{k} a_i v_i) \iff \sum_{i=1}^{k} |a_i| = 0$. \\
+        $\implies \sum_{i=1}^{k} a_i v_i = 0 \iff \sum_{i=1}^{k} |a_i| = 0$. \\
+        By definition, we can see $S$ is linearly independent.
+
+    \end{proof}
+
+    \begin{proof} $S$ linearly independent $\iff T(S)$ linearly independent. \\
+
+        \noindent By proof of ($\implies$) and ($\impliedby$), we are done.
+
+    \end{proof}
+
+\end{exercise}
+
+\begin{exercise}{2.1.15} Define $T: P(R) \rightarrow P(R)$ by $T(f(x)) = \int_{0}^{x} f(t) dt$. 
+
+    \noindent Show $T$ is linear, one-to-one, but not onto. \\
+
+    \begin{proof} $T$ is linear. \\
+
+        \noindent We need to show that $T(cf(x) + g(x)) = cT(f(x)) + T(g(x))$ for $f, g \in P(R),\ c \in R$.
+
+        \begin{align*}
+            T(cf(x) + g(x))
+            & = T((cf + g)(x)) \\
+            & = \int_{0}^{x} (cf + g)(t) dt \\
+            & = \int_{0}^{x} cf(t) dt + \int_{0}^{x} g(t) dt \\
+            & = c \int_{0}^{x} f(t) dt + \int_{0}^{x} g(t) dt \\
+            & = cT(f(x)) + T(g(x)) \\
+        \end{align*}
+
+        \noindent We can see that $T$ is linear.
+
+    \end{proof}
+
+    \begin{proof} $T$ is one-to-one. \\
+
+        \noindent We need to show that $Dim(Null(T)) = 0$.
+        Consider the basis for $P(R)$, the set $\beta = \{1, x^1, x^2, \dots, x^n\}$. \\
+        We find $Range(T)$ by applying $T$ to $\beta$. \\
+
+        \begin{align*}
+            Range(T)
+            & = Span(\{T(\beta_i)\ |\ \beta_i \in \beta\}) \\
+            & = Span(\{\int_{0}^{x} x^i dt\ |\ 0 <= i <= n\}) \\
+            & = Span(\{\frac{1}{i+1} x^{i+1}\ |\ 0 <= i <= n\}) \\
+        \end{align*}
+
+        \noindent We can see that $\{\frac{1}{i+1} x^{i+1}\ |\ 0 <= i <= n\}$ is linearly independent and forms a basis for $P(R)$. \\
+        This means $Dim(Range(T)) = n$ and by the rank nullity theorem, $Dim(Null(T)) = 0$. \\
+        We can see that $T$ is one-to-one.
+
+    \end{proof}
+
+    \begin{proof} $T$ is not onto. \\
+
+        \noindent We need to show that $Range(T) \neq Range(P(R))$. \\
+        In the previous problem we showed that $Range(T) = Span(\{\frac{1}{i+1} x^{i+1}\ |\ 0 <= i <= n\})$. \\
+        But we can see that $1 \notin Span(\{\frac{1}{i+1} x^{i+1}\ |\ 0 <= i <= n\})$. \\
+        This implies $T$ is not onto.
+
+    \end{proof}
+
+\end{exercise}
+
+\end{document}
