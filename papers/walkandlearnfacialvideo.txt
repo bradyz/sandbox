@@ -1,0 +1,135 @@
+Walk and Learn: Facial Attribute Representation Learning from Egocentric Video and Contextual Data
+Jing Wang, Yu Cheng, Rogerio Schmidt Feris
+Northwestern, IBM Watson 2016
+http://arxiv.org/pdf/1604.06433v3.pdf
+
+================================================================================
+NOTES
+================================================================================
+
+0. ABSTRACT:
+Work - wearable camera to gather face and setting data, no manual annotation
+Technique - image/setting pairs -> NN to capture facial attributes
+Analysis - benchmark datasets LFWA, CelebA
+
+1. INTRODUCTION:
+Describe people - gender, age, hair, clothing style
+Applications - suspect search
+Focus - facial attribute prediction
+State of the art - facial attribute classification, CNNs, but costly
+Data collection - use egocentric cameras, use weather and location
+Goal - construct rich facial attribute representations
+Benefits - no manual annotation, has facial features besides identity, more natural
+Ego-Humans dataset - new dataset provided by authors, video, weather, location
+Walk and learn - new technique for visual representations
+Self-supervised - facial attributes implicit in location, weather, face similarity
+Siamese network - 
+
+2. RELATED WORK:
+Egocentric video - first person video
+Problems - video summary, activity recognition, social interaction
+This work - looking at people, modeling facial attributes
+Facial attribute modeling - Kumar, describable facial attribute for search
+PANDA - Zhang, ConvNet, pose-aligned networks, deep attribute modeling
+Geo-tagged analysis - predict location given scene
+Representation learning - learning what something really is
+Unsupervised visual representations - learn from autoencoders
+Video regularization - temporal coherence, slow feature analysis
+LSTM - long short term memory, autoencoders, predict future frames
+
+3. EGO-HUMANS DATASET
+Dataset - NYC, 30 fps, popular areas, different weather, temp, precip
+Contextual data - cluster GPS coordinates to ethnicity data
+Classes - sunny/hot, cloudy/cold
+Generate face pairs - similar, disimilar used to encode identity features
+Tracking casual walkers - OpenCV, intraface SDM landmark tracking
+Temporal constraints - faces connected by a track are the same
+Geo-location constraint - two faces in image at same time are not the same
+Benefits - generate 5 mil pairs, robustness to lighting, pose
+
+4. FACIAL ATTRIBUTE REPRESENTATION LEARNING
+Classification - encodes features to facial similarity, weather, location
+Learning objective - face x_i \in X, return r_i \in R^n, facial representation
+Deep learning structure - siamese network, two base networks with same parameters
+Inception layer - ?
+Model outputs - 1024-d vector in each (facial, weather, location)
+Loss function - constrastive loss 
+Predictive models - use SGD and softmax
+Fine tuning - pre-train, then add layers and train on labeled data
+
+5. EXPERIMENTS
+Labeling - manual label different scenes with identity, local features
+Performance - increases by ~4% when including weather, geo-loc
+Facial attribute datasets - CelebA, LFWA
+Face Tracer - manual features (HOG + color histogram), SVM classifier
+Lnet+Anet - manually labeled and cascaded two networks
+Weather model - provides complementary features 
+Visual discovery - project top neurons to input pixel space
+
+6. DISCUSSION
+Wearable devices - growing in popularity
+Future - lots of unlabeled videos, apply method to clothing representation
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+A new way of self-supervised learning is constructed by using egocentric cameras
+coupled with weather and geo-location data. Weather and geo-location data provides
+a cheap way to provide important context that will help separate identity and
+local features. A Siamese ConvNet is trained to recognize if a pair of faces is
+the same, and two networks are trained to predict weather and geo-location,
+and these three networks' fc6 outputs are concatenated to provide a feature 
+vector used to train a facial attribute learner.
+
+1. MAIN CONTRIBUTION:
+The authors introduce a new dataset called Ego-Humans which contains over 40 hours
+of egocentric videos. This dataset includes weather and location context. This
+dataset is invaluable as the egocentric video dataset poolbank is not even close
+to the scale of the image detection poolbank (with ImageNet having 1.3 million
+labed images). The paper also is another attempt at a self-supervised method 
+for attribution representation. This method requires the least amount of manual
+annotating and proves to be very effective.
+
+2. STRENGTHS/WEAKNESSES:
+This paper provides a novel way of learning visual representations by solving
+another problem - the facial pair matching problem. This is a very similar approach
+to the other paper read this week, where the representation problem is reduced
+to some other problem with testing data that is very accessible.
+
+3. INSPIRING TOPICS:
+When I first read that the techniques described were using location and weather
+data I was doubtful that weather data could provide any sort of useful information,
+but weather data is a pretty novel way to capture non-identity attributes,
+as that data is very cheap and accessibile.
+
+4. EXPERIMENTAL RESULTS:
+The technique in the paper verified their results with LFWA and CelebA, two
+benchmarks for facial attribute learning. The algorithm had very impressive
+results, outperforming all the current state of the art methods, which vary
+from hand-made features to other ConvNets. It was also beneficial that the 
+authors provided the comparison of when the network was initialized randomly,
+pretrained with various combinations of location and weather data.
+
+5. EXTENSIONS:
+Perhaps we can turn this face matching problem into a location matching problem.
+Then, we could learn visual representations of different settings, which could
+provide a boost in scene categorization, when coupled with their methods of 
+generating training data.
+
+6. ADDITIONAL COMMENTS:
+I was looking forward to how long it took to train the networks on the 
+data that spanned 40 hours, but there was none. With this technique, there 
+is essentially an infinite amount of training examples that could be used 
+to increase accuracy for attribute learning.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. The paper did not have any mention of training time - How does this algorithm
+scale, and improve if more data was released?
+
+1. What other accessibile data is there that can provide useful data in learning
+visual representations? Maybe the time of day could provide some useful information.
