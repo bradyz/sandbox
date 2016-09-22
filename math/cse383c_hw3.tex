@@ -164,7 +164,7 @@ epsilon = 0;
 
 for i = 1:n
     for j = i+1: n
-        epsilon = max(worst, Q(:, i)' * Q(:, j));
+        epsilon = max(epsilon, Q(:, i)' * Q(:, j));
     end
 end
     \end{verbatim}
