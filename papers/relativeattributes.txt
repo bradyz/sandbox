@@ -1,0 +1,119 @@
+Relative Attributes
+Devi Parikh (Toyota), Kristen Grauman (UT), 2011
+http://www.cs.utexas.edu/~grauman/papers/ParikhGrauman_ICCV2011_relative.pdf
+
+================================================================================
+NOTES
+================================================================================
+
+0. ABSTRACT:
+ranking function - strength of each attribute in image
+training data - object/scene pairwise relation and strength
+advantage - more intuitive than binary attribute
+
+1. INTRODUCTION:
+traditional - map low-level image features to category labels
+visual attributes - human-designated labels
+zero-shot - helped by visual attributes
+binary property - has a head, determined by classification probability
+visual search - naturally solved by relative visual attributes
+ranking function - estimate real-valued rank 
+regression - unnatural to rate a person's presense of a smile
+contribution 1 - relative visual attributes is new
+contribution 2 - zero-shot learning from comparisons
+contribution 3 - image description
+
+2. RELATED WORK:
+binary attributes - presense of attribute
+relative information - models similarity in categories, no order
+learning to rank - distance metrics, nearest neighbors
+
+3. APPROACH:
+training - images, attributes, O_m ordered, S_m similar
+goal - learn ranking function for each attribute, maximize satisfy constraints
+non-negative slack variables - quadratic loss, similarity constraints
+balance - between separation margin and satisfy pairwise constraints
+unseen categories - described relative to a few seen categories
+dimension reduction - feature vector to attribute rank vector
+generative model - for seen categories, gaussian, mean and covariance
+describing image - pick ranked attributes such that close but nontrivial
+
+4. EXPERIMENTS:
+Outdoor Scene Recognition Dataset - OSR, 2688 images from 8 categories, use GIST
+Public Figure Face Database - PubFig, 8 people x 100 images
+binary - fails to distinguish some categories
+relative - teases apart distinction
+compare - learned ranks vs binary classifier as rank
+learnt classifier - use binary svm to generate ordering
+binary description - loses descriminatory proeprties as categories added
+Direct Attribute Prediction - DAP model, binary classifier score
+Score Based Relative Attributes - SRA, replaces rank with binary classifier score
+results - outperforms DAP, SRA, all fall with increasiing categories
+robust - when supervision is "more loose"
+experiment - asked people which picture fits description best
+
+5. CONCLUSION:
+summary - relative is better than binary
+applications - zero shot learning, image description
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+Relative attributes is a technique that assigns a ranking function to each
+attribute rather than formulate a classification problem. Using relative
+attributes, more knowledge about the object is given, while also being more 
+natural to human labelers.
+
+1. MAIN CONTRIBUTION:
+Previously attributes had always been described with binary attributes. The paper 
+also provides applications towards zero shot learning and image description 
+relative to other images and categories.
+
+2. STRENGTHS/WEAKNESSES:
+The major strength of this paper is that the training examples can be acquired
+in a much more natural way, which also provides for a better understanding of 
+the image. When an ordering is provided for a set of images, there is a lot of
+implicit knowledge gained, which explains the better performance over using
+strictly binary attributes.
+A weakness would be that some attributes are more subtle and harder to 
+differentiate which could lead to a "bad" ranking function learned.
+
+3. INSPIRING TOPICS:
+I thought it was interesting how the zero shot learning method was formulated,
+reducing the problem in dimensionality from the size of the original feature 
+vector, to a vector the size of the number of categories. The ranking function
+is also very intuitive to understand and seems like a natural way to represent
+attributes.
+
+4. EXPERIMENTAL RESULTS:
+There are two popular datasets used, OSR and PubFig. The paper provides a 
+couple of different ways to evaluate performance. There is a comparison 
+between ordering attributes, a zero shot experiment, a test on the how the 
+amount of supervision affects results, and a human subject test for image
+descriptions. The experiments are valid and formulated to provide a good
+baseline to how relative attributes performs, the only extension I would like 
+to see is how the number of categories affects performance, since there were 6
+in the tests, but the number of attributes typically is much larger.
+
+5. EXTENSIONS:
+As mentioned in the paper, there are a lot of ways to formulate an image
+description, and the hard part is, given the attribute rankings, how to 
+decide which attributes make an image distinct. One way to find good reference
+images would be to try to cluster the ranks into groups and find two surrounding
+clusters.
+
+6. ADDITIONAL COMMENTS:
+Relative attributes makes me think this could be formulated as a graph problem,
+and classifying new images becomes a graph similarity problem.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. Is there some natural way to generate the relationships modeled in the
+similarity and ordered set used in the training data?
+
+1. How would this method perform when the number of categories increases to 
+another order of magnitude?
