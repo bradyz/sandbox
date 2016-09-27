@@ -1,0 +1,136 @@
+Recovering the Missing Link: Predicting Class-Attribute Associations for Unsupervised Zero-Shot Learning
+Ziad Al-Halah Makarand Tapaswi Rainer Stiefelhagen
+Karlsruhe Institute of Technology
+http://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Al-Halah_Recovering_the_Missing_CVPR_2016_paper.pdf
+
+================================================================================
+NOTES
+================================================================================
+
+0. ABSTRACT:
+collecting training images - expensive, impractical
+unsupervised - attempt attribute based zero shot classification
+datasets - Animals with Attributes, aPascal/aYahoo
+
+1. INTRODUCTION:
+ImageNet - help scale up number of classes
+deep convnet - heavily supervised, building dataset is hard
+transfer knowledge - apply past knowledge to new domain
+zero-shot learning - ZSL, knowledge used for unseen categories
+approaches - novel class from intermediate layer attributes (colors/shapes)
+drawback - supervision required for description of novel class
+goal - remove attribute supervision, use/transfer visual vocabulary
+
+2. RELATED WORK:
+attribute-based ZSL - visual aspects, shape, color, texture
+goal - minimize user involvment
+unsupervised approach - use web data to measure semantic relatedness
+TF-IDF - some work uses Wikipedia to predict visual classifier
+unsupervised ZSL - web statistics, ontologies, word embeddings
+
+3. APPROACH:
+end-to-end - predict class-attribute associations, use for zero shot classification
+vector - representation for words, learned embedding
+tensor factorization - framework to learn relations
+unseen class - can predict confident attributes and zero shot classification
+predict - attributes just given an unseen class name
+skip-gram - neural network learns vectors that predict surrounding words
+t-SNE - representation for displacement vectors, not adequate
+tensor - represents a relationship (has_shape)
+optimization - minimize negative log likelihood for each slice R_j
+advantages - large text corpus to initialize embeddings
+latent factors - benefit by allowing learned relations to interact, generalize
+semantic relations - what shape, color, hard to find in datasets
+data driven relations - cluster attributes into relations through embeddings
+predict binary associations - only assign values to confident (threshold)
+scoring - unseen class z uses direct attribute prediction (DAP).
+
+4. EXPERIMENTS:
+evaluation 1 - predict class-attribute associations
+evaluation 2 - unsupervised zero shot
+evaluation 3 - transfer attributes across datasets without additional data
+evaluation 4 - learn different relations, not just attribute
+CAAP - class attribute association prediction
+Animals with Attributes - AwA, 50 classes, 85 attributes.
+aPascal/aYahoo - 32 classes, 64 attributes.
+semantic relations - SR, predefined, has_material, has_shape, has_part
+word embeddings - Wikipedia, 300 dimensional representation
+generate training data - use annotations, has_tail(horse, 1)
+latent factors - estimated by 5-folds cross validation
+compared - Cooccurrence, two others based on Word embedding space
+hit counts - image search for class-attribute pairs
+Dice score metric - class-attribution association score
+word embedding - not sufficient to directly model relations
+attribute labels - not required for this approach
+image features - output of last hidden layer of GoogLeNet (1024-d)
+svm - used to train, use regularized logistic regression
+single relation - group similar attributes
+fixed attribute embedding - fix representation of attributes during learning
+theshold - should be learned, +/- 0.5
+knowledge transfer - easily done with this model, provides benefit
+state-of-the-art - all use similar methods, change word embedding
+ancestor representation - can model ancestor relation of unseen class
+
+5. CONCLUSION:
+attribute ZSL - needs a lot of manually defined class-attributes associations
+method - associations modeled by linking categories, attributes in embedding
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+Attribute based zero shot learning requires an abundance of manually defined
+class-attribute associations. This method attempts the ZSL categorization
+problem by learning a word representation to model relationships between 
+classes and attributes.
+
+1. MAIN CONTRIBUTION:
+This method demonstrates an effective way to model class-attribute assocations
+and provides a new approach toward ZSL categorization with minimal supervision.
+The two quantified relationships, semantic and data-driven, are high level
+ways of expressing attributes for a class, and once learned, are powerful to 
+classify, even if the class was never seen before.
+
+2. STRENGTHS/WEAKNESSES:
+The method is easily transferable between data sets and provides performance
+boosts with no tweaking. The data driven relations is also a new way to generate
+relationships with little to no manual intervention (from what I understand 
+they still have to come up with "has_part"?). 
+
+3. INSPIRING TOPICS:
+Compared to other works, it is really impressive that their model can predict 
+attributes on an unseen category simply given a word, not even a set of relations
+or anything. Another point I was impressed by was the easy performance boost 
+just by carrying over a pretrained model from AwA to aPascal/aYahoo, due to the
+presence of animals in the second dataset.
+
+4. EXPERIMENTAL RESULTS:
+A couple different methods of evaluation were used. Predicting class-attribute
+associations, which is a precursor to the ZSL categorization. Zero-shot 
+classification with no supervision. Transfering attributes. The datasets 
+used were two popular attribute labeled datasets, Animals with Attributes,
+and aPascal/aYahoo. These datasets varied in classes which makes them
+appropriate for testing. The number of classes was also appropriate and varied
+enough to be challenging.
+
+5. EXTENSIONS:
+From the Relative Attributes (Parikh, Grauman) paper, we saw that DAP performed
+worse than the other two metrics. Swapping out the scoring function for an 
+unseen class could improve results for zero-shot learning.
+
+6. ADDITIONAL COMMENTS:
+One section was a bit confusing. Are CAAP's semantic relations manually
+annotated? Or are they generated similar to the data-driven relations.
+I was also surprised to see that so few relations, both semantic and data-driven,
+were enough to score that well.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. The aPaY dataset can be modeled by only 3 semantic relations, and AwA can
+be modeled by 9 relationships. This seems pretty low given the number of classes.
+How would increasing this affect performance?
+
+1. How can we autogenerate the relations that are modeled?
