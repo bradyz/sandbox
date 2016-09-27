@@ -1,63 +1,25 @@
+% Planet data.
 distance = [36 67 93 142 474 776 1784 2796 3707];
 length = [0.24 0.61 1.00 1.88 11.86 29.46 84.07 164.82 247.68];
 
-A = [ones(size(distance, 2), 1), distance'];
-x = A \ length';
+% Find correlation based on distance.
+m358k_helper(distance, length);
+m358k_helper(distance, log(length));
+m358k_helper(distance, sqrt(length));
+m358k_helper(distance, length.^(2/3));
 
-% Residuals.
-r = A * x - length';
-r2 = sum(r(:,1)' * r(:, 1))
-corrcoef(distance, length)
+% Find correlation based on position.
+position = [1 2 3 4 5 6 7 8 9];
 
-% Plot.
-b = x(1, 1);
-a = x(2, 1);
-xr = min(distance):max(distance);
+m358k_helper(position, distance);
+m358k_helper(position, log(distance));
+m358k_helper(position, sqrt(distance));
+m358k_helper(log(position), log(distance));
 
-plot(xr, xr*a + b, '-', distance, length, '.', 'markersize', 25);
-pause;
+% Find correlation based on updated position.
+position = [1 2 3 4 5 7 8 9 10];
 
-% Normalize with log.
-y = log(length);
-x = A \ y';
-
-% Residuals.
-corrcoef(distance, y)
-
-% Plot.
-b = x(1, 1);
-a = x(2, 1);
-xr = min(distance):max(distance);
-
-plot(xr, xr*a + b, '-', distance, y, '.', 'markersize', 25);
-pause;
-
-% Normalize with sqrt.
-y = sqrt(length);
-x = A \ y';
-
-% Residuals.
-corrcoef(distance, y)
-
-% Plot.
-b = x(1, 1);
-a = x(2, 1);
-xr = min(distance):max(distance);
-
-plot(xr, xr*a + b, '-', distance, y, '.', 'markersize', 25);
-pause;
-
-% Normalize with y^(2/3).
-y = length.^(2/3);
-x = A \ y';
-
-% Residuals.
-corrcoef(distance, y)
-
-% Plot.
-b = x(1, 1);
-a = x(2, 1);
-xr = min(distance):max(distance);
-
-plot(xr, xr*a + b, '-', distance, y, '.', 'markersize', 25);
-pause;
+m358k_helper(position, distance);
+m358k_helper(position, log(distance));
+m358k_helper(position, sqrt(distance));
+m358k_helper(log(position), log(distance));
