@@ -1,8 +1,37 @@
 from sys import maxsize as INT_MAX
+import heapq
+
+
+def dijkstra(graph, src, n):
+    dist = [-1 for _ in range(n)]
+    dist[src] = 0
+
+    q = []
+    heapq.heappush(q, (0, src))
+
+    while q:
+        w, u = heapq.heappop(q)
+
+        for v in range(n):
+            if graph[u][v] == 0:
+                continue
+
+            nw = w + graph[u][v]
+
+            if dist[v] == -1 or nw < dist[v]:
+                dist[v] = nw
+                heapq.heappush(q, (nw, v))
+
+    # print distances from source
+    for i in range(n):
+        print(i, dist[i])
+
+    return dist
+
 
 
 # O(V^2) time complexity
-def dijkstra(graph, src, n):
+def dijkstraV2(graph, src, n):
 
     # returns the minimum closest vertex not yet visited
     def min_dist():
@@ -47,3 +76,5 @@ if __name__ == "__main__":
                  [0, 0, 2, 0, 0, 0, 6, 7, 0]]
 
     dijkstra(adj_graph, 0, len(adj_graph))
+    print()
+    dijkstraV2(adj_graph, 0, len(adj_graph))
