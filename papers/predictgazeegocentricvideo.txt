@@ -1,0 +1,102 @@
+Learning to Predict Gaze in Egocentric Video
+Yin Li, Alireza Fathi, James M. Rehg
+Georgia Institute of Technology
+http://www.cv-foundation.org/openaccess/content_iccv_2013/papers/Li_Learning_to_Predict_2013_ICCV_paper.pdf
+
+================================================================================
+NOTES
+================================================================================
+
+0. ABSTRACT:
+gaze prediction - use head, hand motion
+implicit signs - head motion calculated from video frames
+action recognition - plug in gaze algorithm boosts performance
+
+1. INTRODUCTION:
+related problems - foreground object detection and action recognition
+previous work - saliency detection
+bottom up - low level features, color, edges
+top down - tasks, objects, scene (high level semantics)
+top down problems - activity identification is already hard
+prediction - using head and hand motions
+egocentric gaze - combination of direction, head orientation, body pose
+large head movement - typically paired with large gaze shift
+contributions i - egocentric gaze different than on-screen eye tracking
+contributions ii - eye, head, hand correlation in object manipulation
+
+2. RELATED WORK:
+bottom up saliency models - feature integration theory, spectral methods
+requirements - only uses video
+Spriggs et al. - segmentation, activity classification
+Fathi et al. - model object, action jointly
+Yamada et al. - gaze prediction from bottom-up and egomotion information
+
+3. EGOCENTRIC CUES FOR GAZE PREDICTION
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+The technique presented in this paper seeks to solve the gaze prediction task
+through implicit cues, being head/eye/hand motions. The approach requires only
+the video as input and exceeds state of the art gaze prediction models based
+on bottom up (low level cues) and top down (high level cues) saliency models.
+The applications of this method include foreground object segmentation and
+action recognition, and this gaze prediction algorithm can easily boost performance
+in those tasks.
+
+1. MAIN CONTRIBUTION:
+This paper demonstrates that egocentric gaze behaves differently than on-screen
+eye tracking, and that the high correlation between hand/head/eye motion and
+gaze makes those implicit cues very effictive in the gaze prediction task.
+The results from this method demonstrate that egocentric cues can provide
+an accurate gaze estimation without low level cues.
+
+2. STRENGTHS/WEAKNESSES:
+The major strength of this paper is that the method only requires the egocentric
+video as input, while other methods require additional labels and masks. Another
+strength is that this method is straightforward and extracts what seem to be
+the most essential factors in determining gaze.
+A weakness of the paper is the dimensionality reduction of the feature vector
+in the absense of hand cues. The feature vector is only 2 dimensions in size and
+is missing a lot of information for a task that requires high accuracy. The fallback
+is the bias in the dataset, from figure 2 we can see that if the mean of the 2d
+gaussian distribution is chosen, the accuracy would still be quite high.
+
+3. INSPIRING TOPICS:
+I was surprised at the results presented in this paper, since the paper is based
+on only a couple cues that can all be derived from the egocentric video. This
+shows the authors effectively analyzed the problem and mined the data for all the
+relevant features.
+
+4. EXPERIMENTAL RESULTS:
+The datasets used were GTEA Gaze and GTEA Gaze+, which consist of egocentric
+videos that are labeled by eye tracking glasses for gaze prediction. The videos
+consist of people making food. The metrics used were AUC and AAE. This method
+performs better than state of the art methods in gaze prediction. It was clear
+and intuitive to see hand cues providing a huge boost in performance.
+
+5. EXTENSIONS:
+Combining this method with a method like [7] (top-down saliency model) would
+hopefully yield even better results, but probably would not be that practical
+due to the strict requirements of action labels.
+
+6. ADDITIONAL COMMENTS:
+I'm a bit confused on how AAE is calculated if there is no depth provided.
+I'm also really surprised that top-down methods did not perform the best. The top
+down method seems to have the most information (superset of this method), and
+would presumably do better. Also, this dataset only consisted of one person
+doing tasks. I wonder how this method would perform in a "hand noisy"
+environment, one that consists of several hands.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. Gaze prediction provides information that can boost other vision problems like
+segmentation and action recognition. What other problems can benefit from gaze
+prediction?
+
+1. The method still performs comparatively to state of the art techniques even
+without hand cues. What could account for this?
