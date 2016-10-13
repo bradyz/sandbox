@@ -1,0 +1,69 @@
+KrishnaCam: Using a Longitudinal, Single-Person, Egocentric Dataset for Scene Understanding Tasks
+Krishna Kumar Singh, Kayvon Fatahalian, Alexei A. Efros
+Carnegie Mellon University, UC Berkeley, UC Davis
+https://www.cs.cmu.edu/~kayvonf/papers/kcam_wacv16.pdf
+
+================================================================================
+NOTES
+================================================================================
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+This paper presents a new dataset consisting of 7.6 million frames, 70 hours of
+egocentric video coupled with GPS position, acceleration and body orientation.
+The paper also presents a model for predicting trajectory given a video frame.
+
+1. MAIN CONTRIBUTION:
+The main contribution from this research is the release of a new egocentric
+dataset that is rich in activities, object classes, visual diversity, and
+is larger than any single-individual egocentric dataset prior to the release of
+KrishnaCam. This dataset will be beneficial towards the computer vision field
+dealing with egomotion.
+
+2. STRENGTHS/WEAKNESSES:
+The main strength of the paper is the amount of data provided that can be used
+for various applications such as video summarization, activity recognition,
+pose estimation, etc.
+A weakness of the paper would have to be the results presented for the motion
+prediction problem. The accuracy given by the unvisited set is 16.4%, just over
+random chance of from 9 classes.
+
+3. INSPIRING TOPICS:
+The SUN data set experiment was pretty interesting as this is essentially
+zero shot trajectory prediction and the results look quite reasonable. The
+nearest neighbors method for finding novel frames also seemed quite intuitive
+and can easily be extended to do things like video summarization.
+
+4. EXPERIMENTAL RESULTS:
+The dataset used for the motion trajectory and motion class prediction was
+KrishnaCam itself, and since gps, accelerometer data is provided, there is a
+good method to generate "ground truth" labels for experiments dealing with
+movement prediction. The metric then used, for the motion trajectory problem,
+is distance between predicted and "actual" positions. The SUN data set was also
+used as a qualitative evaluation of trajectory positions, and Figure 9 does
+show promising predictions for places the video was not ever shot in.
+
+5. EXTENSIONS:
+The GPS data was described as not that beneficial due to coarsity and inaccuracy.
+This could easily be extended with a more accurate GPS tracker. With more accurate
+GPS data, applications such as scene categorization could benefit a lot more.
+
+6. ADDITIONAL COMMENTS:
+I was really surprised by the disparity between the accuracy in motion class
+prediction (average 30%) compared to the per-class motion (70%).
+I'm guessing something with the implicit bias in human motion is the main
+source of this.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. What additional data could be beneficial towards other vision tasks? This
+dataset provides GPS, accelerometer data, along with video frames.
+
+1. What is the cause of the low prediction accuracy in per-class motion
+prediction (Table 2)? This is probably due to the high bias in human motion,
+but could there be something else?
