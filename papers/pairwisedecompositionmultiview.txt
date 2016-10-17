@@ -1,0 +1,61 @@
+Pairwise Decomposition of Image Sequences for Active Multi-View Recognition
+Edward Johns, Stefan Leutenegger and Andrew J. Davison
+Dyson Robotics Laboratory at Imperial College, Department of Computing, Imperial College London, UK
+https://www.doc.ic.ac.uk/~ejohns/Documents/ejohns-multi-view-recognition-cvpr2016.pdf
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+This paper is on addressing the multi view recognition problem using CNNs and
+pairwise decomposition. Multi view recognition is similar to the 2d object
+recognition problem, but the camera can move to different viewpoints that could
+provide more information to better confidence. In this approach, pairwise images
+from the sequence are used to classify, and predict the next best view.
+
+1. MAIN CONTRIBUTION:
+The main contributions from this paper are advances in multi view object recognition,
+which are more flexible compared to other related works. The specific problems
+worked on are generated NBV (next best view), and optimizing trajectory,
+which is important in applications such as robotics.
+
+2. STRENGTHS/WEAKNESSES:
+The main strength of this method is the flexiblility and ease of adding
+additional data (depth along with greyscale). This method skips the
+intermediate step that other related works based on generative models operate on,
+and does not have the hard constraint of having fixed length sequences.
+
+3. INSPIRING TOPICS:
+The use of CAD models to train and test is really interesting since there is the
+trajectory and views can be better represented and less noisy than doing training
+and testing in the real world. Using computer models seems to be very beneficial
+for training for the NBV task since real world training would be siginificantly more
+expensive.
+
+4. EXPERIMENTAL RESULTS:
+There were two data sets used for this task - ModelNet10 and ModelNet40. The two
+datasets consist of 3D meshes labeled with categories. The two datasets have
+on the order of thousands of unique objects. The experiments are appropriate for
+the recognition problem and it was good to see the relative performance when
+the number of views changes. This really shows how the effectiveness of NBV and
+classification are related.
+
+5. EXTENSIONS:
+The training method could be extended by using real world pictures of well
+photographed places, as this would provide multiple viewpoints that could be used
+for the classification part of the method.
+
+6. ADDITIONAL COMMENTS:
+It seems pretty difficult to compare different methods for the multiview recognition
+given that each method has its own specific set of requirements.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. Different methods in multiview recognition seem to have very specific constraints
+on the inputs. How can we devise a way to compare them "fairly"?
+
+1. The ModelNet datasets seem expensive to construct. Is there some sort of
+self supervisory signal that we could use to do training?
