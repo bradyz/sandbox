@@ -1,0 +1,69 @@
+The Curious Robot: Learning Visual Representations via Physical Interactions
+Lerrel Pinto, Dhiraj Gandhi, Yuanfeng Han, Yong-Lae Park, Abhinav Gupta
+The Robotics Institute, Carnegie Mellon University
+https://arxiv.org/pdf/1604.01360v2.pdf
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+The method in the paper tries to use different supervisory signals as a means to
+better learn visual representations. The inspiration behind this paper is that
+being able to manipulate the object through grabbing, poking, pushing, and seeing
+the object from different viewpoints helps better in learning attributes.
+
+1. MAIN CONTRIBUTION:
+This paper presents some novel ideas by coupling robotics and vision problems.
+Typically vision information is used to help solve robotics problems, like grasping,
+but the authors' approach is flipped and uses physical tasks to help Learning
+visual representations. The side robotics tasks are used as a self supervised
+method of intializing the lower convolutional levels of their root network.
+
+2. STRENGTHS/WEAKNESSES:
+The main strength of the paper is the demonstration of a method that is not
+"passive", like some of the other methods of learning visual representation which
+require huge amounts of supervisory signals, which are relatively expensive to
+obtain.
+Some weaknesses of this paper are that there are a lot of constraints on the
+robotic tasks since the robotic tasks in themselves are a challenge. For example,
+all object manipulation occurs on a planar surface which essentially eliminates
+the z axis from all noise, greatly simplifying the problem.
+
+3. INSPIRING TOPICS:
+It is pretty intuitive that interacting with the object gives more information,
+which would benefit learning the image attributes, however, the execution of this
+idea through their CNN architecture was really impressive. The self supervised
+signals provide inexpensives training examples, and also provide information
+that no "passive" system could obtain.
+
+4. EXPERIMENTAL RESULTS:
+Results from this method were tested on image classification, retrieval, and
+included visualization of the network weights. The network weight visualization,
+though qualitative, does give some insight on how the supplementary tasks affected
+the initialization of the convolutional layers. We can see from Figure 9 that
+the shape of an object was very important. Next, for image classification,
+a subset of Imagenet was used, as well as Caltech-256 and UW RGBD. All of these
+datasets consist of images that are labeled with a category. The results confirm
+that for this root network, using robot tasks yields a significant boost in
+performance.
+
+5. EXTENSIONS:
+Future extensions include using other self supervisory signals based on physical
+attributes such as texture. This is an extension on the haptic attributes
+learned by the poke net.
+
+6. ADDITIONAL COMMENTS:
+The task ablation analysis results were quite confusing. I couldn't imagine
+why having less information would benefit performance, as in the case of
+excluding push and identity in the UW RGB-D dataset.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. The exclusion of push and poke from the network training show mixed results
+for the image classification task. What could explain the reasoning behind this?
+Should these tasks just be excluded from the whole model?
+
+1. Is it fair to hand pick a subset of ImageNet classes for testing results?
