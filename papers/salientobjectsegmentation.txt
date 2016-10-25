@@ -1,0 +1,62 @@
+The Secrets of Salient Object Segmentation
+Yin Li, Xiaodi Hou, Christof Koch, James M. Rehg, Alan L. Yuille
+http://www.cv-foundation.org/openaccess/content_cvpr_2014/papers/Li_The_Secrets_of_2014_CVPR_paper.pdf
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+This paper is addresses problems with the FT salient region dataset, compares
+object segmentation and saliency algorithms, introduces their own dataset,
+and proposes their own approach for salient object segmentation.
+
+1. MAIN CONTRIBUTION:
+The main ideas proposed in this paper is exposing the bias in benchmark datasets.
+Another main contribution is relating fixation, saliency, and segmentation
+all together, since the similarities and differences are subtle.
+
+2. STRENGTHS/WEAKNESSES:
+Their proposed method for salient object detection is composed of two parts -
+candidates, and a ranking functio based on fixation. This provides the main
+strength that it is modular in design, allowing for flexibility between
+segmentation algorithms, and fixation prediction algorithms used.
+One of the weaknesses is probably the size of the PASCAL-S datset that was
+constructed for this paper. The amount of pictures gathered was less than 1000,
+and this is not substantial training data for certain learning methods.
+
+3. INSPIRING TOPICS:
+I thought it was interesting how the authors identified that there was a problem
+with consistency in the previously used benchmarks and actually found a way to
+quantify the inconsistencies.
+
+4. EXPERIMENTAL RESULTS:
+The paper provides a thorough analysis on seven of the current state of the art
+saliency object segmentation algorithms and tests these on four popular benchmark
+datasets. The metrics used are F-measures and AUC scores, which provide information
+about the relationship between precision recall. Another metric used is s-AUC,
+which normalizes the effect of center bias.
+
+5. EXTENSIONS:
+Some future extensions include providing fixation ground truth for other object
+segmentation datasets, and finding other sources of bias. It is important to
+minimize the amount of bias in these benchmarks, or at least find different
+metrics as the object segmentation models will just learn the bias instead of
+being general.
+
+6. ADDITIONAL COMMENTS:
+The center bias was definitely a big issue in the gaze tracking datasets from
+Georgia Tech. Perhaps, in the construction of fixation ground truth, the subjects
+should be allowed freedom of head movement. This would make the labelling a bit
+more difficult since the chin is not fixed, but would definitely lessen the
+amount of center bias, at least.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. The saliency object detection algorithm in this algorithm seems very similar
+to CMPC. What are some of the differences between this and CMPC?
+
+1. The model presented in the paper generates object masks by simple thresholding.
+What are some ways we can change this to provide performance gains?
