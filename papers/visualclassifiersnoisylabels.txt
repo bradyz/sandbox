@@ -1,0 +1,64 @@
+Seeing through the Human Reporting Bias: Visual Classifiers from Noisy Human-Centric Labels
+Ishan Misra1, C. Lawrence Zitnick, Margaret Mitchel, Ross Girshick
+Carnegie Mellon University, Microsoft Research, Facebook AI Research
+https://arxiv.org/pdf/1512.06974v2.pdf
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+This paper looks to create a model that can noisy labels for image classification
+and image captioning. There exist a large amount of inexpensive data online that
+only have weak, noisy labels and it would definitely benefit supervised learning
+algorithms that could use these to their advantage.
+
+1. MAIN CONTRIBUTION:
+The main contribution from this paper is the decoupling of visually present and
+human centric labels by using a the latent variable that denotes if an object
+is visually present. In most vision models, we want to ignore bias and generalize,
+but this method is novel in the sense that visually present AND human labeled
+can both be derived.
+
+2. STRENGTHS/WEAKNESSES:
+The clear strength of this model is that it can benefit from the vast amounts of
+noisy human tagged data. Previous models that try to tackle similar problems
+still require oracle labels, while this method only requires noisy human tags.
+
+3. INSPIRING TOPICS:
+The model in this paper is quite intuitive and is structured well so it is
+easy to understand. I also thought it was really interesting how the authors
+captured the idea of human bias simply from classfiers over conditional
+probability. I also think the COCO dataset well chosen since it provided both
+tags and labels which showed the true human centric bias in the dataset.
+
+4. EXPERIMENTAL RESULTS:
+The baselines established by the authors are very suitable in seeing the benefits
+provided by the use of the latent variable. The first baseline is using the MILVC
+approach, to demonstrate the performance without decoupling human centric labels
+and visually present labels. The next baseline is the "multiple-fc8" model which
+is used to negate the presumption that the performance gains is simply from
+increasing the number of parameters. The datasets used in this paper are MS COCO
+and YFCC100M. These two datasets have human annotated tags, and MS COCO provides
+ground truth object labels. The metrics used are mAP (mean average precision),
+and PHR (precision at human recall), which is more stable since it provides a
+baseline comparison to human performance.
+
+5. EXTENSIONS:
+As the authors stated in the paper, since this is an optimization problem over
+latent variables, EM (expectation maximization) could be used.
+
+6. ADDITIONAL COMMENTS:
+Maybe the visual concepts could be split into two different categories, one
+that consists of adjectives, and one that consists of nouns. This could provide
+benefits to better the conditional estimates.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. Why did training the model start with setting joint noise distribution to
+identity for two epochs?
+
+1. What other datasets are available for testing? Also, what makes PHR more stable
+that AP metrics?
