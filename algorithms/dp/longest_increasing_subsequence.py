@@ -1,4 +1,6 @@
-def binary_search(x, c, lo, hi):
+def binary_search(x, c):
+    lo = 1
+    hi = len(c)
     while lo < hi:
         mi = (lo + hi) // 2
         if c[mi] < x:
@@ -9,18 +11,14 @@ def binary_search(x, c, lo, hi):
 
 
 def lis(n, c):
-    best = [None for _ in range(n+1)]
-    best[0] = -1
-    best[1] = c[0]
-    result = 1
+    best = [float("-inf"), c[0]]
     for i in range(1, n):
-        j = binary_search(c[i], best, 1, result+1)
-        if not best[j]:
-            best[j] = c[i]
-            result += 1
+        j = binary_search(c[i], best)
+        if j == len(best):
+            best.append(c[i])
         elif c[i] < best[j]:
             best[j] = c[i]
-    return best[1:result+1]
+    return best[1:]
 
 
 if __name__ == "__main__":
