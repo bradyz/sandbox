@@ -1,0 +1,60 @@
+What’s in a Name? First Names as Facial Attributes
+Huizhong Chen Stanford, Andrew C. Gallagher Cornell, Bernd Girod Stanford University
+http://www.cv-foundation.org/openaccess/content_cvpr_2013/papers/Chen_Whats_in_a_2013_CVPR_paper.pdf
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+This paper presents a model for representing facial attributes with first names.
+The 100 most common names are used and modeled as a high dimensional vector
+that is composed of dense SIFT features aggregated over a spatial pyramid.
+Learning the facial attributes through names provides a way to predict names,
+gender, and age.
+
+1. MAIN CONTRIBUTION:
+This paper is the first attempt to model the relationship between facial
+attributes and first names. Socialogy experiments show that names and a person's
+characteristics are dependent, and the paper reinforces this belief.
+
+2. STRENGTHS/WEAKNESSES:
+The main strength of the paper is their construction of the MFSVM, which allows
+for them to effectively split up and use the extremely high dimensional vector
+that represents the face. Another main strength is that their approach does not
+require extensive human labeling for training. Their input data requires tagged
+faces with the name, which is extremely available from various sites (Facebook).
+One of the weaknesses is that their results do not seem strong enough to be
+strong enough to incorporate this model into learning visual representations.
+
+3. INSPIRING TOPICS:
+This idea seems pretty novel in the sense that a name does seem to capture some
+sort of representation of the person, and the results, which may seem marginal,
+do in fact show that there is some backing behind this.
+
+4. EXPERIMENTAL RESULTS:
+The paper introduces a new dataset, Name100, a collection of 100 names, with
+800 faces tagged for each name. These faces and names are extracted from Flickr.
+The metrics used are mean average precision (MAP) and prediction accuracy.
+Their method shows to be 4x random choice when the number of name classes is 100,
+which gives me mixed signals. Their model is definitely learning something about
+the correlation between names and visual attributes, but I'm sure there are
+some forms of bias that have an effect here.
+
+5. EXTENSIONS:
+One simple extension would be to predict other traits like socio-economic factors.
+This could be done in a similar approach to their age/gender prediction.
+
+6. ADDITIONAL COMMENTS:
+Table 2, which shows the accuracy of their approach based on the number of name
+classes, shows an interesting trend, but I can only imagine that the accuracy
+would decrease as the number of names increases.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. There were a couple bias prevention methods in the data collection process,
+but what other factors/biases could have been glossed over and effected performance?
+
+1. As we increase the number of classes, will this 1-1 SVM approach scale?
