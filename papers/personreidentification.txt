@@ -1,0 +1,72 @@
+Person Re-identification by Local Maximal Occurrence Representation and Metric Learning
+Shengcai Liao, Yang Hu, Xiangyu Zhu, and Stan Z. Li
+http://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Liao_Person_Re-Identification_by_2015_CVPR_paper.pdf
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+This paper presents a method to try to address the problem of person
+re-identification. This problem is particularly difficult due to the large
+variance of one person in different viewpoints, illumination, etc. Their method
+is composed of the use of Retinex to handle illumination, followed by a new
+feature represenation called LOMO, followed by a mapping to a subspace called
+XQDA, which allowed for efficient comparisons.
+
+1. MAIN CONTRIBUTION:
+This method introduced a feature representation that is more robust against
+viewpoint changes and illumination changes, the more challenging problems that
+occur in the problem of person re-identification. The paper also shows the
+great benefits when using Retinex (large performance boosts).
+
+2. STRENGTHS/WEAKNESSES:
+One of the major strengths of this approach the runtime for XQDA. There is a
+closed form solution that outperform the more expensive iterative methods.
+The complexity of the method can be very important depending on application,
+and this method's runtime can allow it to be an online system for video
+surveillance.
+A weakness, however, is if the sigma matrix is singular. Then, we will not
+be able to find a solution for the distance function. Also, I do not see how
+adding a regularizer to the diagonal elements can prevent the matrix from
+being singular.
+
+3. INSPIRING TOPICS:
+I thought it was quite novel and intuitive of the high level breakdown of their
+approach. Since the data is noisy in terms of coor and illumination, they first
+applied Retinex. Then, viewpoint is also a problem so they did feature extraction
+on multiple scales, and on multiple horizontal windows. Finally, this feature
+vector is too large, so they did a reduction onto a smaller subspace (XQDA).
+
+4. EXPERIMENTAL RESULTS:
+The datasets used are VIPeR (more challenging), QMUL (disjoint views), and
+CUHK/CUHK03 (large in size). The measure of accuracy was depicted through
+rank-1 identification rates.
+There are several related works dealing with the same problem, which is split
+into two parts - feature representation, and metric learning. This paper shows
+the effects of XQDA by applying different feature representations combined
+with XQDA (Table 2 and 3). This is appropriate because it will show the raw
+benefits of using the XQDA metric/space. There are also end-to-end comparisons
+for LOMO+XQDA and other state of the art person reidentification algorithms.
+
+5. EXTENSIONS:
+In the theme of recent computer vision topics, a CNN can be used to learn
+the feature representation, then we can pair this feature representation with
+their XDQA metric/subspace to achieve better performance.
+
+6. ADDITIONAL COMMENTS:
+LOMO has shown to be very efficient to compute, even on commodity machines,
+it would be nice to see some runtime numbers for the XQDA measurements.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. We can see a slight degradation in performance when an automatic pedestrian
+detector is used (Table 4). What are some ways to construct a feature representation
+that is robust again body parts missing?
+
+1. In the VIPeR dataset, the gap between LOMO+XQDA and the next best method was
+quite small in rank-1 identification. What could have caused the huge performance
+gap between the presented method and the next best method when using the
+CUHK03 database?
