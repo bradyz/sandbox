@@ -1,0 +1,70 @@
+ForgetMeNot: Memory-Aware Forensic Facial Sketch Matching
+Shuxin Ouyang†, Timothy M. Hospedales, Yi-Zhe Song, Xueming Li
+http://www.eecs.qmul.ac.uk/~tmh/papers/ouyang2016forgetmenot
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+This paper addresses the problem of forensic sketch recognition. This problem is
+difficult due to the sketch-photo modality gap, memory, and communication to the
+artist. The model in this paper focuses on the memory issues and constructs a
+more robust approach to forensic sketch matching.
+
+1. MAIN CONTRIBUTION:
+The main contributions consist of a new database of forensic sketches, which
+are 100 test subjects drawn at different intervals to demonstrate the effects
+of memory loss. They also develop a method that produces an image that
+tries to reverse some of the forgetting process and is easier to match on the
+actual photo.
+
+2. STRENGTHS/WEAKNESSES:
+The major strength of this paper is to learn a Gaussian regression matrix
+rather than a typical linear projection. Moreover, their joint learning
+of the tasks with MTL-GPR is intuitive and effective as the tasks are heavily
+related and joint learning can provide additional information.
+The weaknesses are that their dataset is a bit small and could benefit from
+more samples. This is inherent in the problem they are addressing, however,
+since data for this is expensive.
+
+3. INSPIRING TOPICS:
+I was suprised in how much the performance benefitted from matching an
+intermediate stage of forgetfulness. It seems that this method will continue
+to have the best performance since deep learning might be intractable for this
+problem given the small datasets.
+
+4. EXPERIMENTAL RESULTS:
+There are there datasets used in the evaluation of performance. MGDB is used,
+augmented with labeling of 40 binary attributes. Forensic Composite Database
+is used, which consists of 51 pairs of photos. And FSMD is used, which has
+195 pairs, and a large set of photos to match against. As was stated before,
+we can see the datasets are all relatively small, compared to other vision
+problems like image recognition. This paper provides a large amount of baselines
+to compare against, as well as several other state of the art methods such as
+LFDA, FaceVAS, Deep features. The method presented outperforms all of the methods
+by a significant margin using rank-k accuracy measurements.
+
+5. EXTENSIONS:
+The method in the paper uses a hand crafted feature, HOG and this could easily
+be substituted with a different feature vector, such as the output from
+some fully connected layer of a CNN trained on facial data.
+
+6. ADDITIONAL COMMENTS:
+Some parts of this paper were a bit dense. I'm not quite sure how the MTL-GPR
+learning is done jointly. The performance and rank-1 accuracy was really
+surprising given the large variance in sketches - I would imagine small changes
+in the artists depiction would lead to learge changes in the HOG feature vector.
+This method of matching on the intermediate image reminds me graph algorithms
+where breadth first search is performed on both the start and end states to
+find and intermediate path which significant constant speedup.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. Data collection for this tasks is very expensive. Is there any way to
+artificially augment the dataset?
+
+1. What other different feature vectors could provide performance benefits for
+this model?
