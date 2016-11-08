@@ -1,0 +1,68 @@
+The Sketchy Database: Learning to Retrieve Badly Drawn Bunnies
+Patsorn Sangkloy, Nathan Burnell, Cusuh Ham, James Hays
+http://sketchy.eye.gatech.edu/paper.pdf
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+This paper addresses the sketch to object retrieval problem which takes as an
+input the sketch of an object, and returns the most similar object. This problem
+is difficult as this image retrieval requires accuracy within a category, as well
+as inter-object accuracy, meaning attributes like pose should match.
+
+1. MAIN CONTRIBUTION:
+The main contributions provided by this paper consist of the largest sketched
+object database, consisting of 75000 sketches of 12500 objects in 125 categories,
+and the deep learning techniques used in the model.
+
+2. STRENGTHS/WEAKNESSES:
+The way the authors trained the network was the strongest idea presented.
+Their method of deep learning traditionally requires a large amount of training
+data, which is not economically tractable given the expensive data collection
+process. The two loss functions used were essential to get the level of accuracy.
+One weakness however, is that their method was only tested on two datasets, one
+of which is their own. It would be nice to see how this performs on more datasets,
+once more are developed.
+
+3. INSPIRING TOPICS:
+The training process was really impressive to me, as the authors put in a lot
+of thought into acquiring the most information given the small dataset.
+The triplet network makes a lot of sense as this way a lot of training triplets
+can be generated, and this helps refine the feature space.
+
+4. EXPERIMENTAL RESULTS:
+The datasets used in the paper were from Li et al, and the Sketchy database
+that was developed as a part of this paper. The metrics used are recall@k, which
+is appropriate for the given task. The baselines consisted of various permutations
+of triplet/siamese loss + classification/no classification loss. What was really
+insightful was the fact that classification loss alone and triplet loss alone
+performed relatively badly, but when combined, the accuracy was state of the art.
+This shows that each one of these loss functions are learning embeddings that
+the other misses.
+
+5. EXTENSIONS:
+Some extensions could be cheap ways to augment the dataset. The authors did a
+bit of data augmentation via mirroring negative pairs, and we can do this a bit
+more aggressively to improve the inter-object feature space by rotations and
+translations on objects within the same class, but not the same pose.
+
+6. ADDITIONAL COMMENTS:
+I thought it was good that the authors provided a baseline trained on MS COCO,
+as my first thought on this sketch retrieval problem was to compare the sketches
+to the segmentation outlines. Their baseline comparison verifies that human
+drawn object boundaries are erroneous.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. In the comparison against Li. et al., what could have caused the disparity
+in the categories of dog and sheep? Were there simply not enough examples in
+the training set?
+
+1. Looking at the combination of triplet and categorization loss, we can see
+huge performance boosts when coupling these with each other. What other loss
+functions can we introduce to training the model that will provide accuracy
+boosts?
