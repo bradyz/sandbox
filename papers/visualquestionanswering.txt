@@ -1,0 +1,67 @@
+VGA: Visual Question Answering
+Stanislaw Antol, Aishwarya Agrawal, Jiasen Lu
+Virginia Tech, Microsoft Research
+https://arxiv.org/pdf/1505.00468v7.pdf
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+This paper provides a dataset for researchers to tackle a problem that combines
+vision, NLP, and knowledge representation. The VGA (visual question answering)
+dataset consists of ~0.25M images, ~0.76M questions, and ~10M answers that have
+been sourced from Amazon Mechanical Turk. These questions test from low level
+understanding like object object detection, to higher level understanding like
+activity recognition, and reasoning.
+
+1. MAIN CONTRIBUTION:
+Visual question answering is an important topic that has been investigated by
+previous works, but this paper introduced a dataset that is labeled extensively
+and is orders of magnitude larger than the previous works. This dataset will
+provide a rich environment to develop visual qa techniques.
+
+2. STRENGTHS/WEAKNESSES:
+The main strength of this paper is that the dataset is heavily thought through,
+and the authors focused heavily on reducing bias, but still creates a task that
+is approachable by researchers. The authors have developed two datasets, one
+real and one "abstract" (consists of clipart), that have very diverse set of
+questions and answers.
+One weakness is that certain short answers that are very similar can fail
+to be grouped together, for example - book and novel. However, if both answers
+would be accepted as correct, this is not a weakness.
+
+3. INSPIRING TOPICS:
+I first thought the abstract scene dataset was a bit lacking since I thought
+when would this actually be used, but considering the fact that recent CNNs can
+learn pretty much any visual representation, this is actually a strong benefit
+of their work. I was also impressed by the thorough metadata analysis that the
+authors went through, ensuring the quality of the dataset.
+
+4. EXPERIMENTAL RESULTS:
+The authors tested a couple of methods on their own datasets, the references
+used were simply picking the most popular answers and the nearest neighbor.
+The two baselines developed was a neural network classifier and a LSTM model.
+The accuracies were split up to be measured in the categories - all, yes/no,
+number, and other. This is appropriate as each category has its own accuracy
+for random choice. We can see that question+image answers outperform image only,
+and question only which verifies the answers require image understanding.
+
+5. EXTENSIONS:
+It would be interesting to further develop the notion of their "age metric",
+as they state their model performs as well as a 4.45 year old child.
+
+6. ADDITIONAL COMMENTS:
+Due to the variety in random choice accuracies depending on the question category,
+I think the aggregated answer accuracy shows little correlation to how effective
+a model really is.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. What are some of the benefits from using the "abstract" portion of the VQA
+dataset? (besides creating a very impressive toddler).
+
+1. The authors have conducted extensive metadata analysis. However, what type
+of biases still exist in this dataset?
