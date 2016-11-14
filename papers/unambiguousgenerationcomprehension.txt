@@ -1,0 +1,71 @@
+Generation and Comprehension of Unambiguous Object Descriptions
+Junhua Mao, Jonathan Huang, Alexander Toshev
+Google, UCLA
+https://arxiv.org/pdf/1511.02283v3.pdf
+
+================================================================================
+REVIEW
+================================================================================
+
+0. SUMMARY:
+This paper introduces a model that is a combination of CNN, RNN techniques that
+allows for generation and comprehension of object descriptions. The model tackles
+two problems - local object description generation, which is closely related
+to the image captioning problem, and description comprehension, which has to
+identify an object in a picture given a textual description. This paper also
+introduces a dataset, called Google Refexp, which consists of ~50k objects
+from ~25k images from another popular dataset MS COCO (image segmentation),
+with 100k referring expressions (unambiguous captions).
+
+1. MAIN CONTRIBUTION:
+This paper is the first to present a joint modeling of object comprehension and
+generation. It also introduces a large publically available dataset that allows
+for other researchers to use for related work. The paper also shows that
+implementing a "listener" model, or a model that understand the generated captions
+is essential to actual capture image representation.
+
+2. STRENGTHS/WEAKNESSES:
+The main strength of this paper was in the architecture and training portion
+of the development of their model. Trying to solve for both tasks simultaenously
+makes it such that the goal task (formulating what a good caption is), comes
+with learning the two other tasks. Their approach and actual network architecture
+and optimization techniques are relatively well known, but their objective function
+and strategy are novel.
+
+3. INSPIRING TOPICS:
+Although not the most impressive contribution from their paper, I thought their
+use of Amazon Mechanical Turk crowdsourcing was carried out well. Having other
+MT workers verify that the other MT worker descriptions were valid ensures
+data quality, and this iterative method was pretty interesting.
+
+4. EXPERIMENTAL RESULTS:
+This problem was tested on their own dataset, Google Refexp, with validation
+on a similar dataset, called UNC-Ref. The metric for the comprehension task
+was intersection over union (IoC) for predicted bounding boxes. For generation,
+evaluation is more difficult due to infinite variety between valid answers,
+and human evaluation was used on a random subset of images.
+
+5. EXTENSIONS:
+One of the failure cases is shown in Figure 8 when the model is given the input
+"The woman in white", and identifies the woman in black since the actual answer
+is that there is no woman in white in the image. The model can be extended to
+train for these cases by generating a sample caption for the proposed object
+and comparing distance between the word embeddings of the query and the
+generated sentence.
+
+6. ADDITIONAL COMMENTS:
+I was a bit confused on how the accuracy (that was not human evaluated) for
+description generation was evaluated. The paper mentions some metrics like
+CIDEr, BLEU, and METEOR, but I think most of the tables were assessing the
+comprehension task.
+
+================================================================================
+DISCUSSION POINTS
+================================================================================
+
+0. What would be a good metric to assess the description generation task, given
+that there are a large variety of correct answers?
+
+1. How can this model be improved to be more robust against queries where the
+object does not exist in the image? See the failure case in Figure 8, where
+the model incorrectly identifies the woman in black as "the woman in white".
