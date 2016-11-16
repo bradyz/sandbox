@@ -1,0 +1,193 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1}
+\allowdisplaybreaks
+
+\title{\textbf{CSE 383C:\@ Assignment 6}}
+\author{Brady Zhou}
+\date{\today}
+
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep{\bfseries #1}\hskip \labelsep{\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercise}{1} Find perturbations that maximize the error in the
+  solution for $Ax = b$.
+
+  \begin{enumerate}[label=(\alph*)]
+
+    \item Find $\Delta A$, with $\|\Delta A\|_2 = \tau \|A\|_2$,
+      which maximizes $\|\Delta x \|_2$, where $(A + \Delta)(x + \Delta x) = b$.
+
+      Taking the SVD of A, we can see we have a decomposition of the form -
+
+      \begin{center}
+        {\Large $U$}
+        $\begin{bmatrix}
+          2 & 0 \\
+          0 & 0.001 \\
+          0 & 0 \\
+        \end{bmatrix}$
+        {\Large $V^T$}
+      \end{center}
+
+      We want to find $\|\Delta A\|_2$ such that $A + \Delta A$ spans a different
+      space.
+      This can be achieved by putting all the energy into the third row of $\Sigma$,
+      since this $U_3$ is orthogonal to the range of A.
+      $U$ and $V^T$ are orthonormal, they have a norm of $1$, so we can
+      reduce the problem to finding a $\Delta \Sigma$ with the same constraints. \\
+      Since we require $\|\Delta \Sigma\|_2 = \tau \|A\|_2$,
+      and $\|A\|_2 = \sigma_1$, $\Delta A$ takes the form -
+
+      \begin{center}
+        {\Large $U$}
+        $\begin{bmatrix}
+          0 & 0 \\
+          0 & 0 \\
+          0 & -\tau \sigma_1 \\
+        \end{bmatrix}$
+        {\Large $V^T$}
+      \end{center}
+
+      Since $A$ and $\Delta A$ are still full rank, we can solve for
+      $x$ and $\Delta x$ using the corresponding pseudoinverses, and the
+      relative error comes out to $\sim17200\%$, a surprising result.
+
+    \item Find $\Delta b$, with $\|\Delta b\|_2 = \tau \|b\|_2$, which maximizes
+      $\|\Delta x\|_2$, where $A(x + \Delta x) = (b + \Delta b)$.
+
+      From the properties of SVD, we know that $U_1$ and $U_2$ span the range of $A$.
+      We want to pick a direction $U_i$ to ``push" $b$ further away from the range
+      of $A$. \\
+      Since $U_3$ is not in the range of $A$, there is no point in
+      perturbing $b$ in that direction. $U_2$ is ``poorly spanned" by $A$, so
+      this will be the best direction to perturb $b$ in. \\
+      $\Delta b$ will be a scalar multiple $\alpha$ times $U_2$. \\
+      The constraints on $\Delta b$ makes $\alpha = \tau \|b\|_2$, so
+      $\Delta b = \tau \|b\|_2 U_2$. \\
+
+      Solving for $x$ and $\Delta x$ using the pseudoinverses gives us that
+      the relative error comes out to $\sim20\%$.
+
+  \end{enumerate}
+
+\end{exercise}
+
+\pagebreak
+
+\begin{exercise}{2} Let $A \in \mathbb{R}^{m \times n}$, $m < n$, rank($A$) $= m$.
+  A is underdetermined and full rank. Let $b \in \mathbb{R}^m$.
+  Want to find $x \in \mathbb{R}^n$ such that $Ax = b$.
+
+  \begin{enumerate}[label=(\alph*)]
+
+    \item Assume that $x = A^Ty$.
+
+      Now we want to find the solution to $AA^Ty = b$. \\
+      We can see $AA^T \in \mathbb{R}^{m \times m}$, and since rank($A$) $= m$,
+      rank($AA^T$) $= m$, so $AA^T$ is full rank and square and we can take
+      the inverse of this.
+
+      \begin{center}
+        $y = (A A^T)^{-1} b$ \\
+        $x = A^T (A A^T)^{-1} b$ \\
+      \end{center}
+
+    \item Use the QR factorization of $A^T$.
+
+      For QR decomposition, we have the requirement that $m \geq n$, so $A^T$
+      satisfies this. The fact that $A$ is full rank allows us to use either
+      Gram-Schmidt or Householder, but we have to make sure to used reduced QR. \\
+      With a reduced QR, we have $A^T = QR$, where $Q \in \mathbb{R}^{n \times m}$,
+      and $R \in \mathbb{R}^{m \times m}$, since $A$ is full rank. \\
+      So we have $A = R^T Q^T$, and want to solve $R^T Q^T x = b$.
+      Since $R^T$ is full rank and square, there exists an inverse $R^{-T}$. \\
+      So now, $Q^T x = R^{-T} b$, and since the solution $x$ lives in the rowspace
+      of $A$, and $Q^T$ forms a basis for the range of $A$, $Q$ forms a basis
+      for the rowspace of $A$ and we have $x = Q y$. \\
+      $ Q^T Q y = R^{-T} b$, which gives us that $y = R^{-T} b$.
+
+      \begin{center}
+        $y = R^{-T} b$ \\
+        $x = Q R^{-T} b$ \\
+      \end{center}
+
+    \item Relation to TSVD.
+
+      We can see finding a decomposition of the transpose and using that is
+      equivalent to constructing the projector $U_k$ from the TSVD.
+
+  \end{enumerate}
+
+\end{exercise}
+
+\begin{exercise}{3} Least squares problems when A is nearly rank deficient.
+
+  \begin{enumerate}[label=(\alph*)]
+
+    \item Plotting singular values.
+
+      See attached.
+
+    \item Rank analysis. Numerical rank is calculated with MATLAB
+      rank($A$, $\sigma_1 * \tau$).
+
+      \begin{center}
+
+        \begin{tabular}{ | l | l | l | l | }
+          \hline
+          M & N & Rank r & Numerical Rank k \\ \hline
+          1024 & 512 & 512 & 25 \\ \hline
+          512 & 1024 & 512 & 21 \\ \hline
+          1024 & 512 & 99 & 17 \\ \hline
+          1024 & 512 & 512 & 44 \\ \hline
+          1024 & 1024 & 1023 & 469 \\ \hline
+        \end{tabular}
+
+      \end{center}
+
+      We can see for certain problems the matrix is clearly full rank. However,
+      the numerical rank are quite low for many of the problems provided.
+
+    \item Best k-rank approximation for range of A.
+
+      We can see that SVD performs the best, but takes the longest.
+      Both QR schemes (pivoted and nonpivoted) have unbounded amount of error,
+      but with pivoting, we can see the relative error is less overall.
+      The randorth scheme also predicts fairly well.
+
+    \item Figure descriptions.
+
+      The first five figures consist of plotting singular values.
+      The next five figures consist of relative error for $x_k$ as a function of
+      k-rank approximations using the TSVD.
+      The next 5 figures consist of l-curve analysis for problems 1-5.
+
+    \includepdf[pages=-,pagecommand={},width=\textwidth]{cse383c_matlab.pdf}
+    \includepdf[pages=-,pagecommand={},width=\textwidth]{lcurve.pdf}
+
+
+  \end{enumerate}
+
+\end{exercise}
+
+\end{document}
