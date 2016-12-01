@@ -2,7 +2,7 @@
 % differential equations.
 %
 % We want to solve Ax = b.
-% A in m x m, symmetric positive definite (done by B' * B for B full rank).
+% A in n x n, symmetric positive definite (done by B' * B for B full rank).
 % x in n x 1.
 % b in n x 1.
 % The goal is to find an x in R^{n} such that ||Ax - b|| is minimized.
