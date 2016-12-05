@@ -57,7 +57,6 @@ else
     % Use recursive solution from lower right corner of A.
     [m, n] = size(A);
     R = [B(1, :); [zeros(m-1, 1), R_p]]
-    keyboard;
     U = [u, [zeros(1, n-1); U_p]];
 end
 

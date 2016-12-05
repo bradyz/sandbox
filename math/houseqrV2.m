@@ -48,7 +48,8 @@ for i = 1:n
 
     % We have H_n * ... * H_2 * H_1 * A = R.
     % Since H_i full rank, A = H_1^-1 * H_2^-1 * ... * H_n^-1 * R.
-    % Since H_i unitary, A = H_1 * H_2 * ... * H_n * R.
+    % Since H_i unitary, A = H_1' * H_2' * ... * H_n' * R.
+    % Since H_i reflector, A = H_1 * H_2 * ... * H_n * R.
     Q = Q * H_m;
 end
 end
