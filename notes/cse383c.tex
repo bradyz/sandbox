@@ -7,6 +7,7 @@
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage{amsthm}
+\usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{enumitem}
 \usepackage[parfill]{parskip}
@@ -15,6 +16,9 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newtheorem{theorem}{Theorem}
 
 \begin{document}
 
@@ -29,14 +33,20 @@ Let $A \in \mathbb{C}^{m \times n}$, $x, y, z \in \mathbb{C}^n$, $H \in \mathbb{
     \item \textbf{Outer Product $x y^t$} - $O(n^2)$ time, $O(n^2)$ space.
     \item \textbf{Outer Product Vector $(x y^t) z = x (y^t z)$} - $O(3n)$ time, $O(n)$ space.
     \item \textbf{Dense Matrix Vector $Ax$} - $O(2mn)$ time, $O(m)$ space.
-    \item \textbf{Spar Matrix Vector $Ax$} - $O(m + n)$ time, $O(m + n)$ space.
+    \item \textbf{Sparse Matrix Vector $Ax$} - $O(m + n)$ time, $O(m + n)$ space.
     \item \textbf{Gram Schmidt} - $O(\frac{3}{2}mn^2)$ time.
     \item \textbf{Householder Vector $Hv = (I - 2 u u^*) v = v - 2 u u^* v$} - $O(4m)$ time.
     \item \textbf{Householder} - $O(2mn^2-\frac{2}{3}n^3)$ time.
     \item \textbf{Givens} - $O(mn^2)$ time.
+    \item \textbf{SVD} - $O(2mn^2 + 11n^3)$ time.
+    \item \textbf{Backsubstitution} - $O(n^2)$ time.
+    \item \textbf{LU (With or without PP)} - $O(\frac{2}{3}m^3)$ time.
+    \item \textbf{Cholesky} - $O(\frac{1}{3}m^3)$ time.
 \end{enumerate}
 
-\section{QR Factorization}
+\pagebreak
+
+\section{QR Factorizations}
 Given a matrix $A \in \mathbb{R}^{m \times n}$, we can write $A = QR$, where $Q$ is orthonormal and $R$ is upper triangular. This matrix factorization exists \textbf{for all} matrices.
 
 \subsection{Reduced QR}
@@ -61,7 +71,7 @@ Pick the first column of $A$, called $a_1$. We want an orthogonal basis for span
 
 Now we are on the second column of $A$, called $a_2$. We want to now find an orthogonal vector to $v_1$. Well we can just find the projection onto $v_1$, defined as $v_1 v_1^T a_2$, and then subtract this bit off off $v_1$. So $v_2 = (I - v_1 v_1^T) a_2$.
 
-We are now on the third column of $A$, called $a_3$. We want to find an orthogonal vector to $v_1,\ v_2$. Well we can find this by finding the component of $a_3$ that lives in $span\{v_1,\ v_2\}$, then subtracting that component from $a_3$. So $v_3 = (I - v_1 v_1^T - v_2 v_2^T) a_3$. 
+We are now on the third column of $A$, called $a_3$. We want to find an orthogonal vector to $v_1,\ v_2$. Well we can find this by finding the component of $a_3$ that lives in $span\{v_1,\ v_2\}$, then subtracting that component from $a_3$. So $v_3 = (I - v_1 v_1^T - v_2 v_2^T) a_3$.
 
 We continue until we have gone through every column, now we have an orthogonal basis for $Range(A)$, but this is not orthonormal. We can simply normalize each column $q_i = \frac{v_i}{|v_i|}$.
 
@@ -71,8 +81,123 @@ Why does $A$ have to be full rank? If the columns of $A$ are not linearly indepe
 
 \subsection{Modified Gram Schmidt}
 
-In CGS, we use $v_i = a_i - \sum_{j=1}^{i-1} q_j q_j^* a_i$, but if the columns of $A$ are almost linearly dependent, the inner product and subtraction operations will cause large numerical instabilities, and cause $q_i \cdot q_j \neq 0$. 
+In CGS, we use $v_i = a_i - \sum_{j=1}^{i-1} q_j q_j^* a_i$, but if the columns of $A$ are almost linearly dependent, the inner product and subtraction operations will cause large numerical instabilities, and cause $q_i \cdot q_j \neq 0$.
 
 Instead, we will initialize $v_i = a_i$, but then for every iteration, we do $v_i = v_i - q_j q_j^* v_i\ \forall j < i$. This makes it so that even though we have some instabilities in $R$, we focus on the orthogonality of $Q$, and we can bound $|Q^* Q - I| = O(\kappa(A) \epsilon_m)$.
+
+\pagebreak
+
+\section{LU Decomposition}
+
+Let $A \in \mathbb{C}^{m \times m}$ and $A$ nonsingular. Then, $A$ admits a LU Decomposition of the form $A = LU$, where $L$ lower triangular and $U$ upper triangular, and both matrices have nonzeros along the diagonal.
+
+Then, the solution to $LUx = b$ will be $Ux = L^{-1} b$, which has a forward substitution and a backwards substitution that take $O(2m^2)$.
+
+If $A$ is diagonally dominant, or symmetric positive definite, then the unpivoted LU decomposition exists, and the growth factor $p = O(1)$.
+
+\subsection{Pivoted LU Decomposition}
+
+Even if $A$ is well conditioned, a naive LU decomposition will fail. We have to introduce pivoting at each step. \newline
+
+\begin{theorem} Pivoted LU is backwards stable.
+
+Let $PAQ = LU$ be the exact pivoted factorization of a non-singular matrix $A$. Let $\tilde{L},\tilde{U},\ \tilde{P},\ \tilde{Q}$ be the computed factorization on an IEEE-754 machine. 
+
+Then,
+
+$\tilde{L}\tilde{U} = \tilde{P}A\tilde{Q} + \delta A$; $\frac{\|\delta A\|}{\|A\|} = O(p\ \epsilon_m)$
+
+Where $p$ is called the growth factor of $A$ and depends on the pivoting method.
+
+\end{theorem}
+
+\vspace{3ex}
+There are a couple forms of pivoting - partial, full, and rook. In practice, partial pivoting is used, and the growth factor $p \leq 2^m$. So even though this algorithm is backwards stable, this can be potentially highly erroneous.
+
+\subsection{Cholesky Decomposition}
+
+If $A$ is symmetric, positive-definite, then $A = LU = R^T R$, where $R$ is upper triangular. This takes half the amount of time and space as a typical LU decomposition.
+
+\pagebreak
+
+\section{Least Squares}
+
+\subsection{Underdetermined Systems}
+
+Let $A \in \mathbb{C}^{m \times n}$, where $m < n$, and $A$ full rank. Now we an infinite number of solutions $x$ to $Ax = b$. There are a couple methods to pick the ``best" $x$. \newline
+
+\begin{theorem} Underdetermined System Error Analysis
+
+    If $\frac{\|\Delta A\|}{\|A\|} < \sigma_{min}$, $\frac{\|\Delta b\|}{\|b\|} < \sigma_{min}$.
+    
+    Then $\frac{\|\Delta x\|}{\|x\|} \leq \kappa(A) \big\{ \frac{\|\Delta A\|}{\|A\|} + \frac{\|\Delta b\|}{\|b\|} \big\}$.
+\end{theorem}
+
+\subsubsection{Regularized SVD}
+
+This method penalizes the norm of the solution $x$ by a factor of $\beta$, known as the regularization term. We have some squared terms and $\frac{1}{2}$ terms to make differentiation easier, but it is the same minimization problem.
+
+\begin{equation}
+    \argmin_x \frac{1}{2}\|Ax - b\|_2^2 + \frac{1}{2} \beta \|x\|_2^2
+\end{equation}
+
+Using the reduced SVD, we have $A = U \Sigma V^*$, and $U \in \mathbb{C}^{m \times m}$, $\Sigma \in \mathbb{C}^{m \times m}$, and $V \in \mathbb{C}^{n \times m}$.
+
+We substitute $x = V y$, since the solution should live in the rowspace of A, and $q = U^* b$ and now we have the following.
+
+\begin{equation}
+    \argmin_y \frac{1}{2}\|\Sigma y - q\|_2^2 + \frac{1}{2} \beta \|y\|_2^2
+\end{equation}
+
+Now, each $y_i$ term is independent, and taking the partial derivatives of $y$ and setting it to $0$, we can solve for the optimal $y$.
+
+\begin{equation}
+    \argmin_{y_i} J(y_i) = \frac{1}{2} (\sigma_i y_i - q_i)^2 + \frac{1}{2} \beta y_i^2
+\end{equation}
+\begin{equation}
+    \frac{\partial}{\partial y_i} J(y_i) = (\sigma_i^2 y - \sigma q_i) + \beta y_i
+\end{equation}
+\begin{equation}
+    y_i = \frac{\sigma_i q_i}{\sigma_i^2 + \beta}
+\end{equation}
+
+\subsubsection{Truncated SVD}
+
+Truncated SVD is just a specific case of regularized SVD, with $\beta = 0$.
+
+A full SVD decomposition of $A$ gives us $\Sigma$ with have $n-m$ zero columns, which correspond with the $n - m$ rightmost columns of $V$, where $span\{v_{n-m},\ \dots, v_m\} = Null(A)$.
+
+Truncated SVD says let's forget about the vectors in $Null(A)$, and take $\Sigma_t$ to be the first $m$ columns of $\Sigma$, and take $V_t$ to be the first $m$ columns of $V$. We now have $\Sigma_t \in \mathbb{C}^{m \times m}$, and $V_t \in \mathbb{C}^{n \times m}$. This is the reduced SVD of $A$.
+
+The solution to $Ax = b$ is now clearly $x = V_t \Sigma_t^{-1} U^* b$.
+
+\subsection{Rank Deficient Systems}
+
+Let $A \in \mathbb{C}^{m \times n}$, where $m > n$, and $rank(A) < n$.
+
+The SVD decomposition of $A$ shows us that we have some singular values that are $0$. We can ignore the bottom $n-r$ rows of $\Sigma$ and the corresponding $U$ and $V$ vectors, and solve this with the techniques described in underdetermined systems.
+
+\subsection{Nearly Rank Deficient Systems}
+
+If we have $\kappa_2(A) = \frac{\sigma_{max}}{\sigma_{min}}$ very large, this tells us the spread of singular values is very large, and numerical methods will have high relative error. Using the SVD of $A$, we can easily tell $A$ is ill conditioned, and set the corresponding singular values under some threshold $\tau$ to $0$, and solve an underdetermined system.
+
+However, SVD is not viable for large systems, and we have to use Pivoted QR, which will reveal the rank of $A$. \newline
+
+\begin{theorem} The singular values of the block matrix produced by Column Pivoted QR $R_{k,k}$ are related to the singular values of $A$.
+
+$\sigma_k(R_{k,k}) = O(\sigma_k(A))$
+
+\end{theorem}
+
+\vspace{3ex}
+The $R$ matrix produced by Column Pivoted QR will have small values along the diagonal, which tells us the corresponding vectors of $Q$ that are not spanned. We can ignore these values and truncate our $Q$ to $Q_t \in \mathbb{C}^{m \times r}$, and $R$ to $R_t \in \mathbb{C}^{r \times r}$. 
+
+Now we can solve a generic $Q_t R_t x' = b$, for $x' \in \mathbb{C}^{r}$. We fill in $n-r$ values of $x'$ to $0$ to get $\bar{x} \in \mathbb{C}^{n}$. Finally, we have to permute the rows since $A P = QR$, and acquire our final solution $x = P \bar{x}$.
+
+\pagebreak
+
+\section{Eigenvalue Problems}
+
+
 
 \end{document}
