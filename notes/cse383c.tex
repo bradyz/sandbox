@@ -14,11 +14,11 @@
 
 \setlength{\parskip}{6pt}
 
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-
 \DeclareMathOperator*{\argmin}{arg\,min}
-\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
 
 \begin{document}
 
@@ -198,6 +198,127 @@ Now we can solve a generic $Q_t R_t x' = b$, for $x' \in \mathbb{C}^{r}$. We fil
 
 \section{Eigenvalue Problems}
 
+For all of this section, let $A \in \mathbb{C}^{m \times m}$. \newline
+
+\begin{definition}{Eigenvalue/Eigenvector}
+
+We say $v \in \mathbb{C}^m \neq \textbf{0}$ is an eigenvector of $A$ if $Av = \lambda v$.
+
+\end{definition}
+
+\vspace{3ex}
+\begin{definition}{Spectrum}
+
+We say the set of all eigenvalues of $A$ is the spectrum of $A$, where $\Lambda(A) \subseteq \mathbb{C}^{m \times m}$.
+
+\end{definition}
+
+\subsection{Eigenvalue Decomposition}
+
+An eigenvalue decomposition of a matrix $A$ is of the form $A = X \Lambda X^{-1}$, where $X$ is nonsingular, $\Lambda$ is diagonal. We can rewrite this to the form of $AX = X \Lambda$. Note that this decomposition is not unique, since we can simply swap corresponding eigenvalue/eigenvectors, and eigenvalues may be duplicated.
+
+From this form, it is clear that the diagonals of $\Lambda$ are the eigenvalues and the columns of $X$ are the eigenvectors. The decomposition expresses a change of basis to ``eigenvector" coordinates. \newline
+
+\begin{definition}{Characteristic Polynomial}
+
+$p_A(z) = (z - \lambda_1) (z - \lambda_2) \dots (z - \lambda_m)$.
+
+\end{definition}
+
+\vspace{3ex}
+\begin{definition}{Similarity Transformation}
+
+If $X$ is nonsingular, then we say two matrices $A$ and $B$ are similar if $B = X A X^{-1}$.
+
+If $A$ and $B$ are similar, then they have the same characteristic polynomial, eigenvalues, geometry and algebraic multiplicities.
+
+\end{definition}
+
+\vspace{3ex}
+\begin{definition}{Defective Matrix}
+
+If, for a matrix $A$, there is an eigenvalue has with greater algebraic multiplicity than its geometric multiplicity, we say that eigenvalue is defective, and the matrix $A$ is defective.
+
+\end{definition}
+
+\vspace{3ex}
+\begin{definition}{Diagonalizability}
+
+A matrix $A$ is nondefective if and only if it admits an eigenvalue decomposition.
+
+\end{definition}
+
+\vspace{3ex}
+\begin{definition}{Unitary Diagonalization}
+
+A matrix $A$ is unitary diagonalizable if there exists a unique unitary matrix $Q$ such that $A = Q \Lambda Q^*$.
+
+This matrix decomposition exists if and only if $A$ is normal. Note that a unitary diagonalization is both an eigenvalue decomposition and a singular value decomposition.
+
+\end{definition}
+
+\subsection{Schur Factorization}
+
+Any square matrix, even defective ones, admit a Schur factorization. \newline
+
+\begin{definition}{Schur Decomposition}
+
+$A = Q T Q^*$, where $Q$ is unitary, and $T$ is upper triangular.
+
+Since $A$ and $R$ are similar, it is clear that the eigenvalues will appear along the diagonal.
+
+\end{definition}
+
+\subsection{Eigenvalue Solvers}
+
+An intuitive method to find eigenvalues is to find the roots of $det(A - \lambda I)$, but this completely impractical. This hints towards iterative methods.
+
+For this subsection, $A = A^T \in \mathbb{R}^{m \times m}$.
+
+\subsubsection{Power Iteration}
+
+Assume $A = X \Lambda X^-1$, and $\lambda_1 > \lambda_2 \geq \lambda_i$. If we take a random vector $v \in \mathbb{R}^{m}$, we can represent it as $X w$.
+
+Then, if we apply $A^k v = A^k X w$, as $k$ goes to infinity, we have $A^k v = \lambda_1^k X_1 w_1$. After normalizing this, we have acquired our first eigenvector $x$, and we can compute the corresponding maximum eigenvalue with $\|x^T A x\|$.
+
+\subsubsection{Inverse Power Iteration}
+
+If $A$ is nondefective, then $A^{-1}$ has the eigenvalues $\frac{1}{\lambda_i}$, where $\{\lambda_i\}$ is the spectrum of $A$.
+
+Since we have the following eigenvalues and $\lambda_1 \geq \dots \geq \lambda_m$, we have $\frac{1}{\lambda_m} \geq \dots \geq \frac{1}{\lambda_1}$, as the eigenvalues of $A^{-1}$. 
+
+Now we can apply the Power Iteration to $A^-1$ to get the minimum eigenvalue, the eigenvalue closest to $0$.
+
+\subsubsection{Shift-Invert Power Method}
+
+Note that $A - \sigma I = X (\Lambda - \sigma I) X^{-1}$, assuming $(\Lambda - \sigma I)$ is invertible. 
+
+This gives us that $(A - \sigma I)^{-1} = X (\Lambda - \sigma I)^{-1} X^{-1}$. Now we can apply the Inverse Power Method and that will give us the eigenvalue closest to $\sigma$ and a corresponding eigenvector.
+
+\subsubsection{Rayleigh Quotient Iteration}
+
+\begin{definition}{Rayleigh Quotient}
+
+Given a matrix $A$, the Rayleigh quotient of a vector $x \in R^m$ is the scalar:
+
+$r(x) = \frac{x^T A x}{x^T x}$
+
+This can be interpreted as the value that most acts like an eigenvalue for a vector $x$.
+
+\end{definition}
+
+\vspace{3ex}
+The Rayleigh Quotient Iteration then combines the Rayleigh Quotient and the Inverse Power Method to guess an eigenvector, then guess the corresponding eigenvalue, and repeats.
+
+\pagebreak
+
+\section{Glossary}
+
+\begin{definition}{Normal Matrix}
+
+We say a matrix $A$ is normal if $A A^* = A^* A$.
+
+\end{definition}
 
 
 \end{document}
