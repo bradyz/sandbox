@@ -1,0 +1,501 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{M 358K: Applied Statistics}
+\author{Brady Zhou}
+\date{Fall 2016}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{enumitem}
+\usepackage[parfill]{parskip}
+\usepackage{fullpage}
+
+\setlength{\parskip}{8pt}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+
+\begin{document}
+
+\maketitle
+
+\section{Sampling Distribution Models (Ch. 18)}
+
+\textbf{Definitions}
+
+\begin{enumerate}[label=\textbf{\roman*.}]
+    \item Sampling distribution - all proportions from all possible samples.
+
+    \item Sampling error/variability - change expected from different samples.
+
+    \item Independence assumption - sampled values must be independent.
+
+    \item Sample size assumption - $n$ must be large enough.
+
+    \item Randomization condition - data represents population, sampling unbiased.
+
+    \item 10\% condition - $n$ must be no larger than 10\% of population, drawn without replacement.
+
+    \item Success/Failure condition - expect at least 10 successes/failures.
+
+    \item Sampling distribution model - sampling distribution is modeled as a normal distribution.
+
+    \item Law of large numbers - as sample size increases, each sample average will be closer to population mean.
+
+    \item Central limit theorem - sampling distribution of any mean approaches normal as sample size grows.
+
+    \item Large enough sample condition - CLT requires different sample size depending on true population.
+\end{enumerate}
+
+\vspace{2ex}
+\textbf{Sampling Distribution Model for a Proportion (Categorical Data)}
+
+\begin{equation}
+    \sigma(\hat{p}) = SD(\hat{p}) = \sqrt{\frac{pq}{n}}
+\end{equation}
+
+\textbf{Central Limit Theorem}
+
+The mean of a random sample is a random variable whose sampling distribution can be approximated by a normal model. The larger the sample, the better the approximation will be. \\
+
+\textbf{Sampling Distribution Model for a Mean (Quantitative Data)}
+
+\begin{equation}
+    \sigma(\bar{y}) = SD(\bar{y}) = \frac{\sigma}{\sqrt{n}}
+\end{equation}
+
+\pagebreak
+
+\section{Confidence Intervals for Proportions (Ch. 19)}
+
+\begin{enumerate}[label=\textbf{\roman*.}]
+    \item Standard error - estimation of standard deviation of a sampling distribution.
+
+    \item Confidence interval - range that contains the true population at a given confidence.
+
+    \item One-proportion z-interval - confidence interval dealing with a single population's proportion.
+
+    \item Margin of error - half of the width of the confidence interval.
+
+    \item Critical value - number of standard deviations that corresponds with the confidence.
+
+\end{enumerate}
+
+\vspace{2ex}
+\textbf{Standard Error}
+
+\begin{equation}
+    SE(\hat{p}) = \sqrt{\frac{\hat{p}\hat{q}}{n}}
+\end{equation}
+
+\vspace{2ex}
+\textbf{Confidence Interval (One-Proportion Z-Interval)}
+
+The interval given by the following formula \textit{probably} contains the the true population proportion.
+
+\begin{equation}
+    \hat{p} \pm ME
+\end{equation}
+
+where $ME$ is the margin of error, defined by
+
+\begin{equation}
+    ME = z^*\ SE(\hat{p})
+\end{equation}
+
+Note: $z^*$ is critical value that corresponds with the confidence interval.
+
+For example, for 90\% confidence, $z^* = 1.645$, for 95\% confidence, $z^* = 2$, for 99.7\% confidence, $z^* = 3$.
+
+To drop the margin of error, we can either decrease the level of confidence, or increase the sample size.
+
+\pagebreak
+
+\section{Testing Hypotheses About Proportions (Ch. 20)}
+
+\begin{enumerate}[label=\textbf{\roman*.}]
+    \item Null hypothesis - denoted $H_0$, proposes a value for a population parameter.
+
+    \item Alternative hypothesis - denoted $H_A$, contains plausible values for a population parameter.
+
+    \item P-value - probability of observing statistic given the null hypothesis is true.
+
+    \item One-proportion z-test - test about proportions.
+
+    \item Effect size - difference between true and hypothesized parameters.
+
+    \item Two-sided alternative - $H_A: p \neq p_0$.
+
+    \item One-sided alternative - $H_A: p \leq p_0$ or $H_A: p \geq p_0$.
+
+\end{enumerate}
+
+\vspace{2ex}
+\textbf{One-Proportion Z-Test}
+
+We test $H_0: p = p_0$ using the z-statistic, which is defined by
+
+\begin{equation}
+    z = \frac{(\hat{p} - p_0)}{SD(\hat{p})}
+\end{equation}
+
+where $SD(\hat{p})$ is the standard deviation of the hypothesized population, defined by 
+
+\begin{equation}
+    SD(\hat{p}) = \sqrt{\frac{p_0 q_0}{n}}
+\end{equation}
+
+\pagebreak
+
+\section{More About Tests and Intervals (Ch. 21)}
+
+\begin{enumerate}[label=\textbf{\roman*.}]
+    \item Alpha level (significance level) - if the p-value falls under this threshold, the null hypothesis is rejected.
+
+    \item Plus-four method - confidence interval from padded data so the success/failure condition is satisfied.
+
+    \item Type I error - null hypothesis true, mistakenly reject, a false positive.
+
+    \item Type II error - null hypothesis false, fail to reject, a false negative.
+
+    \item Power - probability that the test correctly rejects a false null hypothesis, $1 - \beta$.
+
+    \item Effect Size - distance between hypothesized value and true value.
+
+    \item $\alpha$ - probability of a type I error.
+
+    \item $\beta$ - probability of a type II error.
+
+\end{enumerate}
+
+\vspace{2ex}
+\textbf{Using Confidence Intervals to Test Hypotheses}
+
+Establish a confidence interval, and if the null hypothesis does not fall within the range, then we can reject the null hypothesis.
+
+\vspace{2ex}
+\textbf{Agresti-Coull “Plus-Four” Interval}
+
+If the observed data does not satisfy the success/failure condition, then another confidence interval can be constructed, where
+
+\begin{equation}
+    \tilde{p} = \frac{y+2}{n+4}
+\end{equation}
+
+\textbf{Common Alpha and Critical Values}
+
+\vspace{2ex}
+\begin{center}
+    \begin{tabular}{ |c|c|c|c| }
+    \hline
+    $\alpha$ & 1-sided & 2-sided \\
+    \hline
+    0.05 & 1.645 & 1.96 \\
+    0.01 & 2.33 & 2.576 \\
+    0.001 & 3.09 & 3.29 \\
+    \hline
+    \end{tabular}
+\end{center}
+
+\vspace{2ex}
+\textbf{Altering $\alpha$ and $\beta$ of a Test}
+
+We can reduce $\beta$ by increasing $\alpha$, which makes it easier to reject the null, regardless if it is true or not. This, however, increases the probability of type I errors.
+
+To reduce both $\alpha$ and $\beta$, we can simply collect more data.
+
+\pagebreak
+
+\section{Comparing Two Proportions (Ch. 22)}
+
+\begin{enumerate}[label=\textbf{\roman*.}]
+    \item Independent groups assumption - the two groups being compared must be independent of each other.
+
+    \item Two-proportion z-interval - the confidence interval for the difference of two proportions.
+
+    \item Pooling - combining counts to get an overall proportion.
+
+    \item Two-proportion z-test - hypothesis testing when comparing two different populations.
+
+\end{enumerate}
+
+\vspace{2ex}
+\textbf{Standard Deviation of the Difference of Two Proportions}
+
+\begin{equation}
+    SD(\hat{p_1} - \hat{p_2}) = \sqrt{\frac{p_1 q_1}{n_1} + \frac{p_2 q_2}{n_2}}
+\end{equation}
+
+\vspace{2ex}
+\textbf{Standard Error of the Difference of Two Proportions}
+
+\begin{equation}
+    SE(\hat{p_1} - \hat{p_2}) = \sqrt{\frac{\hat{p_1} \hat{q_1}}{n_1} + \frac{\hat{p_2} \hat{q_2}}{n_2}}
+\end{equation}
+
+\vspace{2ex}
+\textbf{Two-Proportion Z-Interval}
+
+The confidence interval for the difference of two sample proportions is defined by
+
+\begin{equation}
+    (\hat{p_1} - \hat{p_2}) \pm z^* SE(\hat{p_1} - \hat{p_2})
+\end{equation}
+
+\vspace{2ex}
+\textbf{Hypothesis Testing for Comparing Two Proportions}
+
+\begin{equation}
+    H_0: p_1 - p_2 = 0
+\end{equation}
+
+\vspace{2ex}
+\textbf{Pooled Proportion}
+
+\begin{equation}
+    \hat{p}_{pooled} = \frac{n_1 \hat{p_1} + n_2 \hat{p_2}}{n_1 + n_2}
+\end{equation}
+
+\vspace{2ex}
+\textbf{Pooled Standard Error}
+
+\begin{equation}
+    SE_{pooled}(\hat{p_1} - \hat{p_2}) = \sqrt{\frac{\hat{p}_{pooled} \hat{q}_{pooled}}{n_1} + \frac{\hat{p}_{pooled} \hat{q}_{pooled}}{n_2}}
+\end{equation}
+
+\vspace{2ex}
+\textbf{Two-Proportion Z-Test Statistic}
+
+\begin{equation}
+    z = \frac{(\hat{p_1} - \hat{p_2}) - 0}{SE_{pooled}(\hat{p_1} - \hat{p_2})}
+\end{equation}
+
+\pagebreak
+
+\section{Inference About Means (Ch. 23)}
+
+\begin{enumerate}[label=\textbf{\roman*.}]
+    \item Student's (Gosset's) t-distribution - normal-like distribution pertaining to population mean.
+
+    \item One-sample t-interval - a confidence interval used to bound the mean.
+
+    \item Nearly normal condition - the data comes from a unimodal, symmetric distribution.
+
+    \item One-sample t-test - hypothesis test for the mean.
+
+    \item Critical value - denoted $t_{n-1}^*$, and depends on sample size and confidence.
+
+\end{enumerate}
+
+\vspace{2ex}
+\textbf{Sampling Distribution Model For Means}
+
+The sample mean can be standardized to a t-statistic, defined by
+
+\begin{equation}
+    t = \frac{\bar{y} - \mu}{SE(\bar{y})}
+\end{equation}
+
+with $n-1$ degrees of freedom, and where
+
+\begin{equation}
+    SE(\bar{y}) = \frac{s}{\sqrt{n}}
+\end{equation}
+
+\vspace{2ex}
+\textbf{One-Sample T-Interval for the Mean}
+
+We can establish a confidence interval for the mean, defined by
+
+\begin{equation}
+    \bar{y} \pm t^*_{n-1} SE(\bar{y})
+\end{equation}
+
+Using this model increases the margin of error, and increases p-values.
+
+\vspace{2ex}
+\textbf{One-Sample T-Test for the Mean}
+
+We can test $H_0: \mu = \mu_0$, using the statistic
+
+\begin{equation}
+    t_{n-1} = \frac{\bar{y} - \mu_0}{SE(\bar{y})}
+\end{equation}
+
+\vspace{2ex}
+\textbf{T-Distribution Properties}
+
+As the degrees of freedom approaches infinity, the t-distribution approaches normal.
+
+\pagebreak
+
+\section{Comparing Means (Ch. 24)}
+
+\begin{enumerate}[label=\textbf{\roman*.}]
+    \item Two-sample t-interval - difference in means.
+
+    \item Two-sample t-test - hypothesis test for difference in means.
+
+    \item Pooled t-test - if variances assumed to be equal, common variance can be calculated.
+
+    \item Equal variance assumption - variances from two populations are equal.
+
+    \item Similar spreads condition - look at boxplots and check spreads.
+
+\end{enumerate}
+
+\vspace{2ex}
+\textbf{Standard Deviation of the Difference of Two Means}
+
+\begin{equation}
+    SD(\bar{y_1} - \bar{y_2}) = \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}
+\end{equation}
+
+\vspace{2ex}
+\textbf{Standard Error of the Difference of Two Means}
+
+\begin{equation}
+    SE(\bar{y_1} - \bar{y_2}) = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
+\end{equation}
+
+\vspace{2ex}
+\textbf{Two-Sample T-Interval}
+
+\begin{equation}
+    (\bar{y_1} - \bar{y_2}) \pm t_{df}^*\ SE(\bar{y_1} - \bar{y_2})
+\end{equation}
+
+\vspace{2ex}
+\textbf{Two-Sample T-Test}
+
+We can test $H_0: \mu_1 - \mu_2 = \Delta_0$ using the following statistic
+
+\begin{equation}
+    t = \frac{(\bar{y_1} - \bar{y_2}) - (\mu_1 - \mu_2)}{SE(\bar{y_1} - \bar{y_2})}
+\end{equation}
+
+Note: the degrees of freedom formula is complicated.
+
+\vspace{2ex}
+\textbf{Pooled Variance}
+
+\begin{equation}
+    s_{pooled}^2 = \frac{(n_1 - 1) s_1^2 + (n_2 - 1) s_2^2}{(n_1 - 1) + (n_2 - 1)}
+\end{equation}
+
+\vspace{2ex}
+\textbf{Pooled Standard Error}
+
+\begin{equation}
+    SE_{pooled}(\bar{y_1} - \hat{y_2}) = \sqrt{\frac{s_{pooled}^2}{n_1} + \frac{s_{pooled}^2}{n_2}}
+\end{equation}
+
+\pagebreak
+
+\section{Paired Samples and Blocks (Ch. 25)}
+
+\begin{enumerate}[label=\textbf{\roman*.}]
+    \item Paired data - data that is not independent, measured before and after.
+
+    \item Blocking - pairs from experiments.
+
+    \item Matching - pairs from observations.
+
+    \item Paired t-test - one-sample t-test for means of pairwise differences.
+
+    \item Paired data assumption - the groups must not be independent of each other.
+
+    \item Paired t-interval - confidence interval for the mean of the paired differences.
+
+\end{enumerate}
+
+\vspace{2ex}
+\textbf{Paired T-Test}
+
+We can test $H_0: \mu_d = \Delta_0$ with the statistic
+
+\begin{equation}
+    t_{n-1} = \frac{\bar{d} - \Delta_0}{SE(\bar{d})}
+\end{equation}
+
+where the standard error of the mean of the pairwise differences is defined by
+
+\begin{equation}
+    SE(\bar{d}) = \frac{s_d}{\sqrt{n}}
+\end{equation}
+
+\vspace{2ex}
+\textbf{Paired T-Interval}
+
+The confidence interval is defined by
+
+\begin{equation}
+    \bar{d} \pm t_{n-1}^*\ SE(\bar{d})
+\end{equation}
+
+where the standard error of the mean of the pairwise differences is defined by
+
+\begin{equation}
+    SE(\bar{d}) = \frac{s_d}{\sqrt{n}}
+\end{equation}
+
+\pagebreak
+
+\section{Comparing Counts (Ch. 26)}
+
+\begin{enumerate}[label=\textbf{\roman*.}]
+    \item Goodness of fit test - measures how closely observed counts fit model, use $(n-1)$ df.
+
+    \item Counted data condition - data must be counts for categorical data.
+
+    \item Expected cell frequency condition - expect to see at least 5 individuals in each cell.
+
+    \item Chi-square statistic - relative magnitude of difference between observed and expected.
+
+    \item Two-way table - used to compare pairwise category counts.
+
+    \item Chi-square test of homogeneity - see if data is consistent across all groups, use $(r-1)(c-1)$ df.
+
+    \item Standardized residuals - shows how observed data deviates from hypothesized pattern.
+
+    \item Contingency table - categorize counts to tell whether the two variables are dependent.
+
+    \item Chi-square test of independence - similar to homogeneity, but for a row/col has a yes/no grouping.
+
+\end{enumerate}
+
+\vspace{2ex}
+\textbf{Chi-Square Statistic}
+
+\begin{equation}
+    \chi^2 = \sum \frac{(Observed - Expected)^2}{Expected}
+\end{equation}
+
+\vspace{2ex}
+\textbf{Standardized Residual}
+
+\begin{equation}
+    c = \frac{(Observed - Expected)}{\sqrt{Expected}}
+\end{equation}
+
+\pagebreak
+
+\section{Glossary}
+
+\begin{enumerate}[label=\textbf{\roman*.}]
+    \item 68-95-99.7 Rule - The percent of a normal distribution that falls within 1, 2, 3 standard deviations.
+
+    \item Right/left skewed - the right/left tail is longer.
+
+    \item Sample standard deviation - $s = \sqrt{\frac{\Sigma (y - \mu)^2}{n}} = \sqrt{\frac{\Sigma (y - \bar{y})^2}{n - 1}}$.
+
+    \item Tukey's quick test - count values in high group larger than all of low group, compare to 7, 10, 13.
+
+\end{enumerate}
+
+\end{document}
