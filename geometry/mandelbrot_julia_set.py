@@ -6,6 +6,12 @@ INF = 100
 MAX_ITERATIONS = 100
 SLICES = 200
 STEP_SIZE = 1 / SLICES
+XMIN, XMAX = -2, 2
+YMIN, YMAX = -1, 1
+
+JULIA = True
+JULIA_A = -0.8
+JULIA_B = 0.156
 
 
 # Distance from origin in complex plane.
@@ -30,7 +36,10 @@ def iterations(a, b):
             return t
 
         za, zb = complex_square(za, zb)
-        za, zb = za + a, zb + b
+        if JULIA:
+            za, zb = za + JULIA_A, zb + JULIA_B
+        else:
+            za, zb = za + a, zb + b
 
     return MAX_ITERATIONS
 
@@ -38,8 +47,8 @@ if __name__ == "__main__":
     points = list()
 
     # Want to generate all points in complex plane.
-    for a in np.arange(-2, 1, STEP_SIZE):
-        for b in np.arange(-1, 1, STEP_SIZE):
+    for a in np.arange(XMIN, XMAX, STEP_SIZE):
+        for b in np.arange(YMIN, YMAX, STEP_SIZE):
             points.append((a, b, iterations(a, b)))
 
     # Colors are darker for more iterations.
@@ -51,9 +60,9 @@ if __name__ == "__main__":
     y = list(map(lambda z: z[1], points))
     z = list(map(lambda z: color[z[2]], points))
 
-    plt.scatter(x, y, cmap='jet', c=z, s=5, lw=0)
+    plt.scatter(x, y, cmap='jet', c=z, s=1, lw=0)
 
-    # plt.gray()
-    plt.xlim([-2, 1])
-    plt.ylim([-1, 1])
+    plt.axis('equal')
+    plt.xlim([XMIN, XMAX])
+    plt.ylim([YMIN, YMAX])
     plt.show()
