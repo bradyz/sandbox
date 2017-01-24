@@ -1,0 +1,159 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amssymb,fullpage}
+\usepackage{mdframed}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{tablefootnote}
+\usepackage{hyperref}
+\usepackage[percent]{overpic}
+
+\DeclareMathOperator{\tr}{Tr}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bw}{\mathbf{w}}
+
+\title{\textbf{CS 395T:\@ Assignment 1}}
+\author{Brady Zhou}
+\date{\today}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\maketitle
+
+\section{Computing Directional Derivatives}
+
+\noindent \textbf{Problem 1a.}
+$f = \|(x_1,x_2) - (x_3,x_4)\|^2, \bq = [-1, -1, 1, 1]^T, \bw = [0, 0, 1, 0]^T.$
+\begin{align*}
+D_{\bw} f(\bq)
+    &= \frac{d}{ds} f(\bq + s \bw) \big|_{s \to 0} \\
+    &= \frac{d}{ds} \|(q_1 + s w_1, q_1 + s w_2) - (q_3 + s w_3, q_4 + s w_4)\|^2 \big|_{s \to 0} \\
+    &= \frac{d}{ds} \|\big((q_1 - q_3) + s (w_1 - w_3), (q_2 - q_4) + s (w_2 - w_4)\big)\|^2 \big|_{s \to 0} \\
+    &= \big(2 (q_1 - q_3) (w_1 - w_3) + 2 s (w_1 - w_3)^2 \big) + \big(2 (q_2 - q_4) (w_2 - w_4) + 2 s (w_2 - q_4)^2 \big) \big|_{s \to 0} \\
+    &= 2 \big((q_1 - q_3) (w_1 - w_3) + (q_2 - q_4) (w_2 - w_4) \big) \\
+    &= 4
+\end{align*}
+
+\noindent \textbf{Problem 1b.}
+$f = \frac{(x_1, x_2)}{\|(x_1, x_2)\|}, \bq = [1, 2]^T, \bw = [-3, -6]^T.$
+\begin{align*}
+D_{\bw} f(\bq)
+    &= \frac{d}{ds} f(\bq + s \bw) \big|_{s \to 0} \\
+    &= \frac{d}{ds} f(q_1 + s w_1, q_2 + s w_2) \big |_{s \to 0} \\
+    &= \frac{d}{ds} \frac{(q_1 + s w_1, q_2 + s w_2)}{\|(q_1 + s w_1, q_2 + s w_2)\|} \big |_{s \to 0} \\
+    \\
+\frac{d}{ds} f_1 (\bq + s \bw) \big|_{s \to 0}
+    &= \frac{(q_1^2 + q_2^2 )^{-\frac{1}{2}} (w_1) - (q_1) \frac{1}{2} \big(q_1^2 + q_2^2 \big)^{-\frac{1}{2}} (2 q_1 w_1 + 2 q_2 w_2)}{q_1^2 + q_2^2} \\
+    \\
+\frac{d}{ds} f_2 (\bq + s \bw) \big|_{s \to 0}
+    &= \frac{(q_1^2 + q_2^2 )^{-\frac{1}{2}} (w_2) - (q_2) \frac{1}{2} \big(q_1^2 + q_2^2 \big)^{-\frac{1}{2}} (2 q_1 w_1 + 2 q_2 w_2)}{q_1^2 + q_2^2} \\
+    \\
+D_{\bw} f(\bq)
+    &= (0, 0)
+\end{align*}
+This answer makes sense intuitively. The function $f$ returns the unit vector of $[x_1, x_2]^T$, and since the directional vector $\bw$ is just a scalar multiple of the initial vector $\bq$, there is no change in the normalized vector.
+
+\noindent \textbf{Problem 1c.}
+$f = (0,0,1) \times (x_1, x_2, x_3), \bq = [1,0,0]^T, \bw = [1,-1,2]^T.$
+\begin{align*}
+f(x_1, x_2, x_3) 
+    &= (0, 0, 1) \times (x_1, x_2, x_3) \\
+    &= (- x_2, x_1, 0) \\
+D_\bw f(\bq)
+    &= \frac{d}{ds} f(\bq + s \bw) \big|_{s \to 0} \\
+\frac{d}{ds} f_1 (\bq + s \bw) \big|_{s \to 0}
+    &= \frac{d}{ds} -(q_2 + s w_2) \big|_{s \to 0} \\
+    &= -w_2 \\
+\frac{d}{ds} f_2 (\bq + s \bw) \big|_{s \to 0}
+    &= \frac{d}{ds} q_1 + s w_1 \big|_{s \to 0} \\
+    &= w_1 \\
+\frac{d}{ds} f_3 (\bq + s \bw) \big|_{s \to 0}
+    &= 0 \\
+D_\bw f(\bq)
+    &= (1, 1, 0)
+\end{align*}
+
+\noindent \textbf{Problem 1d.}
+$f = \frac{1}{2}\bq^TM\bq,$ where $M$ is a square symmetric matrix. \\
+
+\noindent Since $M$ is symmetric, $u^T M v = v^T M u$ for all $u, v$.
+\begin{align*}
+D_\bw f(\bq)
+    &= \frac{d}{ds} \frac{1}{2} (\bq + s \bw)^T M (\bq + s \bw) \Big|_{s \to 0} \\
+    &= \frac{d}{ds} \frac{1}{2} \big(\bq^T M \bq + 2 s \bq^T M \bw + s^2 w^T M w \big) \Big|_{s \to 0} \\
+    &= \bq^T M \bw
+\end{align*}
+
+\noindent \textbf{Problem 1e.}
+$f = (\cos x_1, \sin x_1), \bq = [\frac{\pi}{2}], \bw = [2].$
+\begin{align*}
+D_\bw f(\bq)
+    &= \frac{d}{ds} \big(cos(q_1 + s w_1), sin(q_1 + s w_1)\big) \Big|_{s \to 0} \\
+\frac{d}{ds} f_1(\bq + s \bw) \Big|_{s \to 0}
+    &= \frac{d}{ds} cos(q_1 + s w_1) \Big|_{s \to 0} \\
+    &= -sin(q_1) w_1 \\
+\frac{d}{ds} f_2(\bq + s \bw) \Big|_{s \to 0}
+    &= \frac{d}{ds} sin(q_1 + s w_1) \Big|_{s \to 0} \\
+    &= cos(q_1) w_1 \\
+D_\bw f(\bq)
+    &= (-2, 0) \\
+\end{align*}
+
+\pagebreak
+
+\section{Computing the Symbolic Differential}
+
+\noindent \textbf{Problem 2a.}
+Least squares energy $f(\bq) = \|A\bq -\bb\|^2$. \\
+
+\noindent Let $\bq, \bw \in \mathbb{R}^n$, $\bb \in \mathbb{R}^m$, $A \in \mathbb{R}^{m \times n}$.
+\begin{align*}
+[df(\bq)](\bw) 
+    &= D_\bw f(\bq) \\
+    &= \frac{d}{ds} \|A (\bq + s \bw) - \bb\|^2 \Big|_{s \to 0} \\
+    &= \frac{d}{ds} \|A (\bq + s \bw)\|^2 - 2 \bb^T (A (\bq + s \bw)) + \|\bb\|^2 \Big|_{s \to 0} \\
+    &= \frac{d}{ds} \sum_{i=1}^n (A (\bq + s \bw))_i^2 - 2 \sum_{i=1}^n \bb_i (A (\bq + s \bw))_i + \|\bb\|^2 \Big|_{s \to 0} \\
+    &= \frac{d}{ds} \sum_{i=1}^n (A \bq + s A \bw)_i^2 - 2 \sum_{i=1}^n \bb_i (A \bq + s A \bw)_i + \|\bb\|^2 \Big|_{s \to 0} \\
+    &= 2 \sum_{i=1}^n (A \bq)_i (A \bw)_i - 2 \sum_{i=1}^n \bb_i (A \bw)_i \\
+    &= 2 (A \bq - \bb)^T (A \bw)
+\end{align*}
+
+\noindent \textbf{Problem 2b.}
+Matrix trace $f(M) = \mathrm{tr}(M)$. \\
+
+\noindent Let $M, \delta M \in \mathbb{R}^{n \times n}$.
+\begin{align*}
+[df(M)](\delta M) 
+    &= D_{\delta M} f(M) \\
+    &= \frac{d}{ds} \mathrm{tr}(M + s(\delta M)) \Big|_{s \to 0} \\
+    &= \frac{d}{ds} \mathrm{tr}(M) + (s) \mathrm{tr}(\delta M) \Big|_{s \to 0} \\
+    &= \mathrm{tr}(\delta M) \\
+\end{align*}
+
+\noindent \textbf{Problem 2c.}
+The angle sine $f(\bq) = \|\bu(\bq) \times \bv(\bq)\|$, where $\bu, \bv : \mathbb{R}^n \to \mathbb{R}^n$, and $\bq \in \mathbb{R}^n$. 
+
+\pagebreak
+
+\noindent \textbf{Problem 2d.}
+Tetrahedron volume $f(\bq) = \frac{1}{6} ((\bu - \bq) \times (\bv-\bq)) \cdot (\bw -\bq)$ as a function of one of the tetrahedron's corners $\bq$. \\
+
+\noindent Let $\bq, \delta \bq, \bu, \bv, \bw \in \mathbb{R}^n$, where $\bu, \bv, \bw, \bq$, are positions of the tetrahedron's vertices.
+\begin{align*}
+[df(\bq)](\delta \bq) 
+    &= D_{\delta \bq} f(\bq) \\
+    &= \frac{d}{ds} \frac{1}{6} ((\bu - (\bq + s \delta \bq)) \times (\bv - (\bq + s \delta \bq))) \cdot (\bw - (\bq + s \delta \bq)) \Big|_{s \to 0} \\
+    &= \frac{d}{ds} \frac{1}{6} ((\bu - \bq - s \delta \bq) \times (\bv - \bq - s \delta \bq)) \cdot (\bw - (\bq + s \delta \bq)) \Big|_{s \to 0} \\
+    &= - \frac{1}{6} \big(((\bu - \bq) \times (\bv - \bq)) \cdot (\bw - \delta \bq) + \\
+    & \ \ \ \ \ \ \ \ \ \ ((\bu - \bq) \times \delta \bq) \cdot (\bw - \bq) + \\
+    & \ \ \ \ \ \ \ \ \ \ (\delta \bq \times (\bv - \bq)) \cdot (\bw - \bq) \big) \\ 
+\end{align*}
+
+\noindent \textbf{Problem 2e.}
+(Challenging): smallest eigenvalue $\lambda_1(M)$ of a real symmetric matrix $M$ (with nondegenerate eigenvalues). Hint: $M\bv_1(M) - \lambda_1(M)\bv_1(M) = 0$, where $\bv_1$ is the unit-magnitude eigenvector corresponding to $\lambda_1$.
+
+\end{document}
