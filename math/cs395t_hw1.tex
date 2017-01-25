@@ -136,6 +136,13 @@ Matrix trace $f(M) = \mathrm{tr}(M)$. \\
 
 \noindent \textbf{Problem 2c.}
 The angle sine $f(\bq) = \|\bu(\bq) \times \bv(\bq)\|$, where $\bu, \bv : \mathbb{R}^n \to \mathbb{R}^n$, and $\bq \in \mathbb{R}^n$. 
+\begin{align*}
+[df(q)](\delta q) 
+    &= D_{\delta \bq} f(\bq) \\
+    &= \frac{\big(\bu(\bq) \times \bv(\bq))^T \big(([d\bu] \delta \bq) \times \bv(\bq) \big) + (\bu(\bq) \times ([d\bv] \delta \bq))^T (\bu(\bq) \times \bv(\bq))}{\|\bu(\bq) \times \bv(\bq)\|} 
+\end{align*}
+
+\noindent The result follows from using chain rule on the differential of the norm and cross product.
 
 \pagebreak
 
@@ -154,6 +161,21 @@ Tetrahedron volume $f(\bq) = \frac{1}{6} ((\bu - \bq) \times (\bv-\bq)) \cdot (\
 \end{align*}
 
 \noindent \textbf{Problem 2e.}
-(Challenging): smallest eigenvalue $\lambda_1(M)$ of a real symmetric matrix $M$ (with nondegenerate eigenvalues). Hint: $M\bv_1(M) - \lambda_1(M)\bv_1(M) = 0$, where $\bv_1$ is the unit-magnitude eigenvector corresponding to $\lambda_1$.
+(Challenging): smallest eigenvalue $\lambda_1(M)$ of a real symmetric matrix $M$ (with nondegenerate eigenvalues).
+\begin{align*}
+\lambda_1(M)
+    &= \|M v_1(M)\| \\
+[d \lambda_1(M)](\delta M)
+    &= \frac{1}{2} \Big((M v_1(M))^T M v_1(M)\Big)^{-\frac{1}{2}} \Big[d \Big((M v_1(M))^T M v_1(M)\Big)\Big](\delta M) \\
+    &= \frac{1}{2} \frac{\Big[d \Big((M v_1(M))^T M v_1(M)\Big)\Big](\delta M)}{\|M v_1(M))\|} \\
+    &= \frac{\Big(M v_1(M)\Big)^T \Big[d \big(M v_1(M)\big)\Big]\Big(\delta M\Big)}{\|M v_1(M))\|} \\
+    &= \frac{\Big(M v_1(M)\Big)^T \Big(M\big([d v_1(M)](\delta M)\big) + \delta M \big(v_1(M)\big)\Big)}{\|M v_1(M))\|} \\
+    &= \frac{\Big(M v_1(M)\Big)^T \Big(M\big([d v_1(M)](\delta M)\big) + \delta M \big(v_1(M)\big)\Big)}{\lambda_1(M)} \\
+\end{align*}
+
+\noindent \textbf{Note to Grader:}
+All problems except for 2e were coded up in Matlab and verified through comparison of numerical and analytical solutions. \\
+
+\noindent Also, there are a lot of answers using the $\frac{d}{ds} f(\bq + s \bw) \big|_{s \to 0}$ method because that's the only one I understood before 1/24's lecture and I was too lazy to go back and edit them.
 
 \end{document}
