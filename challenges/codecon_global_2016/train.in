@@ -1,0 +1,15 @@
+3 10
+New_York
+blue 20
+red 20
+yellow 20
+New_York Pittsburgh yellow 1
+Boston Providence blue 1
+New_Haven Providence red 1
+New_York New_Haven red 1
+Atlanta New_York purple 1
+Newark New_York yellow 1
+Newark Philadelphia yellow 1
+Baltimore Philadelphia yellow 1
+Baltimore Pittsburgh green 1
+Baltimore Washington_DC blue 1
