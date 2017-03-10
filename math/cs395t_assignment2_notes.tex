@@ -1,0 +1,96 @@
+
+\documentclass[landscape]{article}
+\usepackage[utf8]{inputenc}
+
+\title{Random Math}
+\date{Spring 2017}
+
+\usepackage[landscape, top=1cm,bottom=1cm,left=1cm,right=1cm]{geometry}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{enumitem}
+\usepackage[parfill]{parskip}
+
+\setlength{\parskip}{6pt}
+\pagenumbering{gobble}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+
+\begin{document}
+
+\section{Physical Simulation}
+
+\subsection{Rigid Body Time Integrator}
+
+\begin{align*}
+    L(c^i, \theta^i, c^{i+1}, \theta^{i+1})
+        &= \Huge\sum_{bodies} \Big[ \frac{\rho V}{2} \Big\|\frac{c^{i+1} - c^i}{h} \Big\|^2 + \frac{\rho}{2} \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \omega(\theta^i, \theta^{i+1}) \Big] - V(c^{i+1}, \theta^{i+1}) \\ \\
+    \frac{\partial}{\partial c^i} L(c^i, \theta^i, c^{i+1}, \theta^{i+1}) 
+        &= \Huge\sum_{bodies} \Big[ -\rho V \frac{c^{i+1} - c^i}{h^2} \Big]^T \\ \\
+    \frac{\partial}{\partial \theta^i} L(c^i, \theta^i, c^{i+1}, \theta^{i+1}) 
+        &= \Huge\sum_{bodies} \frac{\partial}{\partial \theta^i} \Big[ \frac{\rho}{2} \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \omega(\theta^i, \theta^{i+1}) \Big] \\
+        &= \Huge\sum_{bodies} \Big[ \rho \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I \Big( \frac{\partial}{\partial \theta^i} \big[ R_{-\theta^i} \omega(\theta^i, \theta^{i+1}) \big] \Big) \Big] \\
+        &= \Huge\sum_{bodies} \Big[ \rho \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I \Big( \frac{\partial}{\partial \theta^i} R_{-\theta^i} \omega(\theta^i, \theta^{i+1}) + R_{-\theta^i} \frac{\partial}{\partial \theta^i} \omega(\theta^i, \theta^{i+1}) \Big) \Big] \\
+        &= \Huge\sum_{bodies} \Big[ \rho \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I \Big( -R_{-\theta^i} [\omega(\theta^i, \theta^{i+1})]_{\times} T(-\theta_i) + R_{-\theta^i} \frac{-1}{h} T(h \omega(\theta^i, \theta^{i+1}))^{-1} T(-\theta^i) \Big) \Big] \\
+        &= \Huge\sum_{bodies} \Big[ \rho \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big(- [\omega(\theta^i, \theta^{i+1})]_{\times} T(-\theta_i) + \frac{-1}{h} T(h \omega(\theta^i, \theta^{i+1}))^{-1} \Big) T(-\theta^i) \Big] \\ \\
+    \frac{\partial}{\partial c^{i+1}} L(c^i, \theta^i, c^{i+1}, \theta^{i+1})
+        &= \Huge\sum_{bodies} \Big[ \rho V \frac{c^{i+1} - c^i}{h^2} \Big]^T - \frac{\partial}{\partial c^{i+1}} V(c^{i+1}, \theta^{i+1}) \\ \\
+    \frac{\partial}{\partial \theta^{i+1}} L(c^i, \theta^i, c^{i+1}, \theta^{i+1}) 
+        &= \Huge\sum_{bodies} \frac{\partial}{\partial \theta^{i+1}} \Big[ \frac{\rho}{2} \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \omega(\theta^i, \theta^{i+1}) \Big] - \frac{\partial}{\partial \theta^{i+1}} V(\theta^i, \theta^{i+1}) \\
+        &= \Huge\sum_{bodies}  \Big[ \rho \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \big( \frac{\partial}{\partial \theta^{i+1}} \omega(\theta^i, \theta^{i+1}) \big) \Big] - \frac{\partial}{\partial \theta^{i+1}} V(\theta^i, \theta^{i+1}) \\
+        &= \Huge\sum_{bodies}  \Big[ \rho \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \big( \frac{1}{h} T(-h\omega(\theta^i, \theta^{i+1}))^{-1} T(-\theta^{i+1}) \big) \Big] - \frac{\partial}{\partial \theta^{i+1}} V(\theta^i, \theta^{i+1}) \\
+\end{align*}
+
+\pagebreak
+\subsection{Euler-Lagrange Equations}
+
+\begin{align*}
+    d_2 L(q^{i-1}, q^i) + d_1 L(q^i, q^{i+1}) &= 0 \\ \\
+    \Huge\sum_{bodies} \Big[ \rho V \frac{c^i - c^{i-1}}{h^2} \Big]^T - \frac{\partial}{\partial c^i} V(c^i, \theta^i) + \Huge\sum_{bodies} \Big[ -\rho V \frac{c^{i+1} - c^i}{h^2} \Big]^T &= 0 \\
+     \Huge\sum_{bodies} \Big[ \rho V \frac{c^{i+1} - c^i}{h^2} \Big]^T &= \Huge\sum_{bodies} \Big[ \rho V \frac{c^i - c^{i-1}}{h^2} \Big]^T - \frac{\partial}{\partial c^i} V(c^i, \theta^i) \\
+    \Huge\sum_{bodies} \Big[ \rho V \dot{c}_{i+1} \Big] &= \Huge\sum_{bodies} \Big[ \rho V \dot{c}_i \Big] - h \frac{\partial}{\partial c^i} V(c^i, \theta^i)^T \\
+    c_{i+1} &= c^i + h \dot{c}^i \\
+    \dot{c}_{i+1} &= \dot{c}_i - h \frac{1}{\rho V} dV(c^i, \theta^i)^T \quad \forall i \in bodies
+\end{align*}
+    
+\begin{align*}
+    \Big[ \rho \omega(\theta^{i-1}, \theta^{i})^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} (\frac{1}{h} T(-h \omega(\theta^{i-1}, \theta^{i}))^{-1} T(- \theta^{i}) ) \Big] + \Big[ \rho \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big( -[\omega(\theta^i, \theta^{i+1})]_{\times} T(-\theta_i) +  \frac{-1}{h} T(h \omega(\theta^i, \theta^{i+1}))^{-1} \Big) T(-\theta^i) \Big] &= 0 \\
+    \Big[ \rho \omega(\theta^{i-1}, \theta^{i})^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} \frac{1}{h} T(-h \omega(\theta^{i-1}, \theta^{i}))^{-1} \Big] + \Big[ \rho \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big(- [\omega(\theta^i, \theta^{i+1})]_{\times} T(-\theta_i) + \frac{-1}{h} T(h \omega(\theta^i, \theta^{i+1}))^{-1} \Big) \Big] &= 0 \\
+    \intertext{Let $\omega^i = \omega(\theta^i, \theta^{i+1})$}
+    \Big[ \rho (\omega^i)^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} \frac{1}{h} T(-h \omega^i)^{-1} \Big] + \Big[ \rho (\omega^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big( -[\omega^{i+1}]_{\times} T(-\theta_i) + \frac{-1}{h} T(h \omega^{i+1})^{-1} \Big) \Big] &= 0 \\
+    \Big[ (\omega^i)^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} T(-h \omega^i)^{-1} \Big] + \Big[ (\omega^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big( -h [\omega^{i+1}]_{\times} T(-\theta_i) + T(h \omega^{i+1})^{-1} \Big) \Big] &= 0 \\
+\end{align*}
+
+\subsection{Integration over a Triangle}
+
+Given - arbitrary points of a triangle $u, v, w$, and a function $f$ that you want to integrate over the face of the triangle.
+
+Let's consider the basic function $f(u, v, w) = 1$ for now, so this integration should give us the area of the triangle - $\| (v - u) \times (w - u) \|$.
+
+First step is to parameterize this into a function of two parameters, $s, t$, using the basis vectors $v-u$, and $w-u$.
+
+This can be thought of sliding across the plane that is covered by the triangle.
+
+This leads us to the double integral -
+
+\begin{center}
+\end{center}
+
+\begin{align*}
+\int_0^1 \int_0^{1-s} f(s, t)\ dt\ ds
+    &= \int_0^1 t |_0^{1-s}\ ds \\
+    &= \int_0^1 1 - s\ ds \\
+    &= s - \frac{1}{2}s^2 |_0^1 \\
+    &= \frac{1}{2}
+\end{align*}
+
+And we can see we're off by a factor of $\frac{\|(v - u) \times (w - u)\|}{2}$.
+
+
+
+\end{document}
