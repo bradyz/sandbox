@@ -1,4 +1,3 @@
-
 \documentclass[landscape]{article}
 \usepackage[utf8]{inputenc}
 
@@ -50,21 +49,42 @@
 \subsection{Euler-Lagrange Equations}
 
 \begin{align*}
-    d_2 L(q^{i-1}, q^i) + d_1 L(q^i, q^{i+1}) &= 0 \\ \\
+    d_2 L(q^{i-1}, q^i) + d_1 L(q^i, q^{i+1}) &= 0 \\
+    \intertext{For the tangential velocity, this is simply particle motion, and follows the force = mass velocity form.}
     \Huge\sum_{bodies} \Big[ \rho V \frac{c^i - c^{i-1}}{h^2} \Big]^T - \frac{\partial}{\partial c^i} V(c^i, \theta^i) + \Huge\sum_{bodies} \Big[ -\rho V \frac{c^{i+1} - c^i}{h^2} \Big]^T &= 0 \\
      \Huge\sum_{bodies} \Big[ \rho V \frac{c^{i+1} - c^i}{h^2} \Big]^T &= \Huge\sum_{bodies} \Big[ \rho V \frac{c^i - c^{i-1}}{h^2} \Big]^T - \frac{\partial}{\partial c^i} V(c^i, \theta^i) \\
     \Huge\sum_{bodies} \Big[ \rho V \dot{c}_{i+1} \Big] &= \Huge\sum_{bodies} \Big[ \rho V \dot{c}_i \Big] - h \frac{\partial}{\partial c^i} V(c^i, \theta^i)^T \\
     c_{i+1} &= c^i + h \dot{c}^i \\
     \dot{c}_{i+1} &= \dot{c}_i - h \frac{1}{\rho V} dV(c^i, \theta^i)^T \quad \forall i \in bodies
 \end{align*}
-    
+
+Solving for angular velocity, we can see each rigid body is an independent system, and since the potential $V(c, \theta)$ in this case only includes gravity, $d_2 V(c, \theta) = 0$.
 \begin{align*}
     \Big[ \rho \omega(\theta^{i-1}, \theta^{i})^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} (\frac{1}{h} T(-h \omega(\theta^{i-1}, \theta^{i}))^{-1} T(- \theta^{i}) ) \Big] + \Big[ \rho \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big( -[\omega(\theta^i, \theta^{i+1})]_{\times} T(-\theta_i) +  \frac{-1}{h} T(h \omega(\theta^i, \theta^{i+1}))^{-1} \Big) T(-\theta^i) \Big] &= 0 \\
-    \Big[ \rho \omega(\theta^{i-1}, \theta^{i})^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} \frac{1}{h} T(-h \omega(\theta^{i-1}, \theta^{i}))^{-1} \Big] + \Big[ \rho \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big(- [\omega(\theta^i, \theta^{i+1})]_{\times} T(-\theta_i) + \frac{-1}{h} T(h \omega(\theta^i, \theta^{i+1}))^{-1} \Big) \Big] &= 0 \\
-    \intertext{Let $\omega^i = \omega(\theta^i, \theta^{i+1})$}
-    \Big[ \rho (\omega^i)^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} \frac{1}{h} T(-h \omega^i)^{-1} \Big] + \Big[ \rho (\omega^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big( -[\omega^{i+1}]_{\times} T(-\theta_i) + \frac{-1}{h} T(h \omega^{i+1})^{-1} \Big) \Big] &= 0 \\
-    \Big[ (\omega^i)^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} T(-h \omega^i)^{-1} \Big] + \Big[ (\omega^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big( -h [\omega^{i+1}]_{\times} T(-\theta_i) + T(h \omega^{i+1})^{-1} \Big) \Big] &= 0 \\
+    \Big[ \rho \omega(\theta^{i-1}, \theta^{i})^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} \frac{1}{h} T(-h \omega(\theta^{i-1}, \theta^{i}))^{-1} \Big] + \Big[ \rho \omega(\theta^i, \theta^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big(- [\omega(\theta^i, \theta^{i+1})]_{\times} T(-\theta_i) + \frac{-1}{h} T(h \omega(\theta^i, \theta^{i+1}))^{-1} \Big) \Big] &= 0
 \end{align*}
+    
+The goal is to compute the orientation at the next time step, $\theta^{i+1}$. This can be done through solving for $\omega(\theta^i, \theta^{i+1})$, since $R_{h \omega(\theta^i, \theta^{i+1})} = R_{\theta^{i+1}} R_{-\theta^i}$.
+
+Using properties of rotation matrices, we can see $R_{-\theta^i}^T R_{h \omega(\theta^i, \theta^{i+1}} = R_{\theta^{i+1}}$.
+
+Let $\omega^i = \omega(\theta^{i-1}, \theta^{i})$
+\begin{align*}
+    \Big[ \rho (\omega^i)^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} \frac{1}{h} T(-h \omega^i)^{-1} \Big] + \Big[ \rho (\omega^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big( -[\omega^{i+1}]_{\times} T(-\theta_i) + \frac{-1}{h} T(h \omega^{i+1})^{-1} \Big) \Big] &= 0 \\
+    \Big[ (\omega^i)^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} T(-h \omega^i)^{-1} \Big] + \Big[ (\omega^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big( -h [\omega^{i+1}]_{\times} T(-\theta_i) + T(h \omega^{i+1})^{-1} \Big) \Big] &= 0
+\end{align*}
+
+We can use Newton's method to solve for $\omega^{i+1}$, where
+\begin{align*}
+    f(\omega^{i+1})
+        &= \Big[ (\omega^i)^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} T(-h \omega^i)^{-1} \Big] + \Big[ (\omega^{i+1})^T R_{-\theta^i}^T M_I R_{-\theta^i} \Big( -h [\omega^{i+1}]_{\times} T(-\theta_i) + T(h \omega^{i+1})^{-1} \Big) \Big] \\
+        &= 0 \\
+    df(\omega^{i+1})
+        &= R_{-\theta^i}^T M_I R_{-\theta^i} \Big( -h [\omega^{i+1}]_{\times} T(-\theta_i) + T(h \omega^{i+1})^{-1} \Big) + (\omega^i)^T R_{-\theta^{i-1}}^T M_I R_{-\theta^{i-1}} \Big( -h\ d[\omega^{i+1}]_{\times} T(-\theta_i) + h\ dT(h \omega^{i+1})^{-1} \Big) \\
+        &\approx R_{-\theta^i}^T M_I R_{-\theta^i} \Big(T(h \omega^{i+1})^{-1} \Big) 
+\end{align*}
+
+\pagebreak
 
 \subsection{Integration over a Triangle}
 
@@ -77,10 +97,6 @@ First step is to parameterize this into a function of two parameters, $s, t$, us
 This can be thought of sliding across the plane that is covered by the triangle.
 
 This leads us to the double integral -
-
-\begin{center}
-\end{center}
-
 \begin{align*}
 \int_0^1 \int_0^{1-s} f(s, t)\ dt\ ds
     &= \int_0^1 t |_0^{1-s}\ ds \\
@@ -89,7 +105,7 @@ This leads us to the double integral -
     &= \frac{1}{2}
 \end{align*}
 
-And we can see we're off by a factor of $\frac{\|(v - u) \times (w - u)\|}{2}$.
+The true area of this triangle should be $\frac{\|(v - u) \times (w - u)\|}{2}$, so we can see we're off by a factor of $\|(v - u) \times (w - u)\|$, which is caused by fact that these basis vectors are no longer unit length.
 
 
 
