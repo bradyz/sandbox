@@ -1,19 +1,17 @@
-from collections import deque
+from heapq import heappush, heappop
 
 
-def solve(tree, need, parent, leaves):
+def solve(tree, need, parent, leaves, level):
     result = 0
 
-    queue = deque()
-    for u in leaves:
-        queue.appendleft(u)
+    queue = list()
+    for u in parent:
+        heappush(queue, (-level[u], u))
 
     while len(queue) > 0:
-        u = queue.popleft()
+        _, u = heappop(queue)
 
         if u in need:
-            need.remove(u)
-
             if parent[u] in need:
                 need.remove(parent[u])
             if parent[u] != 0 and parent[parent[u]] in need:
@@ -24,9 +22,6 @@ def solve(tree, need, parent, leaves):
                     need.remove(v)
 
             result += 1
-
-        if u in parent:
-            queue.appendleft(parent[u])
 
     return result
 
@@ -50,4 +45,12 @@ if __name__ == '__main__':
         if u not in tree:
             leaves.add(u)
 
-    print(solve(tree, need, parent, leaves))
+    level = {0: 0}
+    stack = [0]
+    while stack:
+        u = stack.pop()
+        for v in tree.get(u, list()):
+            level[v] = level[u] + 1
+            stack.append(v)
+
+    print(solve(tree, need, parent, leaves, level))
