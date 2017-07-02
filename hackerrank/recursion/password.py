@@ -1,24 +1,42 @@
 import sys
 sys.setrecursionlimit(10000)
 
-def solve(c, d, s):
-    if c == '':
-        return ' '.join(s)
+def solve(c, d):
+    dp = [True] + [False for _ in range(len(c))]
 
-    for x in d:
-        y = c[:len(x)]
+    #   c a t d o g
+    # 1 0 0 0 0 0 0
+    # 0 1 2 3 4
 
-        if x in y:
-            s.append(x)
+    for i in range(1, len(c)+1):
+        for x in d:
+            n = len(x)
 
-            tmp = solve(c[len(x):], d, s)
+            if n > i:
+                continue
 
-            if tmp:
-                return tmp
+            if dp[i-n] and c[i-n:i] == x:
+                dp[i] = True
 
-            s.pop()
+    if not dp[-1]:
+        return 'WRONG PASSWORD'
 
-    return None
+    result = list()
+    cur = len(c)
+
+    while cur != 0:
+        for x in d:
+            n = len(x)
+
+            if n > cur:
+                continue
+
+            if dp[cur-n] and c[cur-n:cur] == x:
+                result.append(x)
+                cur = cur-n
+                break
+
+    return ' '.join(reversed(result))
 
 
 for _ in range(int(input())):
@@ -26,4 +44,4 @@ for _ in range(int(input())):
     d = set(input().split())
     c = input()
 
-    print(solve(c, d, list()) or 'WRONG PASSWORD')
+    print(solve(c, d))
