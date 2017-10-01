@@ -66,10 +66,12 @@ def newtons_method(start, points, sq_sigma):
 
     start += x
 
+    print('Hessian condition #: %0.1f' % np.linalg.cond(A))
+
     return start
 
 
-def main(n=100, sq_sigma=0.5):
+def main(n=50, sq_sigma=0.5):
     fig = plt.figure()
 
     ax1 = fig.add_subplot(121, projection='3d')
@@ -80,17 +82,18 @@ def main(n=100, sq_sigma=0.5):
     mixture3 = 0.5 * np.random.randn(n, 3) + [5.0, 0.0, 0.0]
 
     points = np.concatenate((mixture1, mixture2, mixture3))
-    scores = list()
 
-    x = np.array([2.0, 0.0, 1.0])
+    x = np.array([4.0, 0.0, 1.0])
+
+    scores = list()
 
     while True:
         scores.append(get_objective(x, points, sq_sigma))
 
         plot(ax1, ax2, x, points, scores)
 
-        # x = newtons_method(x, points, sq_sigma)
-        x = gradient_ascent(x, points, sq_sigma)
+        x = newtons_method(x, points, sq_sigma)
+        # x = gradient_ascent(x, points, sq_sigma)
 
 
 if __name__ == '__main__':
