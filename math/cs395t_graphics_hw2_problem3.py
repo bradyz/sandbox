@@ -6,14 +6,14 @@ from mpl_toolkits.mplot3d import Axes3D
 
 def plot(ax1, ax2, x, points, scores):
     ax1.clear()
-    ax1.set_xlim3d(-5, 5)
-    ax1.set_ylim3d(-5, 5)
-    ax1.set_zlim3d(-5, 5)
+    ax1.set_xlim3d(-1, 1)
+    ax1.set_ylim3d(-1, 1)
+    ax1.set_zlim3d(-1, 1)
 
     ax1.set_title('Point Visualization')
 
-    ax1.scatter(x[0], x[1], x[2], 'r')
     ax1.scatter(points[:,0], points[:,1], points[:,2])
+    ax1.scatter(x[0], x[1], x[2], 'r')
 
     ax2.set_title('Objective Function')
     ax2.plot(scores, 'r')
@@ -71,19 +71,19 @@ def newtons_method(start, points, sq_sigma):
     return start
 
 
-def main(n=50, sq_sigma=0.5):
+def main(n=50, sq_sigma=0.25):
     fig = plt.figure()
 
     ax1 = fig.add_subplot(121, projection='3d')
     ax2 = fig.add_subplot(122)
 
-    mixture1 = 0.5 * np.random.randn(n, 3) + [0.0, 0.0, 5.0]
-    mixture2 = 0.5 * np.random.randn(n, 3) + [0.0, -5.0, 0.0]
-    mixture3 = 0.5 * np.random.randn(n, 3) + [5.0, 0.0, 0.0]
+    mixture1 = 0.5 * np.random.randn(n, 3) + [0.0, 0.0, 1.0]
+    mixture2 = 0.5 * np.random.randn(n, 3) + [0.0, -1.0, 0.0]
+    mixture3 = 0.5 * np.random.randn(n, 3) + [1.0, 0.0, 0.0]
 
     points = np.concatenate((mixture1, mixture2, mixture3))
 
-    x = np.array([4.0, 0.0, 1.0])
+    x = np.array([1.0, 1.0, 1.0])
 
     scores = list()
 
@@ -92,8 +92,11 @@ def main(n=50, sq_sigma=0.5):
 
         plot(ax1, ax2, x, points, scores)
 
-        x = newtons_method(x, points, sq_sigma)
-        # x = gradient_ascent(x, points, sq_sigma)
+        if len(scores) > 2 and abs(scores[-1] - scores[-2]) < 1e-3:
+            import pdb; pdb.set_trace()
+
+        # x = newtons_method(x, points, sq_sigma)
+        x = gradient_ascent(x, points, sq_sigma)
 
 
 if __name__ == '__main__':
