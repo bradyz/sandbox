@@ -9,12 +9,13 @@ def plot(ax1, ax2, rest, vertices, neighbors, handles, scores):
     handle_points = np.array(list(handles.values()))
 
     ax1.clear()
+    ax1.set_axis_off()
 
     ax1.set_title('Point Visualization')
-    ax1.plot(edges[0], edges[1], edges[2], 'c--', linewidth=0.5)
-    ax1.scatter(rest[:,0], rest[:,1], rest[:,2], 'g.')
-    ax1.scatter(vertices[:,0], vertices[:,1], vertices[:,2], 'b.')
-    ax1.scatter(handle_points[:,0], handle_points[:,1], handle_points[:,2], 'r.')
+    ax1.plot(edges[0], edges[1], edges[2], c='b', linewidth=0.2)
+    ax1.scatter(rest[:,0], rest[:,1], rest[:,2], c='g')
+    ax1.scatter(vertices[:,0], vertices[:,1], vertices[:,2], c='c')
+    ax1.scatter(handle_points[:,0], handle_points[:,1], handle_points[:,2], c='r')
 
     ax2.set_title('Objective Function')
     ax2.plot(scores, 'r')
@@ -70,11 +71,11 @@ def initialize(n, dz=0.5):
 
     rotations = [np.eye(3) for _ in range(n * n)]
 
-    handles = {0: (0.0, 0.0, -1.0),
-               n-1: (0.0, n-1, -1.0),
-               (n // 2) * n + n // 2: (n // 2, n // 2, 0.5),
-               (n-1) * n: (n-1, 0.0, -1.0),
-               (n-1) * n + n-1: (n-1, n-1, -1.0)}
+    handles = {0: (0.0, 0.0, 0.5),
+               n-1: (0.0, n-1, 0.0),
+               (n // 2) * n + n // 2: (n // 2, n // 2, 0.0),
+               (n-1) * n: (n-1, 0.0, 0.0),
+               (n-1) * n + n-1: (n-1, n-1, -0.5)}
 
     for key, val in handles.items():
         handles[key] = np.array(val)
@@ -195,7 +196,7 @@ def minimize(rest, vertices, rotations, neighbors, handles, alpha):
     return vertices, rotations
 
 
-def main(n=21, alpha=1.0):
+def main(n=21, alpha=1.5):
     fig = plt.figure()
 
     ax1 = fig.add_subplot(121, projection='3d')

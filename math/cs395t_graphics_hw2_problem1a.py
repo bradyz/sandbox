@@ -13,8 +13,8 @@ def plot(ax1, ax2, rest, vertices, neighbors, handles, scores):
     ax1.set_axis_off()
 
     ax1.set_title('Point Visualization')
-    # ax1.plot(edges[0], edges[1], edges[2], 'b--', linewidth=0.5)
-    ax1.scatter(rest[:,0], rest[:,1], rest[:,2], 'g.')
+    ax1.plot(edges[0], edges[1], edges[2], 'b--', linewidth=0.2)
+    # ax1.scatter(rest[:,0], rest[:,1], rest[:,2], 'g.')
     ax1.scatter(vertices[:,0], vertices[:,1], vertices[:,2], c='c')
     ax1.scatter(handle_points[:,0], handle_points[:,1], handle_points[:,2], c='r')
 
@@ -227,7 +227,7 @@ def get_dp(rest, vertices, c_list, neighbors, handles, alpha):
     return np.array(result)
 
 
-def minimize(rest, vertices, c_list, neighbors, handles, alpha, h=4e-2):
+def minimize(rest, vertices, c_list, neighbors, handles, alpha, h=1e-2):
     dcs = get_dc(rest, vertices, c_list, neighbors)
     dps = get_dp(rest, vertices, c_list, neighbors, handles, alpha)
 
@@ -240,7 +240,7 @@ def minimize(rest, vertices, c_list, neighbors, handles, alpha, h=4e-2):
     return vertices, c_list
 
 
-def main(n=20, alpha=5.0):
+def main(n=10, alpha=10.0):
     fig = plt.figure()
 
     ax1 = fig.add_subplot(121, projection='3d')
