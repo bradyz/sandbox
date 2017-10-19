@@ -169,6 +169,9 @@ def alternating_minimization(A, G, B, C, mu, max_iterations=100):
     values = list()
 
     for i in range(max_iterations):
+        if i == 50:
+            import pdb; pdb.set_trace()
+
         track_results(A, G, B, C, mu, values)
 
         if i % 2 == 0:
@@ -226,6 +229,9 @@ def trust_region(A, G, B, C, mu,
     values = list()
 
     for i in range(max_iterations):
+        if i == 50:
+            import pdb; pdb.set_trace()
+
         track_results(A, G, B, C, mu, values)
 
         g = get_gradient(A, G, B, C, mu)
@@ -311,4 +317,4 @@ if __name__ == '__main__':
     plt.ion()
     plt.show()
 
-    main(25, 3)
+    main(25, 5)

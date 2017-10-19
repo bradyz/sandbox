@@ -227,7 +227,7 @@ def get_dp(rest, vertices, c_list, neighbors, handles, alpha):
     return np.array(result)
 
 
-def minimize(rest, vertices, c_list, neighbors, handles, alpha, h=5e-3):
+def minimize(rest, vertices, c_list, neighbors, handles, alpha, h=1e-2):
     dcs = get_dc(rest, vertices, c_list, neighbors)
     dps = get_dp(rest, vertices, c_list, neighbors, handles, alpha)
 
@@ -240,7 +240,7 @@ def minimize(rest, vertices, c_list, neighbors, handles, alpha, h=5e-3):
     return vertices, c_list
 
 
-def main(n=20, alpha=100.0):
+def main(n=10, alpha=10.0):
     fig = plt.figure()
 
     ax1 = fig.add_subplot(121, projection='3d')
@@ -253,7 +253,6 @@ def main(n=20, alpha=100.0):
     while True:
         scores.append(
                 energy(rest, vertices, c_list, neighbors, handles, alpha))
-        print(scores[-1])
 
         plot(ax1, ax2, rest, vertices, neighbors, handles, scores)
 

@@ -45,12 +45,12 @@ First, we can take the derivative with respect to $p_k$, and for notations $\gam
 \begin{align*}
     &= \nabla \sum_{i=1}^n \Big( \sum_{j \in \mathcal{N}(i)} ||R_i (p_i^{rest} - p_j^{rest}) - (p_i - p_j)||^2 \Big) + \nabla \lambda \sum_{p_i \in \mathcal{H}} ||p_i - h_i||^2 \\
     &= \sum_{j \in \mathcal{N}(k)} \nabla ||R_k (p_k^{rest} - p_j) - (p_k - p_j)||^2 + \sum_{j \in \mathcal{N}(k)} \nabla ||R_j (p_j^{rest} - p_k) - (p_j - p_k)||^2 + \gamma \lambda ||p_k - h_k||^2 \\
-    &= \sum_{j \in \mathcal{N}(k)}-2 (R_k (p_k^{rest} - p_j)) + \sum_{j \in \mathcal{N}(k)} 2 (R_j (p_k^{rest} - p_j)) + 2 \gamma \lambda (p_k - h_k)
+    &= \sum_{j \in \mathcal{N}(k)}-2 (R_k (p_k^{rest} - p_j) - (p_k - p_j)) + \sum_{j \in \mathcal{N}(k)} 2 (R_j (p_j^{rest} - p_k) - (p_j - p_k)) + 2 \gamma \lambda (p_k - h_k)
 \end{align*}
 
 Next, to take the derivative with respect to $R$, we have to reparameterize $R_i$ by $c_i \in \mathbb{R}^3$. For notation, let $[c]_x$ denote the skew symmetric matrix formed by $c$. From homework 1 we can see that $R = I + \frac{1 - \cos \theta}{\theta^2} [c]_x^2 + \frac{\sin \theta}{\theta} [c]_x$, where $\theta = ||c||$. \\
 
-For this exercise, note that $\frac{d\theta}{\d c_i} = \frac{c_i}{d\theta}$ first let us take $\frac{dR}{dc_x}$.
+For this exercise, note that $\frac{d\theta}{d c_i} = \frac{c_i}{\theta}$ first let us take $\frac{dR}{dc_x}$.
 \begin{align*}
     \frac{dR}{dc_x} &= \frac{\theta^2 \sin \theta \frac{d\theta}{dc_x} - 2 (1 - \cos \theta) \theta \frac{d\theta}{d c_x}}{\theta^4} [c]_x^2 + \frac{1 - \cos \theta}{\theta^2} A_x + \frac{-\theta \cos \theta \frac{d\theta}{dc_x} - \sin \theta \theta \frac{d\theta}{dc_x}}{\theta^2} [c]_x + \frac{\sin \theta}{\theta} B_x
 \end{align*}
@@ -251,7 +251,7 @@ Using the lemma, we can see that $R = V U^\intercal$ will maximize the optimizat
 \begin{figure}[!h]
 \centering
 \includegraphics[width=0.3\textwidth]{cs395t_graphics_hw2_alternating.png}
-\caption{Results of gradient descent}
+\caption{Results of alternating minimization}
 \end{figure}
 
 \textbf{Problem 3a.} Finding peaks of a density (Gradient Descent) \\

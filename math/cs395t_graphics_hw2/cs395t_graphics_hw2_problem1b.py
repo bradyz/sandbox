@@ -71,10 +71,10 @@ def initialize(n, dz=0.5):
 
     rotations = [np.eye(3) for _ in range(n * n)]
 
-    handles = {0: (0.0, 0.0, -0.5),
-               n-1: (0.0, n-1, -0.5),
-               (n // 2) * n + n // 2: (n // 2, n // 2, 0.5),
-               (n-1) * n: (n-1, 0.0, -0.5),
+    handles = {0: (0.0, 0.0, 0.5),
+               n-1: (0.0, n-1, 0.0),
+               (n // 2) * n + n // 2: (n // 2, n // 2, 0.0),
+               (n-1) * n: (n-1, 0.0, 0.0),
                (n-1) * n + n-1: (n-1, n-1, -0.5)}
 
     for key, val in handles.items():
@@ -196,7 +196,7 @@ def minimize(rest, vertices, rotations, neighbors, handles, alpha):
     return vertices, rotations
 
 
-def main(n=21, alpha=0.5):
+def main(n=21, alpha=1.5):
     fig = plt.figure()
 
     ax1 = fig.add_subplot(121, projection='3d')
