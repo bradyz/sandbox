@@ -5,7 +5,7 @@ import scipy.optimize
 EPS = 1e-9
 
 
-def solve(c, A, b, m, n, max_iterations=100000):
+def simplex_method_slow(c, A, b, m, n, n_iterations=1000):
     basic = [i for i in range(n - m, n)]
     non_basic = [i for i in range(n - m)]
 
@@ -14,7 +14,7 @@ def solve(c, A, b, m, n, max_iterations=100000):
 
     x_b = np.dot(np.linalg.inv(B), b)
 
-    for iteration in range(max_iterations):
+    for iteration in range(n_iterations):
         c_b = np.array([c[i] for i in basic])
         c_n = np.array([c[i] for i in non_basic])
 
@@ -25,9 +25,7 @@ def solve(c, A, b, m, n, max_iterations=100000):
         if not indices:
             z = sum([c[basic[i]] * x_b[i] for i in range(len(basic))])
 
-            print('solution')
-            import pdb; pdb.set_trace()
-            return
+            return np.array([x_b[basic.index(i)] if i in basic else 0.0 for i in range(n)]), z
 
         q = non_basic[indices[0]]
         d = np.linalg.solve(B, A[:,q])
@@ -52,7 +50,41 @@ def solve(c, A, b, m, n, max_iterations=100000):
         N = np.array([A[:,i] for i in non_basic]).T
 
 
-def main():
+def interior_point_method_slow(c, A, b, m, n, sig=0.1, a=1e-1, n_iterations=1000):
+    x = np.random.rand(n)
+    s = np.random.rand(n)
+    l = np.random.rand(m)
+
+    for iteration in range(n_iterations):
+        mu = np.dot(x.T, s) / n
+
+        A_prime = np.zeros((n + m + n, n + m + n))
+        A_prime[:n,n:n+m] = A.T
+        A_prime[:n,n+m:] = np.eye(n)
+        A_prime[n:n+m,:n] = A
+        A_prime[n+m:,:n] = np.diag(s)
+        A_prime[n+m:,n+m:] = np.diag(x)
+
+        b_prime = np.zeros(n + m + n)
+        b_prime[:n] = -(np.dot(A.T, l) + s - c)
+        b_prime[n:n+m] = -(np.dot(A, x) - b)
+        b_prime[n+m:] = -(x * s * np.ones(n) + sig * mu * np.ones(n))
+
+        x_prime = np.linalg.solve(A_prime, b_prime)
+        dx = x_prime[:n]
+        dl = x_prime[n:n+m]
+        ds = x_prime[n+m:]
+
+        x += a * dx
+        l += a * dl
+        s += a * ds
+
+    x[np.abs(x)<1e-10] = 0.0
+
+    return x, np.dot(x, c)
+
+
+def toy():
     m = 2
     n = 4
 
@@ -64,20 +96,44 @@ def main():
         ])
     b = np.float32([5, 8])
 
-    solve(c, A, b, m, n)
+    return c, A, b, m, n
 
+
+def big():
     m = 100
     n = 200
 
     c = np.random.rand(n) - 0.5
     c[m:] = 0.0
+
     A = np.random.rand(m, n)
     A[:,m:] = np.diag(np.ones(m))
+
     b = np.random.rand(m)
 
-    print(scipy.optimize.linprog(c, A_eq=A, b_eq=b))
+    return c, A, b, m, n
 
-    solve(c, A, b, m, n)
+
+def test(func):
+    c, A, b, m, n = func()
+
+    solution = scipy.optimize.linprog(c, A_eq=A, b_eq=b)
+
+    x_solution = solution.x
+    z_solution = solution.fun
+
+    x_ipm, z_ipm = interior_point_method_slow(c, A, b, m, n)
+    x_simp, z_simp = simplex_method_slow(c, A, b, m, n)
+
+    print(x_solution, z_solution)
+    print(x_ipm, z_ipm)
+    print(x_simp, z_simp)
+    print()
+
+
+def main():
+    test(toy)
+    test(big)
 
 
 if __name__ == '__main__':
