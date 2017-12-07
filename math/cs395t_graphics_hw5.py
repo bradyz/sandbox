@@ -50,7 +50,7 @@ def simplex_method_slow(c, A, b, m, n, n_iterations=1000):
         N = np.array([A[:,i] for i in non_basic]).T
 
 
-def interior_point_method_slow(c, A, b, m, n, sig=0.1, a=1e-1, n_iterations=1000):
+def interior_point_method_slow(c, A, b, m, n, sig=0.5, a=1e-1, n_iterations=1000):
     x = np.random.rand(n)
     s = np.random.rand(n)
     l = np.random.rand(m)
@@ -68,7 +68,7 @@ def interior_point_method_slow(c, A, b, m, n, sig=0.1, a=1e-1, n_iterations=1000
         b_prime = np.zeros(n + m + n)
         b_prime[:n] = -(np.dot(A.T, l) + s - c)
         b_prime[n:n+m] = -(np.dot(A, x) - b)
-        b_prime[n+m:] = -(x * s * np.ones(n) + sig * mu * np.ones(n))
+        b_prime[n+m:] = -(x * s * np.ones(n)) + sig * mu * np.ones(n)
 
         x_prime = np.linalg.solve(A_prime, b_prime)
         dx = x_prime[:n]
@@ -78,8 +78,6 @@ def interior_point_method_slow(c, A, b, m, n, sig=0.1, a=1e-1, n_iterations=1000
         x += a * dx
         l += a * dl
         s += a * ds
-
-    x[np.abs(x)<1e-10] = 0.0
 
     return x, np.dot(x, c)
 
@@ -132,7 +130,7 @@ def test(func):
 
 
 def main():
-    test(toy)
+    # test(toy)
     test(big)
 
 
