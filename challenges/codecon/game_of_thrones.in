@@ -1,0 +1,14 @@
+13
+Umber 4 0
+Frey 5 0
+Bolton 7 0
+Targaryen 6 0
+Martell 7 0
+Tyrell 5 0
+Clegane 7 0
+Arryn 5 0
+Greyjoy 5 0
+Tully 1 3 Umber Frey Bolton
+Lannister 5 4 Targaryen Martell Tyrell Clegane
+Stark 2 3 Arryn Greyjoy Tully
+Baratheon 4 2 Stark Lannister
