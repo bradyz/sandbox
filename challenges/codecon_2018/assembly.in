@@ -1,0 +1,8 @@
+7
+set c -3
+set b 2
+add a b
+mul a b
+add c 1
+jmp c
+ret a
